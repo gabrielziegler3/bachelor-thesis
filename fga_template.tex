@@ -1,0 +1,322 @@
+\documentclass[a4paper, 12pt]{fga}
+
+% |--- Títulos, autor, banca ---|----------------------{{{
+\title{} % título na forma principal
+\tituloficha{Título para a ficha,\\\,[Distrito Federal], 2018.} % título na forma a constar da ficha
+                                                  % catalográfica (incluir mudanças de
+                                                  % linha usando \\ quando necessário)
+\titulocapaA{Generative Adversarial Network Prior Information}
+\titulocapaB{for Improved Compressed Sensing}
+\titulocapaC{Magnetic Resonance Image Reconstruction}
+
+\titulofichadois{Título para a ficha (parte 2)}
+\author{Gabriel Gomes Ziegler}
+\nomeinvertido{Ziegler, Gabriel}
+\orientador{Cristiano Jacques Miosso, PhD}
+\coorientador{Davi Benevides Gusmão, MSc}
+\data{September 2020}
+\ano{2020}
+\areaum{Imaging} % Preencher com termos escolhidos para identificar a área
+\areadois{Magnetic Resonance Image Reconstruction}
+\areatres{\emph{Machine Learning}}
+\areaquatro{Compressive Sensing}
+\endereco{gabrielziegler3@gmail.com}
+\cep{CEP xxxxx-xxx}
+
+\membrobancainterno{Prof. José da Silva, PhD}
+\membrobancaexterno{Prof. João da Silva, PhD}
+%---}}}
+
+% |--- Bibliotecas utilizadas ---|----------------------{{{
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[latin1]{inputenc}
+\usepackage{enumerate}
+\usepackage{xfrac}
+\usepackage{color, colortbl}
+\usepackage{placeins}
+\usepackage[graphicx]{realboxes}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{amsmath, amssymb}
+\usepackage{rotating}
+\usepackage{indentfirst}
+\usepackage{multicol, blindtext, graphicx}
+\usepackage[margin=0.40in,font=small,labelfont=bf,labelsep=period]{caption}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=black,
+    urlcolor=blue
+}
+%---}}}
+
+% |- Formato de referências (use apenas uma das 2 linhas seguintes; comente a outra) -|-{{{
+\newcommand{\formatobibliografia}{numero}
+%\newcommand{\formatobibliografia}{autorano}
+
+\ifthenelse{\equal{\formatobibliografia}{numero}}{
+\bibliographystyle{unsrt}
+}
+{}
+
+\ifthenelse{\equal{\formatobibliografia}{autorano}}{
+\usepackage{apalike}
+\bibliographystyle{apalike}
+}
+{}
+%---}}}
+
+% |--- Espaçamento, configuração de título de seções ---|----------------------{{{
+\onehalfspacing
+
+\makeatletter
+\renewcommand{\section}{\@startsection
+{section}
+{1}
+{0mm}
+{-\baselineskip}
+{0.5\baselineskip}
+{\large\bf}}
+\makeatother
+
+\makeatletter
+\renewcommand{\subsection}{\@startsection
+{subsection}
+{2}
+{0mm}
+{-\baselineskip}
+{0.5\baselineskip}
+{\bf\sffamily}}
+\makeatother
+
+\makeatletter
+\renewcommand{\subsubsection}{\@startsection
+{subsubsection}
+{3}
+{0mm}
+{-\baselineskip}
+{0.5\baselineskip}
+{\bf\sffamily}}
+\makeatother
+
+\setlength{\parindent}{20pt}
+\setlength{\parskip}{12pt}
+\newcommand{\spaceinitialsname}{0.4mm}
+\newcommand{\porcento}{\scalebox{0.5}{~}\scalebox{0.9}{\%}}
+\newcommand{\scanner}{\emph{scanner}}
+\newcommand{\scanners}{\emph{scanners}}
+\newcommand{\cmcubico}{${\textrm{cm}^{\scalebox{0.7}{3} }}$}
+\setcounter{secnumdepth}{3}
+%\setcounter{tocdepth}{3}
+%---}}}
+
+% |--- Comandos especiais ---|----------------------{{{
+\newcommand{\cmquad}{${\textrm{cm}^{\scalebox{0.7}{2}} }$}
+\newcommand{\mmquad}{${\textrm{mm}^{\scalebox{0.7}{2}} }$}
+\newcommand{\gcmquad}{${\textrm{g}}/{\textrm{cm}^{\scalebox{0.7}{2}} }$}
+\newcommand{\subsecref}[1]{Seção~\ref{#1}}
+\newcommand{\figref}[1]{Figura~\ref{#1}}
+\newcommand{\etal}{\emph{et~al.}}
+\newcommand{\Jawsonly}{{\emph{Jaws-Only}} }
+\newcommand{\jawsonly}{{\emph{jaws-only}} }
+\newcommand{\software}{\emph{software}}
+\newcommand{\Section}[1]{\section{\textbf{#1} }}
+\newcommand{\Sectionlabel}[2]{\section{\textbf{#1}\label{#2} }}
+\newcommand{\percentagesignscale}{0.9}
+\newcommand{\subsubsubsection}[1]{\vspace{16pt}\noindent\textbf{#1}\\[12pt]}
+\newcommand{\commenttext}[1]{}
+%---}}}
+
+% |--- Diretório(s) com figuras (se desejar, inclua subdiretórios) ---|-------------{{{
+\graphicspath{{figuras/}}
+%---}}}
+
+% |--- Lista de palavras que não podem ser separadas em sílabas ---|------------------{{{
+\hyphenation{development results Commissioning possibility Philadelphia Devic Calculations Calculation}
+%---}}}
+
+% |--- Texto principal ---|----------------------{{{
+\begin{document}
+
+\maketitle
+
+% |--- Epígrafe, dedicatória ---|----------------------{{{
+% Se desejar uma epígrafe, remova o % do início das próximas linhas (até ==============)
+%\clearpage
+%\hspace{1mm}
+%
+%\vfill
+%
+%\hspace{1mm}
+%
+%\begin{center}
+%\emph{Epígrafe} \\
+%Autor da epígrafe
+%\end{center}
+%
+%\hspace{1mm}
+%
+%\vfill
+%
+%\hspace{1mm}
+% ==============
+
+% Se desejar uma dedicatória, remova o % do início das próximas linhas (até ==============)
+%\clearpage
+%\hspace{1mm}
+%
+%\vfill
+%
+%\begin{flushright}
+%\begin{itshape}
+%Texto da dedicatória.
+%\end{itshape}
+%\end{flushright}
+% ==============
+%---}}}
+
+% |--- Agradecimentos ---|----------------------{{{
+% Se desejar incluir agradecimentos, remova o % do início das próximas linhas (até ==============)
+% \clearpage
+%\noindent{\bfseries{\maiusc{\large Agradecimentos}} }
+%
+%\vspace{24pt} Agradecimentos
+%
+%\noindent
+%\clearpage
+% ==============
+%---}}}
+
+% |--- Resumo e Abstract ---|----------------------{{{
+\newgeometry{bottom=0.8in, top=0.9in, left=0.9in, right=0.9in}
+
+\noindent{\bfseries{\maiusc{\large Resumo}} }
+
+\vspace{12pt}
+A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
+\acresetall % Manter essa linha!
+\clearpage
+\restoregeometry
+% \chapter{Abstract}
+\noindent{\bfseries{\maiusc{\large Abstract}} }
+
+\vspace{24pt}
+The final version of this document will include an abstract. This will summarize the introduction (contextualization, objectives, justification), the methodology, the results, and the conclusion.
+\acresetall % Manter essa linha!
+\indice
+%---}}}
+
+% |--- Lista de Símbolos, Nomenclaturas e Abreviações ---|----------------------{{{
+\begin{center}
+	{\bfseries{\maiusc{\large Nomenclature and Abbreviations}} }%
+\end{center}
+
+\acrodef{MRI}[MRI]{Magnetic Resonance Imaging}
+\acrodef{MR}[MR]{Magnetic Resonance}
+\acrodef{ANN}[ANN]{Artificial Neural Networks}
+\acrodef{DL}[DL]{Deep Learning}
+\acrodef{ML}[ML]{Machine Learning}
+\acrodef{GAN}[GAN]{Generative Adversarial Network}
+\acrodef{CNN}[CNN]{Convolutional Neural Network}
+\acrodef{GPU}[GPU]{Graphics Processing Units}
+\acrodef{CV}[CV]{Computer Vision}
+\acrodef{NLP}[NLP]{Natural Language Processing}
+\acrodef{AI}[AI]{Artificial Intelligence}
+\acrodef{CS}[CS]{Compressed Sensing}
+
+\begin{acronym}
+	\acro{MRI}{Magnetic Resonance Imaging}
+	\acro{MR}{Magnetic Resonance}
+	\acro{ANN}{Artificial Neural Networks}
+	\acro{DL}{Deep Learning}
+	\acro{ML}{Machine Learning}
+	\acro{GAN}{Generative Adversarial Network}
+	\acro{CNN}{Convolutional Neural Network}
+	\acro{GPU}{Graphics Processing Units}
+	\acro{CV}{Computer Vision}
+	\acro{NLP}{Natural Language Processing}
+	\acro{AI}{Artificial Intelligence}
+    \acro{CS}[CS]{Compressed Sensing}
+\end{acronym}
+
+\clearpage
+%---}}}
+
+% |--- Introdução ---|----------------------{{{
+\chapter{Introduction}
+
+In this thesis, we propose a \ac{GAN} approach for prior information extraction to feed a \ac{CS} algorithm, aiming to reconstruct images with both reduced signal-to-noise error and less acquisition time compared to conventional \ac{CS}. 
+Achieving higher quality with reduced number of samples allows faster exam procedures, making it more convenient for both patients and clinics.
+
+\section{Context}
+
+\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, making it the best option for medical imaging when it is possible to use. 
+\ac{MRI} has evolved to the richest and most versatile biomedical imaging technique today\cite{bryan_2009}. 
+However, \ac{MRI} is a typically an ill-posed linear inverse task (a problem that either has no solutions in the desired class, or several solutions). 
+The process of finding the unknown functions occurring is both time and memory consuming\cite{kabanikhin_definitions_2008}.
+The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which is the Fourier transform of the image to be reconstructed\cite{}. 
+This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use to reconstruct \ac{MRI}.
+
+\ac{CS} has been for years the state-of-art technique in \ac{MRI} and has been improved later by the use of prior information for \ac{MRI} reconstruction. 
+\ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a nonsparse representation.
+
+\ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality. 
+These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, from \ac{CV} to \ac{NLP}. 
+These fast paced developments led to improvements in medical data processing using \ac{DL}.
+\ac{ML} techniques can be used in several different manners to improve medical analisys, here we focus on applying \ac{GAN} in the process of attaining improved prior information for \ac{CS} procedure.
+
+\section{Scientific Problem Definition and Proposal}
+
+\ac{MRI} is great for high quality tissue images, but there are some drawbacks: \ac{MRI} exams are often very long and require the patient to be in a static position throughout the whole process, this makes the exam challenging for patients that have difficulties in keeping a still position for several minutes. 
+Another intrinsic complication in \ac{MRI} procedures is that it is nearly impossible to get images from moving tissues like a beating heart and flowing blood veins as that would require enormous amount of samples, making it practicality impossible with current technologies used in clinics. 
+Algorithms that reconstruct \ac{MRI} try to tackle this sampling issue by producing the best possible quality images for the least amount of samples collected, making the exams faster and less sample-dependent. 
+
+\ac{CS} algorithms have been the state-of-art in \ac{MRI} reconstruction for the past few years, and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN} are powerful in imaging processing, especially \ac{CNN} and, more recently, \ac{GAN} networks are becoming the new state-of-art techniques in several computer vision areas. 
+
+% \section{Research Limitations}
+
+% TODO CHECK
+A problem with \ac{CS} applications is that the reconstrution process can be very slow. Newer \ac{CS} algorithms try to tackle this issue by adding prior information to make the algorithm abstract static information in the region analysed.
+
+Prior information for \ac{CS} can go from previous \ac{MRI} frames and exams to even medical records.
+These prior information are normally generated by simplistic mathematical approaches like filtering and thresholding on the images. 
+Besides the simpler technique applied, this information extraction procedures oftentimes is restricted to few frames and does not take into account the nature of organs and tissues structures, a feature that \ac{DL} should be able to identify and use in order to generate better quality information.
+This means that there is lot of room for improvement towards prior information engineering techniques, as \ac{DL} models have been proven superior in tasks of this nature. 
+
+Within this context, we propose a modern prior information engineering system with the usage of \ac{GAN}, aiming for higher quality prior information to feed the \ac{CS} and reducing the number of samples dependability. 
+This will reduce the number of samples needed, making the \ac{MRI} exams faster and, consequently, cheaper.
+
+\section{Objectives}
+
+\subsubsection{General Objective}
+
+\subsection{Specific Objective}
+%---}}}
+
+% |--- Fundamentação ---|----------------------{{{
+\chapter{Theory Foundation and State-of-Art}\label{chap:FT}
+%---}}}
+
+% |--- Metodologia ---|----------------------{{{
+\chapter{Methodology}
+%---}}}
+
+% |--- Resultados ---|----------------------{{{
+\chapter{Results}
+%---}}}
+
+% |--- Conclusão ---|----------------------{{{
+\chapter{Conclusion}
+%---}}}
+
+% |--- Referências ---|----------------------{{{
+\bibliography{bibliography}
+%---}}}
+
+\end{document}
+%===}}}

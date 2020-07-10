@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+def TransferFilesFromCompilationFolder(filename):
+	extensions = ('aux', 'bbl', 'blg', 'lof', 'log', 'lot')
+	for k in range(0, len(extensions)):
+		f = filename + '.' + extensions[k]
+		if os.path.exists('compilation_files/' + f):
+			os.system('mv compilation_files/' + f + ' ./')
+	f = 'totalpoints.tex'
+	if os.path.exists('compilation_files/' + f):
+		os.system('mv compilation_files/' + f + ' ./')
+	f = 'totalnumberquestions.tex'
+	if os.path.exists('compilation_files/' + f):
+		os.system('mv compilation_files/' + f + ' ./')
+
+def TransferFilesToCompilationFolder(filename):
+	extensions = ('aux', 'bbl', 'blg', 'lof', 'log', 'lot')
+	for k in range(0, len(extensions)):
+		f = filename + '.' + extensions[k]
+		if os.path.exists(f):
+			os.system('mv ' + f + ' compilation_files/')
+	f = 'totalpoints.tex'
+	if os.path.exists(f):
+		os.system('mv ' + f + ' compilation_files/')
+	f = 'totalnumberquestions.tex'
+	if os.path.exists(f):
+		os.system('mv ' + f + ' compilation_files/')
+
+if __name__ == '__main__':
+	filename = 'fga_template'
+	TransferFilesFromCompilationFolder(filename)
+	if (len(sys.argv) == 1) or (sys.argv[1] == 'simple'):
+		os.system('pdflatex -shell-escape ' + filename)
+	if (len(sys.argv) == 2) and (sys.argv[1] == 'bibtex'):
+		os.system('bibtex ' + filename)
+	if (len(sys.argv) == 2) and (sys.argv[1] == 'full'):
+		os.system('pdflatex -shell-escape ' + filename)
+		os.system('bibtex ' + filename)
+		os.system('pdflatex -shell-escape ' + filename)
+		os.system('pdflatex -shell-escape ' + filename)
+	TransferFilesToCompilationFolder(filename)
