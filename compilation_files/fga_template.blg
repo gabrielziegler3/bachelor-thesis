@@ -1,46 +1,50 @@
-This is BibTeX, Version 0.99d (TeX Live 2019/Arch Linux)
+This is BibTeX, Version 0.99d (TeX Live 2020/Arch Linux)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: fga_template.aux
 The style file: unsrt.bst
-Database file #1: bachelor-references.bib
-You've used 1 entry,
+Database file #1: references.bib
+Warning--empty journal in bryan_introduction_nodate-2
+Warning--empty year in bryan_introduction_nodate-2
+Warning--empty year in miosso_compressive_nodate
+You've used 3 entries,
             1791 wiz_defined-function locations,
-            452 strings with 3689 characters,
-and the built_in function-call counts, 160 in all, are:
-= -- 12
-> -- 4
-< -- 0
-+ -- 2
-- -- 1
-* -- 11
-:= -- 34
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 1
+            461 strings with 4021 characters,
+and the built_in function-call counts, 498 in all, are:
+= -- 42
+> -- 12
+< -- 1
++ -- 6
+- -- 3
+* -- 25
+:= -- 86
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 8
-empty$ -- 16
-format.name$ -- 1
-if$ -- 31
+cite$ -- 6
+duplicate$ -- 31
+empty$ -- 47
+format.name$ -- 3
+if$ -- 107
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 1
-pop$ -- 1
+int.to.str$ -- 3
+missing$ -- 2
+newline$ -- 18
+num.names$ -- 3
+pop$ -- 12
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 4
+skip$ -- 16
 stack$ -- 0
-substring$ -- 0
-swap$ -- 1
-text.length$ -- 0
+substring$ -- 6
+swap$ -- 9
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 13
+warning$ -- 3
+while$ -- 4
+width$ -- 4
+write$ -- 32
+(There were 3 warnings)

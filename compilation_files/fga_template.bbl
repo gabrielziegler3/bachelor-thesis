@@ -1,8 +1,20 @@
 \begin{thebibliography}{1}
 
+\bibitem{bryan_introduction_nodate-2}
+R~Nick Bryan.
+\newblock Introduction to the {Science} of {Medical} {Imaging}.
+\newblock page 336.
+
 \bibitem{kabanikhin_definitions_2008}
 S.~I. Kabanikhin.
 \newblock Definitions and examples of inverse and ill-posed problems.
 \newblock {\em Journal of Inverse and Ill-posed Problems}, 16(4), January 2008.
+
+\bibitem{miosso_compressive_nodate}
+Cristiano~Jacques Miosso.
+\newblock {\em Compressive {Sensing} with {Prior} {Information} {Applied} to
+  {Magnetic} {Resonance} {Imaging}}.
+\newblock {PhD} {Thesis}, Department of Electrical and Computer Engineering,
+  University of Texas at El Paso (UTEP).
 
 \end{thebibliography}
