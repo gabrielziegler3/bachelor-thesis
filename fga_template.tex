@@ -255,21 +255,21 @@ Achieving higher quality with reduced number of samples allows faster exam proce
 
 \section{Context}
 
-\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today\cite{bryan_introduction_nodate-2}, making \ac{MRI} the best option for medical imaging when it is possible to use.
+\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today\cite{bryan_introduction_nodate-2}, making \ac{MRI} the best option for medical imaging whenever it is possible to use.
 
 However, like everything in life, there is a trade-off to consider when using \ac{MRI}.
-Typically, reconstructing a \ac{MRI} is an ill-posed linear inverse task (a problem that either has no or infinite solutions in the desired class).
+Typically, reconstructing an \ac{MRI} is an ill-posed linear inverse task (a problem that has either none or infinite solutions in the desired class).
 Problems of this nature impose a trade-off between \textit{accuracy} and \textit{speed}\cite{kabanikhin_definitions_2008}.
 The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed\cite{miosso_compressive_nodate}.
-This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when reconstructing \ac{MRI}, hence we here propose a novel \ac{CS} prior information approach.
+This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when reconstructing \ac{MRI}, hence we here propose a novel \ac{CS} prior information approach for better results.
 
 \ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of prior information\cite{miosso_compressive_nodate}.
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
-These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, from \ac{CV} to \ac{NLP}.
-These fast-paced developments led to improvements in medical data processing using \ac{DL}.
-\ac{ML} techniques can be used in several different manners to improve medical analysis, here we focus on applying \ac{GAN} in the process of attaining improved prior information for \ac{CS} procedure.
+These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields \cite{yann_lecun_2013, devlin_bert_2019, Kim_2019}.
+These fast-paced developments led to improvements in medical data processing using \ac{DL} as well.
+\ac{ML} techniques can be used in several different manners to improve medical analysis, here we focus on applying \ac{GAN} in the process of attaining improved prior information to feed the \ac{CS} algorithm obtaining higher signal-to-noise ratios and faster computation procedures.
 
 \section{Scientific Problem Definition and Proposal}
 
@@ -289,28 +289,21 @@ This means that there is a lot of room for improvement towards prior information
 Within this context, we propose a modern prior information engineering system with the usage of \ac{GAN}, aiming for higher quality prior information to feed the \ac{CS} and reducing the number of samples dependability.
 This will reduce the number of samples needed, making the \ac{MRI} exams faster and, consequently, cheaper.
 
-% 1.4 Objetivos
-% 1.4.1 Objetivo Geral
-%       -> Descrição do que você precisa apresentar para concluir o trabalho. Contrato.
-% 1.4.2 Objetivos Específicos
-%       -> Listagem de todos os entregáveis necessários para cumprir o objetivo geral.
 \section{Objectives}
 
-%       -> Descrição do que você precisa apresentar para concluir o trabalho. Contrato.
 \subsection{General Objective}
 
 This thesis' goal is to develop an \ac{MR} prior information system retriever based on \ac{GAN} architecture to improve the quality of the prior information fed to \ac{CS} algorithms, hence improving quality in reconstructed \ac{MRI} and decreased necessity for larger sampling.
 
-%       -> Listagem de todos os entregáveis necessários para cumprir o objetivo geral.
 \subsection{Specific Objective}
 
 In order to achieve the general objective described above, we have set the following specific goals:
 
+% TODO check
 \begin{itemize}
     \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm and apply to \textit{k-space} measurements.
     \item Evaluate direct and indirect \ac{CS} \ac{MRI} reconstructions varying sampling size for 1-dimensional signal and \textit{k-space} measurements.
     \item Implement a \ac{GAN} for regular image generation with a known \ac{CV} dataset.
-    % TODO check
     \item Implement a \ac{GAN} architecture for prior information retrieval and train it against \textit{k-space} measurements.
     \item Evaluate the use of \ac{GAN} architecture for prior information retrieval against state-of-art prior information techniques.
 \end{itemize}

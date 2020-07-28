@@ -6,45 +6,45 @@ Database file #1: references.bib
 Warning--empty journal in bryan_introduction_nodate-2
 Warning--empty year in bryan_introduction_nodate-2
 Warning--empty year in miosso_compressive_nodate
-You've used 3 entries,
+You've used 6 entries,
             1791 wiz_defined-function locations,
-            461 strings with 4021 characters,
-and the built_in function-call counts, 498 in all, are:
-= -- 42
-> -- 12
-< -- 1
-+ -- 6
-- -- 3
-* -- 25
-:= -- 86
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 3
+            485 strings with 5011 characters,
+and the built_in function-call counts, 1542 in all, are:
+= -- 149
+> -- 51
+< -- 3
++ -- 20
+- -- 14
+* -- 87
+:= -- 229
+add.period$ -- 21
+call.type$ -- 6
+change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 31
-empty$ -- 47
-format.name$ -- 3
-if$ -- 107
+cite$ -- 9
+duplicate$ -- 85
+empty$ -- 141
+format.name$ -- 14
+if$ -- 360
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 2
-newline$ -- 18
-num.names$ -- 3
-pop$ -- 12
+int.to.str$ -- 6
+missing$ -- 5
+newline$ -- 34
+num.names$ -- 6
+pop$ -- 24
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 16
+skip$ -- 55
 stack$ -- 0
-substring$ -- 6
-swap$ -- 9
-text.length$ -- 1
+substring$ -- 86
+swap$ -- 35
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 3
-while$ -- 4
-width$ -- 4
-write$ -- 32
+while$ -- 13
+width$ -- 7
+write$ -- 69
 (There were 3 warnings)
