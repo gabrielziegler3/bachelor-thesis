@@ -1,0 +1,44 @@
+\begin{thebibliography}{1}
+
+\bibitem{bryan_introduction_nodate-2}
+R~Nick Bryan.
+\newblock Introduction to the {Science} of {Medical} {Imaging}.
+\newblock page 336.
+
+\bibitem{kabanikhin_definitions_2008}
+S.~I. Kabanikhin.
+\newblock Definitions and examples of inverse and ill-posed problems.
+\newblock {\em Journal of Inverse and Ill-posed Problems}, 16(4), January 2008.
+
+\bibitem{miosso_compressive_nodate}
+Cristiano~Jacques Miosso.
+\newblock {\em Compressive {Sensing} with {Prior} {Information} {Applied} to
+  {Magnetic} {Resonance} {Imaging}}.
+\newblock {PhD} {Thesis}, Department of Electrical and Computer Engineering,
+  University of Texas at El Paso (UTEP).
+
+\bibitem{yann_lecun_2013}
+Li~Wan, Matthew Zeiler, Sixin Zhang, Yann LeCun, e Rob Fergus.
+\newblock Regularization of neural networks using dropconnect.
+\newblock In {\em 30th International Conference on Machine Learning, ICML
+  2013}, pages 2095--2103. International Machine Learning Society (IMLS), 2013.
+\newblock 30th International Conference on Machine Learning, ICML 2013 ;
+  Conference date: 16-06-2013 Through 21-06-2013.
+
+\bibitem{devlin_bert_2019}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, e Kristina Toutanova.
+\newblock {BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for
+  {Language} {Understanding}.
+\newblock In {\em Proceedings of the 2019 {Conference} of the {North}
+  {American} {Chapter} of the {Association} for {Computational} {Linguistics}:
+  {Human} {Language} {Technologies}, {Volume} 1 ({Long} and {Short} {Papers})},
+  pages 4171--4186, Minneapolis, Minnesota, June 2019. Association for
+  Computational Linguistics.
+
+\bibitem{Kim_2019}
+Daeryong Kim e Bongwon Suh.
+\newblock Enhancing vaes for collaborative filtering.
+\newblock {\em Proceedings of the 13th ACM Conference on Recommender Systems},
+  Sep 2019.
+
+\end{thebibliography}

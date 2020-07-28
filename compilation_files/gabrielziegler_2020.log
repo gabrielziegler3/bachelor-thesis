@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.21)  27 JUL 2020 22:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.21)  28 JUL 2020 11:27
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -668,7 +668,8 @@ LaTeX Font Info:    ... okay on input line 144.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 144.
 LaTeX Font Info:    ... okay on input line 144.
 \AtBeginShipoutBox=\box104
- (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count327
 \scratchdimen=\dimen263
@@ -924,10 +925,10 @@ LaTeX Font Info:    Font shape `OT1/cmr/bx/sc' in size <24.88> not available
 
 ] (./gabrielziegler_2020.lot)
 \tf@lot=\write5
- [8
 
-]
-(./gabrielziegler_2020.lof)
+[8
+
+] (./gabrielziegler_2020.lof)
 \tf@lof=\write6
  [9
 
@@ -995,12 +996,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
  ) 
 Here is how much of TeX's memory you used:
  12700 strings out of 480478
- 199489 string characters out of 5905959
- 525667 words of memory out of 5000000
+ 199678 string characters out of 5905959
+ 525681 words of memory out of 5000000
  28344 multiletter control sequences out of 15000+600000
  544206 words of font info for 68 fonts, out of 8000000 for 9000
  1149 hyphenation exceptions out of 8191
- 64i,19n,102p,423b,611s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,19n,102p,430b,611s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/gabr
 ielziegler/.texlive/texmf-var/fonts/pk/ljfour/public/cm-mf-extra-bold/cmbcsc10.
 1037pk> </home/gabrielziegler/.texlive/texmf-var/fonts/pk/ljfour/public/cm-mf-e

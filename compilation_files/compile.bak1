@@ -6,13 +6,13 @@ import sys
 compile = latexaux.compiles
 bibtex = latexaux.bibtex
 
-file_no_extension = 'fga_template'
+file_no_extension = 'gabrielziegler_2020'
 extensions_to_move = ('aux', 'bbl', 'blg', 'lof', 'log', 'lot', 'out', 'toc')
-files_to_move = ('fga_template.abc', 'fga_template.def')
+files_to_move = ('gabrielziegler_2020.abc', 'gabrielziegler_2020.def')
 reffile = 'referencias.bib'
 
 if (len(sys.argv) == 1) or ((len(sys.argv) == 2) and (sys.argv[1] == 'main')):
-	compile(file_no_extension, extensions_to_move, files_to_move)
+    compile(file_no_extension, extensions_to_move, files_to_move)
 
 if ((len(sys.argv) == 2) and (sys.argv[1] == 'bib')):
-	bibtex(file_no_extension, extensions_to_move, files_to_move, reffile)
+    bibtex(file_no_extension, extensions_to_move, files_to_move, reffile)
