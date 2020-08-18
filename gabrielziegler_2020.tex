@@ -46,6 +46,7 @@
 \usepackage{multicol, blindtext, graphicx}
 \usepackage[margin=0.40in,font=small,labelfont=bf,labelsep=period]{caption}
 \usepackage{hyperref}
+\usepackage[autostyle]{csquotes}  
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -228,6 +229,8 @@ The final version of this document will include an abstract. This will summarize
 \acrodef{NLP}[NLP]{Natural Language Processing}
 \acrodef{AI}[AI]{Artificial Intelligence}
 \acrodef{CS}[CS]{Compressed Sensing}
+\acrodef{MLP}[MLP]{Multilayer Perceptron}
+\acrodef{DFN}[DFN]{Deep Feedforward Networks}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -241,13 +244,15 @@ The final version of this document will include an abstract. This will summarize
 	\acro{CV}{Computer Vision}
 	\acro{NLP}{Natural Language Processing}
 	\acro{AI}{Artificial Intelligence}
-    \acro{CS}[CS]{Compressed Sensing}
+    \acro{CS}{Compressed Sensing}
+    \acro{MLP}{Multilayer Perceptron}
+    \acro{DFN}{Deep Feedforward Networks}
 \end{acronym}
 
 \clearpage
 %---}}}
 
-% |--- Introdução ---|----------------------{{{
+% |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
 In this thesis, we propose a \ac{GAN} approach for prior information extraction to feed a \ac{CS} algorithm, aiming to reconstruct images with both reduced signal-to-noise error and less acquisition time compared to conventional \ac{CS}.
@@ -255,7 +260,7 @@ Achieving higher quality with reduced number of samples allows faster exam proce
 
 \section{Context}
 
-\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today\cite{bryan_introduction_nodate-2}, making \ac{MRI} the best option for medical imaging whenever it is possible to use.
+\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today\cite{bryan_introduction_nodate}, making \ac{MRI} the best option for medical imaging whenever it is possible to use.
 
 However, like everything in life, there is a trade-off to consider when using \ac{MRI}.
 Typically, reconstructing an \ac{MRI} is an ill-posed linear inverse task (a problem that has either none or infinite solutions in the desired class).
@@ -267,14 +272,14 @@ This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
-These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields \cite{yann_lecun_2013, devlin_bert_2019, Kim_2019}.
+These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
 These fast-paced developments led to improvements in medical data processing using \ac{DL} as well.
 \ac{ML} techniques can be used in several different manners to improve medical analysis, here we focus on applying \ac{GAN} in the process of attaining improved prior information to feed the \ac{CS} algorithm obtaining higher signal-to-noise ratios and faster computation procedures.
 
 \section{Scientific Problem Definition and Proposal}
 
 \ac{MRI} is great for high-quality tissue images, but there are some drawbacks: \ac{MRI} exams are often very long and require the patient to be in a static position throughout the whole process, this makes the exam challenging for patients that have difficulties in keeping a still position for several minutes.
-Another intrinsic complication in \ac{MRI} procedures is that it is nearly impossible to get images from moving tissues like a beating heart and flowing blood veins as that would require an enormous amount of samples, making it practicality impossible with current technologies used in clinics.
+Another intrinsic complication in \ac{MRI} procedures is that it is nearly impossible to get images from moving tissues like a beating heart or flowing blood veins as that would require an enormous amount of samples, which with current technologies used in clinics is not viable.
 Algorithms that reconstruct \ac{MRI} try to tackle this sampling issue by producing the best possible quality images for the least amount of samples collected, making the exams faster and less sample-dependent.
 
 \ac{CS} algorithms have been the state-of-art in \ac{MRI} reconstruction for the past few years, and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN} are powerful in imaging processing, especially \ac{CNN} and, more recently, \ac{GAN} networks are becoming the new state-of-art techniques in several computer vision areas.
@@ -293,7 +298,7 @@ This will reduce the number of samples needed, making the \ac{MRI} exams faster 
 
 \subsection{General Objective}
 
-This thesis' goal is to develop an \ac{MR} prior information system retriever based on \ac{GAN} architecture to improve the quality of the prior information fed to \ac{CS} algorithms, hence improving quality in reconstructed \ac{MRI} and decreased necessity for larger sampling.
+This thesis' goal is to develop an \ac{MR} prior information system retriever based on \ac{GAN} architecture to analyse if the quality of the prior information fed to \ac{CS} algorithms can be improved, hence improving quality in reconstructed \ac{MRI} and decreased necessity for larger sampling.
 
 \subsection{Specific Objective}
 
@@ -302,7 +307,7 @@ In order to achieve the general objective described above, we have set the follo
 % TODO check
 \begin{itemize}
     \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm and apply to \textit{k-space} measurements.
-    \item Evaluate direct and indirect \ac{CS} \ac{MRI} reconstructions varying sampling size for 1-dimensional signal and \textit{k-space} measurements.
+    \item Evaluate \ac{CS} \ac{MRI} reconstructions with real image data.
     \item Implement a \ac{GAN} for regular image generation with a known \ac{CV} dataset.
     \item Implement a \ac{GAN} architecture for prior information retrieval and train it against \textit{k-space} measurements.
     \item Evaluate the use of \ac{GAN} architecture for prior information retrieval against state-of-art prior information techniques.
@@ -310,23 +315,113 @@ In order to achieve the general objective described above, we have set the follo
 
 %---}}}
 
-% |--- Fundamentação ---|----------------------{{{
+% |--- Theory Foundation and State-of-Art ---|----------------------{{{
 \chapter{Theory Foundation and State-of-Art}\label{chap:FT}
+
+\section{Magnetic Resonance Imagery}
+
+% brief introduction connecting main topics
+% do geral para o especifico
+medical imaging...
+
+\section{Artificial Neural Networks}
+
+\subsection{Biological Inspirations}
+
+\ac{ANN}s, as the name suggests, have been (loosely) inpired by biological neural networks (brains) from animals.
+The concept of using many layers of vector-valued representation is drawn from neuroscience.
+The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute\cite{goodfellow_deep_2016}.
+Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal\cite{patterson_deep_2017}.
+
+\subsection{Multilayer Perceptron}
+
+The most basic unit in \ac{ANN}s is the \textit{artificial neuron}.
+These artificial neurons that are modeled mirroring the biological neurons behaviour as both of them are stimulated by inputs.
+Each artificial neuron play an analogous role to a neuron carrying some information they receive to other artificial neurons in the \ac{ANN}.
+Artificial neurons take in inputs $x_1, x_2,\ldots, x_n$, each and multiply them by their respective weights $w_1, w_2,\ldots, w_n$.
+Then these weighted inputs are summed together producing the \textit{logit} of the artificial neuron, $z = \sum^n_{i=0} w_i x_i + b$, with $b$ being a constant number added called \textit{bias}.
+After this, the logit is passed to a function $f$ in order to generate the value $y = f(z)$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm,scale=0.7]{neuron}
+    \caption{Schematic of an Artificial Neuron\cite{oliveira_system_2017}.}\label{visina8}
+\end{figure}
+
+% TODO check quotation
+
+% \subsection{Deep Feedforward Networks}
+
+\ac{DFN} or \ac{MLP}s are a type of \ac{ANN} very commonly used.
+It is the foundation to many famous architectures like \ac{CNN}s.
+\ac{DFN}s have an input layer followed by one or many hidden layers and a single output layer.
+Each layer is fully connected to the adjacent layer.
+
+% TODO check quotation
+\ac{MLP}s are computational models that flow information throuth the function being evaluated from \textbf{x}.
+The goal is to approximate some function $f*$, for instance, for a classifier, $y = f * (x)$ maps an input $x$ to a category $y$.
+The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation\cite{goodfellow_deep_2016}.
+
+The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other.
+
+% TODO check plagi
+Most \ac{ANN}s are organized into rows of neurons called layers.
+These layers are arranged in a chain-like structure, with each layer being a function of the layer before it.
+These layers' goal is to extract \textit{representations} out of the data fed and generalize what is meaningful towards minimizing the error rate.
+This architecture scheme is represented by the following equation:
+
+\begin{gather*}
+    h^{(i)} = g^{(i)} (W^{(i)T}x + b^{(i)})
+\end{gather*}
+
+Where i is the layer index
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm,scale=0.7]{mlp-architecture}
+    \caption{\ac{ANN} Architecture Sample.}\label{visina8}
+\end{figure}
+
+\subsection{Activation Functions}
+\subsection{Loss Functions}
+\subsection{Hyperparameters}
+\subsection{Backpropagation}
+\subsection{Gradient Descent}
+
+\section{Generative Adversarial Networks}
+
+\section{Compressed Sensing}
+
+\ac{CS} is an extremely powerful algorithm that was introduced in 2004 proposing a novel technique for the acquisition of signals of sparse or compressible nature. 
+\ac{CS} has disrupted the signal processing field as it has broken the \textit{Shannon's theorem}: the sampling signal rate must be at least twice the maximum frequency present in the signal (Nyquist rate). 
+\ac{CS} has been proven to sample the signal at a much lower rate than the Nyquist sampling rate.
+The idea came from questioning the necessity of extracting large portions of samples when much of these samples are discarded, exposing the inefficiency of trying to gather all signal.
+
+\textquote{Why go to so much effort to acquire all the data when most of what we get will be thrown away? 
+Can we not just directly measure the part that will not
+end up being thrown away?\cite{donoho_compressed_2006}}
+
+\ac{CS} tackles the necessity to reconstruct signals with 
+
+\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in a orthonormal basis (e.g.wavelet, Fourier), then the $N$ most important coeffiecients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$\cite{donoho_compressed_2006}.
+
+\subsection{Sampling}
+
 %---}}}
 
-% |--- Metodologia ---|----------------------{{{
+% |--- Methodology ---|----------------------{{{
 \chapter{Methodology}
 %---}}}
 
-% |--- Resultados ---|----------------------{{{
+% |--- Results ---|----------------------{{{
 \chapter{Results}
 %---}}}
 
-% |--- Conclusão ---|----------------------{{{
+% |--- Conclusion ---|----------------------{{{
 \chapter{Conclusion}
 %---}}}
 
-% |--- Referências ---|----------------------{{{
+% |--- References ---|----------------------{{{
 \bibliography{references}
 %---}}}
 

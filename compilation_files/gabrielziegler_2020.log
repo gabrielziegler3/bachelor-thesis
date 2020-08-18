@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.21)  28 JUL 2020 11:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2020.7.21)  17 AUG 2020 23:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -648,44 +648,83 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip70
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 55.
+(/usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2019-12-06 v5.2j context-sensitive quotations (JAW)
 
-(./gabrielziegler_2020.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 144.
-LaTeX Font Info:    ... okay on input line 144.
+(/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count327
+)
+\csq@reset=\count328
+\csq@gtype=\count329
+\csq@glevel=\count330
+\csq@qlevel=\count331
+\csq@maxlvl=\count332
+\csq@tshold=\count333
+\csq@ltx@everypar=\toks36
+
+(/usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2019-12-06 v5.2j csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(/usr/share/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+)
+Package csquotes Info: Enabling multilingual quotes.
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 56.
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+
+(./gabrielziegler_2020.aux
+
+LaTeX Warning: Label `visina8' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 145.
+LaTeX Font Info:    ... okay on input line 145.
 \AtBeginShipoutBox=\box104
-
-(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count327
+\scratchcounter=\count334
 \scratchdimen=\dimen263
 \scratchbox=\box105
-\nofMPsegments=\count328
-\nofMParguments=\count329
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count330
+\nofMPsegments=\count335
+\nofMParguments=\count336
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count337
 \MPscratchDim=\dimen264
-\MPnumerator=\count331
-\makeMPintoPDFobject=\count332
-\everyMPtoPDFconversion=\toks37
+\MPnumerator=\count338
+\makeMPintoPDFobject=\count339
+\everyMPtoPDFconversion=\toks38
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(/usr/share/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
@@ -701,7 +740,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 144.
+(lastpage)             ! on input line 145.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -742,7 +781,7 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 144.
+Package hyperref Info: Link coloring ON on input line 145.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -752,58 +791,58 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count333
+\c@section@level=\count340
 )
-LaTeX Info: Redefining \ref on input line 144.
-LaTeX Info: Redefining \pageref on input line 144.
-LaTeX Info: Redefining \nameref on input line 144.
+LaTeX Info: Redefining \ref on input line 145.
+LaTeX Info: Redefining \pageref on input line 145.
+LaTeX Info: Redefining \nameref on input line 145.
 
 (./gabrielziegler_2020.out) (./gabrielziegler_2020.out)
 \@outlinefile=\write3
-<figuras/capa.pdf, id=44, 597.50829pt x 845.0471pt>
+<figuras/capa.pdf, id=92, 597.50829pt x 845.0471pt>
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf>
-Package pdftex.def Info: figuras/capa.pdf  used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf  used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf>
-Package pdftex.def Info: figuras/capa.pdf  used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf  used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-<figuras/capa.pdf, id=47, page=1, 597.50829pt x 845.0471pt>
+<figuras/capa.pdf, id=95, page=1, 597.50829pt x 845.0471pt>
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf, page 1>
-Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 147.
-(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
-File: figuras/capa.pdf Graphic file (type pdf)
-<use figuras/capa.pdf, page 1>
-Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf, page 1>
-Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf, page 1>
-Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 148.
+(pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
+File: figuras/capa.pdf Graphic file (type pdf)
+<use figuras/capa.pdf, page 1>
+Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 LaTeX Font Info:    Font shape `OT1/cmr/bx/sc' in size <12> not available
-(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 147.
+(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 148.
 File: figuras/capa.pdf Graphic file (type pdf)
 <use figuras/capa.pdf, page 1>
-Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 147.
+Package pdftex.def Info: figuras/capa.pdf , page1 used on input line 148.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figuras/capa.pdf>]
 LaTeX Font Info:    Font shape `OT1/cmr/bx/sc' in size <14.4> not available
-(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 147.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 147
+(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 148.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 148
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 147
+LaTeX Font Info:    Trying to load font information for U+msb on input line 148
 .
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -811,12 +850,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 
  []
 
@@ -856,22 +895,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--147
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 
  []
 
 
-Overfull \hbox (26.24965pt too wide) in paragraph at lines 147--147
+Overfull \hbox (26.24965pt too wide) in paragraph at lines 148--148
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 
  []
 
@@ -918,106 +957,177 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--147
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmr/bx/sc' in size <24.88> not available
-(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 211.
- (./gabrielziegler_2020.toc)
+(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 212.
+ (./gabrielziegler_2020.toc
+Overfull \hbox (0.71802pt too wide) detected at line 13
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 14
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 15
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 16
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 17
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 18
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (0.71802pt too wide) detected at line 19
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+
+Overfull \hbox (3.98187pt too wide) detected at line 20
+ []\OT1/cmr/m/n/12 xviii
+ []
+
+[7
+
+])
 \tf@toc=\write4
- [7
-
-] (./gabrielziegler_2020.lot)
+ [8] (./gabrielziegler_2020.lot)
 \tf@lot=\write5
-
-[8
-
-] (./gabrielziegler_2020.lof)
-\tf@lof=\write6
  [9
 
-] [10
+] (./gabrielziegler_2020.lof
+Package acronym Info: Label `acro:ANN' newly defined as it shall be overridden
+although it is yet undefined on input line 5.
+
+Overfull \hbox (0.71802pt too wide) detected at line 5
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+)
+\tf@lof=\write6
+ [10
+
+] [11
 
 ]
 Cap\'{\i }tulo 1.
 LaTeX Font Info:    Font shape `OT1/cmr/bx/sc' in size <17.28> not available
-(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 251.
+(Font)              Font shape `OT1/cmr/b/sc' tried instead on input line 256.
 Package acronym Info: Label `acro:GAN' newly defined as it shall be overridden
-although it is yet undefined on input line 253.
+although it is yet undefined on input line 258.
 Package acronym Info: Label `acro:CS' newly defined as it shall be overridden
-although it is yet undefined on input line 253.
+although it is yet undefined on input line 258.
 Package acronym Info: Label `acro:MRI' newly defined as it shall be overridden
-although it is yet undefined on input line 254.
+although it is yet undefined on input line 259.
 Package acronym Info: Label `acro:MR' newly defined as it shall be overridden
-although it is yet undefined on input line 263.
+although it is yet undefined on input line 268.
 Package acronym Info: Label `acro:ML' newly defined as it shall be overridden
-although it is yet undefined on input line 269.
+although it is yet undefined on input line 274.
 Package acronym Info: Label `acro:GPU' newly defined as it shall be overridden
-although it is yet undefined on input line 269.
-Package acronym Info: Label `acro:ANN' newly defined as it shall be overridden
-although it is yet undefined on input line 269.
+although it is yet undefined on input line 274.
 Package acronym Info: Label `acro:DL' newly defined as it shall be overridden
-although it is yet undefined on input line 270.
+although it is yet undefined on input line 275.
 Package acronym Info: Label `acro:CV' newly defined as it shall be overridden
-although it is yet undefined on input line 270.
+although it is yet undefined on input line 275.
 Package acronym Info: Label `acro:NLP' newly defined as it shall be overridden
-although it is yet undefined on input line 270.
-[11
+although it is yet undefined on input line 275.
+[12
 
 
 ]
 Package acronym Info: Label `acro:CNN' newly defined as it shall be overridden
-although it is yet undefined on input line 280.
- [12] [13]
+although it is yet undefined on input line 285.
+ [13] [14]
 Cap\'{\i }tulo 2.
-[14
-
-]
-Cap\'{\i }tulo 3.
+<figuras/neuron.jpeg, id=341, 1505.625pt x 714.67pt>
+File: figuras/neuron.jpeg Graphic file (type jpg)
+<use figuras/neuron.jpeg>
+Package pdftex.def Info: figuras/neuron.jpeg  used on input line 347.
+(pdftex.def)             Requested size: 1053.93033pt x 500.26558pt.
 [15
 
 ]
+Package acronym Info: Label `acro:DFN' newly defined as it shall be overridden
+although it is yet undefined on input line 355.
+Package acronym Info: Label `acro:MLP' newly defined as it shall be overridden
+although it is yet undefined on input line 355.
+<figuras/mlp-architecture.jpeg, id=363, 985.6825pt x 543.02875pt>
+File: figuras/mlp-architecture.jpeg Graphic file (type jpg)
+<use figuras/mlp-architecture.jpeg>
+Package pdftex.def Info: figuras/mlp-architecture.jpeg  used on input line 381.
+
+(pdftex.def)             Requested size: 689.97304pt x 380.11752pt.
+ [16 <./figuras/neuron.jpeg>] [17 <./figuras/mlp-architecture.jpeg>]
+[18]
+Cap\'{\i }tulo 3.
+[19
+
+]
 Cap\'{\i }tulo 4.
-[16
+[20
 
 ]
 Cap\'{\i }tulo 5.
-(./gabrielziegler_2020.bbl [17
+(./gabrielziegler_2020.bbl [21
+
+] [22
 
 ]) 
 AED: lastpage setting LastPage
-[18
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 333.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 333.
+[23]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 428.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 428.
  (./gabrielziegler_2020.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 333.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 333.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 428.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 428.
 Package rerunfilecheck Info: File `gabrielziegler_2020.out' has not changed.
-(rerunfilecheck)             Checksum: F2A14FB766A465952BC299F528E90555;588.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
+(rerunfilecheck)             Checksum: 52F836F3AC1D7B5B3FF8B501A5DF9031;1441.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 428.
  ) 
 Here is how much of TeX's memory you used:
- 12700 strings out of 480478
- 199678 string characters out of 5905959
- 525681 words of memory out of 5000000
- 28344 multiletter control sequences out of 15000+600000
- 544206 words of font info for 68 fonts, out of 8000000 for 9000
+ 13689 strings out of 480478
+ 214465 string characters out of 5905959
+ 552570 words of memory out of 5000000
+ 29285 multiletter control sequences out of 15000+600000
+ 544814 words of font info for 70 fonts, out of 8000000 for 9000
  1149 hyphenation exceptions out of 8191
- 64i,19n,102p,430b,611s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,19n,102p,932b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/gabr
 ielziegler/.texlive/texmf-var/fonts/pk/ljfour/public/cm-mf-extra-bold/cmbcsc10.
 1037pk> </home/gabrielziegler/.texlive/texmf-var/fonts/pk/ljfour/public/cm-mf-e
 xtra-bold/cmbcsc10.864pk> </home/gabrielziegler/.texlive/texmf-var/fonts/pk/ljf
 our/public/cm-mf-extra-bold/cmbcsc10.720pk></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
-></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sf
-rm1200.pfb>
-Output written on gabrielziegler_2020.pdf (18 pages, 312084 bytes).
+ublic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
+b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
+b></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on gabrielziegler_2020.pdf (23 pages, 549327 bytes).
 PDF statistics:
- 455 PDF objects out of 1000 (max. 8388607)
- 290 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 616 PDF objects out of 1000 (max. 8388607)
+ 433 compressed objects within 5 object streams
+ 88 named destinations out of 1000 (max. 500000)
+ 207 words of extra memory for PDF output out of 10000 (max. 10000000)
 

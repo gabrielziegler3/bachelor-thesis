@@ -1,6 +1,17 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{bryan_introduction_nodate-2}
+\bibitem{oliveira_system_2017}
+Rodrigo M. S.~de Oliveira, Ramon C.~F. ~, Barros, Adriano~Paranhos Segundo,
+  Ronaldo~F. Zampolo, Wellington Fonseca, Victor Dmitriev, e Fernando~S.
+  Brasil.
+\newblock A {System} {Based} on {Artificial} {Neural} {Networks} for
+  {Automatic} {Classification} of {Hydro}-generator {Stator} {Windings}
+  {Partial} {Discharges}.
+\newblock {\em Journal of Microwaves, Optoelectronics and Electromagnetic
+  Applications}, 16:628 -- 645, 2017.
+\newblock Publisher: scielo.
+
+\bibitem{bryan_introduction_nodate}
 R~Nick Bryan.
 \newblock Introduction to the {Science} of {Medical} {Imaging}.
 \newblock page 336.
@@ -17,13 +28,10 @@ Cristiano~Jacques Miosso.
 \newblock {PhD} {Thesis}, Department of Electrical and Computer Engineering,
   University of Texas at El Paso (UTEP).
 
-\bibitem{yann_lecun_2013}
-Li~Wan, Matthew Zeiler, Sixin Zhang, Yann LeCun, e Rob Fergus.
-\newblock Regularization of neural networks using dropconnect.
-\newblock In {\em 30th International Conference on Machine Learning, ICML
-  2013}, pages 2095--2103. International Machine Learning Society (IMLS), 2013.
-\newblock 30th International Conference on Machine Learning, ICML 2013 ;
-  Conference date: 16-06-2013 Through 21-06-2013.
+\bibitem{wan_regularization_nodate}
+Li~Wan, Matthew Zeiler, Sixin Zhang, e {Yann LeCun}.
+\newblock Regularization of {Neural} {Networks} using {DropConnect}.
+\newblock page~12.
 
 \bibitem{devlin_bert_2019}
 Jacob Devlin, Ming-Wei Chang, Kenton Lee, e Kristina Toutanova.
@@ -35,10 +43,27 @@ Jacob Devlin, Ming-Wei Chang, Kenton Lee, e Kristina Toutanova.
   pages 4171--4186, Minneapolis, Minnesota, June 2019. Association for
   Computational Linguistics.
 
-\bibitem{Kim_2019}
+\bibitem{kim_enhancing_2019}
 Daeryong Kim e Bongwon Suh.
-\newblock Enhancing vaes for collaborative filtering.
-\newblock {\em Proceedings of the 13th ACM Conference on Recommender Systems},
-  Sep 2019.
+\newblock Enhancing {VAEs} for collaborative filtering: flexible priors \&
+  gating mechanisms.
+\newblock In {\em Proceedings of the 13th {ACM} {Conference} on {Recommender}
+  {Systems}}, pages 403--407, Copenhagen Denmark, September 2019. ACM.
+
+\bibitem{goodfellow_deep_2016}
+Ian Goodfellow, Yoshua Bengio, e Aaron Courville.
+\newblock {\em Deep {Learning}}.
+\newblock MIT Press, 2016.
+
+\bibitem{patterson_deep_2017}
+Josh Patterson e Adam Gibson.
+\newblock {\em Deep {Learning}: {A} {Practitioner}'s {Approach}}.
+\newblock O'Reilly, Beijing, 2017.
+
+\bibitem{donoho_compressed_2006}
+D.L. Donoho.
+\newblock Compressed sensing.
+\newblock {\em IEEE Transactions on Information Theory}, 52(4):1289--1306,
+  April 2006.
 
 \end{thebibliography}
