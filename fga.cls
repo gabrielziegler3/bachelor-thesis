@@ -25,7 +25,8 @@
 %%   Right brace   \}     Tilde         \~}
 % \usepackage[printonlyused]{acronym}
 \usepackage[printonlyused,withpage]{acronym}
-\usepackage[brazil]{babel}
+% \usepackage[brazil]{babel}
+\usepackage{babel}
 \usepackage{pdfpages}
 %\usepackage{url}
 \usepackage{graphicx}
@@ -393,9 +394,9 @@
 
 \noindent\@tituloficha{}\\
 
-{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, Bacharelado em Engenharia de Software, 2018).
+{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, Bachelor of Engineering in Software Engineering, 2020).
 
-\\Trabalho de Conclusão de Curso, Faculdade UnB Gama,\, Engenharia de Software\\
+\\Bachelor Thesis, UnB Gama Faculty,\, Software Engineering\\
 
 \begin{tabular}{lll}
 1. \@areaum{} & \hspace*{10mm}& 2. \@areadois{}\\
@@ -410,7 +411,7 @@ I. FGA UnB/UnB. & & II. Título (série)
 
 \vfill
 
-\noindent{\bf\maiusc{Referência}}
+\noindent{\bf\maiusc{Reference}}
 
 \vspace{00pt}
 
@@ -426,8 +427,8 @@ I. FGA UnB/UnB. & & II. Título (série)
 
 \noindent\maiusc{Author: }\@author\\[03pt]
 \noindent\maiusc{Title: } \@titulofichadois\\[03pt]
-\noindent\maiusc{Grau: } Bacharel em Engenharia de Software\\[03pt]
-\noindent\maiusc{Ano: } \@ano\\[12pt]
+\noindent\maiusc{Degree: } Bacharel em Engenharia de Software\\[03pt]
+\noindent\maiusc{Year: } \@ano\\[12pt]
 \noindent É concedida à Universidade de Brasília permissão para reproduzir cópias desta monografia de conclusão de curso e para emprestar ou vender tais cópias somente para propósitos acadêmicos e científicos. O autor reserva outros direitos de publicação e nenhuma parte desta monografia pode ser reproduzida sem a autorização por escrito do autor.\\[36pt]
 
 \vfill
