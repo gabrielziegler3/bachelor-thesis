@@ -250,6 +250,9 @@ The final version of this document will include an abstract. This will summarize
     \acro{CS}{Compressed Sensing}
     \acro{MLP}{Multilayer Perceptron}
     \acro{DFN}{Deep Feedforward Networks}
+    \acro{SNR}{Signal-to-Noise Ratio}
+    \acro{SSIM}{Structural SIMilarity}
+    \acro{PSNR}{Peak Signal-to-Noise Ratio}
 \end{acronym}
 
 \clearpage
@@ -336,7 +339,7 @@ This k-space representation contains an implicit sparsity that is exploited when
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=150mm,scale=0.7]{kspace-coil.png}
+    \includegraphics[width=150mm,scale=0.7]{kspace_coil.png}
     \caption{(a) FastMRI K-space data from 15 coils    (b) FastMRI individual fully sampled coil spatial images\cite{zbontar_fastmri_2019}.}\label{visina8}
 \end{figure}
 
@@ -355,7 +358,7 @@ In this research, we will focus mostly on the cartesian undersampling method, as
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=150mm,scale=0.7]{sampling-trajectories}
+    \includegraphics[width=150mm,scale=0.7]{sampling_trajectories}
     \caption{Under-sampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}\cite{ye_compressed_2019}.}\label{visina8}
 \end{figure}
 
@@ -432,7 +435,7 @@ Where i is the layer index
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=150mm,scale=0.7]{mlp-architecture}
+    \includegraphics[width=150mm,scale=0.7]{mlp_architecture}
     \caption{\ac{ANN} Architecture Sample.}\label{visina8}
 \end{figure}
 
@@ -450,7 +453,14 @@ Where i is the layer index
 % |--- Methodology ---|----------------------{{{
 \chapter{Methodology}
 
-\section{1D Compressed Sensing Reconstruction}
+\section{1D Direct vs Indirect L1-Minimization}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{1d_signal_plot}
+    \caption{First 20 1-d signals}\label{visina8}
+\end{figure}
+
 \section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
 
 To test the method of applying pre-filtering to the input signals in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization\cite{miosso_compressive_2009-1}.
@@ -539,15 +549,34 @@ The usage of l1-minimization for certainly improves the \ac{MRI} reconstruction,
 \begin{table}[h!]
   \begin{center}
     \begin{tabular}{l|lll}
-                       & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}      \\
+                      & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}      \\
       \hline
-        \textbf{Zero-fill}                     & 64.8096  & 0.9976 & 3.4805   \\
-        \textbf{L1-minimizationu}              & 79.4408  & 0.9999 & 19.1227  \\
+        \textbf{Zero-fill}                    & 64.8096  & 0.9976 & 3.4805   \\
+        \textbf{L1-minimization}              & 79.4408  & 0.9999 & 19.1227  \\
         \textbf{Pre-filtering L1-minimization} & 183.9644 & 0.9999 & 122.0507
     \end{tabular}
   \end{center}
 \end{table}
 
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{singlecoil_knee_fullysampled.png}
+    \caption{Reference Image}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_zero_filled_knee.png}
+    \caption{Zero-fill}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_singlecoil_knee.png}
+    \caption{L1-minimization}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_prefiltering_singlecoil_knee.png}
+    \caption{L1-minimization with pre-filtering}
+  \end{minipage}
+\end{figure}
 
 \section{MRI Compressed Sensing Reconstruction}
 \section{MRI BART Compressed Sensing Reconstruction}
