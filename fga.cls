@@ -40,6 +40,9 @@
 \usepackage{calc}
 \usepackage{flafter}
 \usepackage{scalefnt}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{siunitx}
 % \usepackage[toc,page]{appendix}
 
 \newcommand{\indice}{

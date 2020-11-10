@@ -231,6 +231,9 @@ The final version of this document will include an abstract. This will summarize
 \acrodef{CS}[CS]{Compressed Sensing}
 \acrodef{MLP}[MLP]{Multilayer Perceptron}
 \acrodef{DFN}[DFN]{Deep Feedforward Networks}
+\acrodef{SNR}[SNR]{Signal-to-Noise Ratio}
+\acrodef{SSIM}[SSIM]{Structural SIMilarity}
+\acrodef{PSNR}[PSNR]{Peak Signal-to-Noise Ratio}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -265,10 +268,10 @@ Achieving higher quality with reduced number of samples allows faster exam proce
 However, like everything in life, there is a trade-off to consider when using \ac{MRI}.
 Typically, reconstructing an \ac{MRI} is an ill-posed linear inverse task (a problem that has either none or infinite solutions in the desired class).
 Problems of this nature impose a trade-off between \textit{accuracy} and \textit{speed}\cite{kabanikhin_definitions_2008}.
-The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed\cite{miosso_compressive_nodate}.
+The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed\cite{miosso_compressive_2009-1}.
 This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when reconstructing \ac{MRI}, hence we here propose a novel \ac{CS} prior information approach for better results.
 
-\ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of prior information\cite{miosso_compressive_nodate}.
+\ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of prior information\cite{miosso_compressive_2009-1}.
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
@@ -435,12 +438,10 @@ Where i is the layer index
 
 \subsection{Activation Functions}
 \subsection{Loss Functions}
-\subsection{Hyperparameters}
 \subsection{Backpropagation}
 \subsection{Gradient Descent}
 
 \section{Generative Adversarial Networks}
-
 
 \subsection{MRI Application}
 
@@ -450,22 +451,104 @@ Where i is the layer index
 \chapter{Methodology}
 
 \section{1D Compressed Sensing Reconstruction}
-\section{MRI Compressed Sensing Reconstruction}
-\section{MRI BART Compressed Sensing Reconstruction}
+\section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
+
+To test the method of applying pre-filtering to the input signals in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization\cite{miosso_compressive_2009-1}.
+
+I then created an phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module. 
+Then, I simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{phantom_shepplogan.png}
+    \caption{$256\times256$ Shepp-Logan phantom.}
+  \end{minipage}
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{spiral_phantom_experiment.png}
+    \caption{Spiral undersampling method.}
+  \end{minipage}
+\end{figure}
+
+For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed. 
+The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
+The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image\cite{miosso_compressive_2009}.
+The different filters used can be better seeing in the figure below.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter1.png}
+      \caption{High pass filter.}
+  \end{minipage}
+  \begin{minipage}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter2.png}
+      \caption{Low pass filter.}
+  \end{minipage}
+  \begin{minipage}[b]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter3.png}
+      \caption{.}
+  \end{minipage}
+\end{figure}
+
+The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and a L1-minimization method without pre-filtering with the very same parameters used in the pre-filtering L1-minimization.
+
 \section{Preliminary Tests with Generative Adversarial Networks}
 
-In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, I have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the well known MNIST dataset.
+In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, I have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
 The idea is to test if the neural network can output liable digits that look both readable (to the extent in which the MNIST dataset is) and also like it has been made by a human, just like the dataset itself.
 
 For the preliminary tests with \ac{GAN}s, I have developed a
 
-this step will be developed throughout TCC2.
 %---}}}
 
 % |--- Results ---|----------------------{{{
 \chapter{Preliminary Results}
 
 \section{1D Compressed Sensing Reconstruction}
+\section{Compressed Sensing Reconstruction with Pre Filtered Signal}
+
+The results in the experiment shows a huge gain of resolution in the pre-filtering method reconstructed image compared to the L1-minimization alone.
+
+The zero-filled reconstruction (dummy baseline) was unable to reconstruct a high fidelity image and performed very poorly in the PSNR and SNR metrics.
+The L1-minimization compressed sensing approach reconstructed the image with some noticeable noise artifacts, yet much better than the zero-filling approach. 
+Finally, the L1-minimization along the usage of sparsifying pre-filtering delivered a great looking image without eye-catching artifacts and also increased the metrics hugely.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{phantom_shepplogan.png}
+    \caption{Reference Image}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_zero_fill.png}
+    \caption{Zero-fill}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_l1.png}
+    \caption{L1-minimization}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_prefilter.png}
+    \caption{L1-minimization with pre-filtering}
+  \end{minipage}
+\end{figure}
+
+The usage of l1-minimization for certainly improves the \ac{MRI} reconstruction, but the metrics reinforce how adding the pre-filtering step to preprocess the image achieves incredibly higher scores in \ac{PSNR} and \ac{SNR}.
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{l|lll}
+                       & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}      \\
+      \hline
+        \textbf{Zero-fill}                     & 64.8096  & 0.9976 & 3.4805   \\
+        \textbf{L1-minimizationu}              & 79.4408  & 0.9999 & 19.1227  \\
+        \textbf{Pre-filtering L1-minimization} & 183.9644 & 0.9999 & 122.0507
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
 \section{MRI Compressed Sensing Reconstruction}
 \section{MRI BART Compressed Sensing Reconstruction}
 \section{Preliminary Tests with Generative Adversarial Networks}
