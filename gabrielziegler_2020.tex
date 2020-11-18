@@ -234,6 +234,7 @@ The final version of this document will include an abstract. This will summarize
 \acrodef{SNR}[SNR]{Signal-to-Noise Ratio}
 \acrodef{SSIM}[SSIM]{Structural SIMilarity}
 \acrodef{PSNR}[PSNR]{Peak Signal-to-Noise Ratio}
+\acrodef{DCGAN}[DCGAN]{Deep Convolutional GAN}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -253,6 +254,7 @@ The final version of this document will include an abstract. This will summarize
     \acro{SNR}{Signal-to-Noise Ratio}
     \acro{SSIM}{Structural SIMilarity}
     \acro{PSNR}{Peak Signal-to-Noise Ratio}
+    \acro{DCGAN}{Deep Convolutional GAN}
 \end{acronym}
 
 \clearpage
@@ -453,12 +455,19 @@ Where i is the layer index
 % |--- Methodology ---|----------------------{{{
 \chapter{Methodology}
 
-\section{1D Direct vs Indirect L1-Minimization}
+\section{1-D Direct vs Indirect L1-Minimization}
+
+L1-minimization admits both direct and indirect approaches, in which there is the accuracy x resources trade-off.
+The direct method often produces a higher quality reconstruction but is very memory consuming, whilst the indirect method loses a little bit of quality, but requires much less memory to compute the equations system.
+
+To visualize this trade-off, I have created 200 random 1-d arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
+The $L$ variable denotes the %TODO
+The figure below displays the first 10 signals created.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{1d_signal_plot}
-    \caption{First 20 1-d signals}\label{visina8}
+    \includegraphics[width=\textwidth]{1d_signal_plot}
+    \caption{First 10 random 1-d signals}\label{visina8}
 \end{figure}
 
 \section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
@@ -482,40 +491,111 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
 
 For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed. 
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
-The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image\cite{miosso_compressive_2009}.
+The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image\cite{miosso_compressive_2009-1}.
 The different filters used can be better seeing in the figure below.
 
 \begin{figure}[H]
   \centering
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter1.png}
-      \caption{High pass filter.}
+      \caption{High pass horizontal filter.}
   \end{minipage}
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter2.png}
-      \caption{Low pass filter.}
+      \caption{High pass vertical filter.}
   \end{minipage}
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter3.png}
-      \caption{.}
+      \caption{High pass diagonal filter.}
   \end{minipage}
 \end{figure}
 
 The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and a L1-minimization method without pre-filtering with the very same parameters used in the pre-filtering L1-minimization.
 
+
 \section{Preliminary Tests with Generative Adversarial Networks}
 
 In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, I have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
+The MNIST dataset contains 60,000 examples for training and 10,000 examples for testing.
+The digits have been size-normalized and centered in a fixed-size image ($28\times28$ pixels) with values from 0 to 9. 
+For simplicity, each image has been flattened and converted into a 1-dimensional numpy array of 784 features ($28\times28$).
+
 The idea is to test if the neural network can output liable digits that look both readable (to the extent in which the MNIST dataset is) and also like it has been made by a human, just like the dataset itself.
 
-For the preliminary tests with \ac{GAN}s, I have developed a
+Each MNIST image contains a $28\times28$ black and white image, like the following:
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{mnist_sample}
+    \caption{Sample of digits from MNIST}\label{visina8}
+\end{figure}
+
+A \ac{DCGAN} was used for the experiment. A \ac{DCGAN} is an extension of the \ac{GAN}, except that it explicitly uses convolutional and convolutional-transpose layers in the discriminator and generator networks, respectively.\cite{radford_unsupervised_2016}
+
+\subsection{Data Transformation}
+
+Each input image used by the \textit{dataloader} went through a computer-vision pre-processing step that include:
+
+\begin{itemize}
+    \item Grayscale transform: convert the image to greyscale. When loaded, the MNIST digits are in RGB format with three channels. Greyscale reduces these three to one.
+    \item ToTensor: convert the image to a PyTorch Tensor, with dimensions (channels, height, width). This also rescales the pixel values, from integers between 0 and 255 to floats between 0.0 and 1.0.
+    \item Normalize: scale and translate the pixel values from the range 0.0, 1.0 to -1.0, 1.0. The first argument is \( \mu \) and the second argument is \( \sigma \), and the function applied to each pixel is:
+    \begin{equation}
+        \rho \leftarrow \frac{(\rho - \mu)}{\sigma}
+    \end{equation}
+\end{itemize}
+
+\subsection{Generator Network Architecture}
+
+The generator network architecture is implemented using PyTorch as:
+
+\begin{itemize}
+    \item A linear \textit{fully-conected} module (or layer) to map the latent space to a $7 * 7 * 256 = 12544$ dimensional space that will later be undersampled several times until we reach $1\times28\times28$.
+    \item An optional 1-dimensional batch normalization module
+    \item A leaky ReLU module.
+    \item A 2-dimensional convolutional layer with $padding=2$, $stride=1$ and $5\times5$ kernel (or filter).
+    \item Two 2-dimensional transposed convolutional layers with $padding=1$, $stride=2$ and $4\times4$ kernel.
+    \item Two optional 2-dimensional batch normalization modules after each 2-dimensional transposed convolutional layer.
+    \item A \textit{Tanh} activation function, rescaling the images to a $[-1, 1]$ range.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{generator}
+    \caption{Generator network architecture for a 3-d image\cite{radford_unsupervised_2016}}\label{visina8}
+\end{figure}
+
+The latent space (random signal) input goes through each layer being upscaled until it reaches the target image dimension $28\times28$ and then fed into the discriminator network.
+
+\subsection{Discriminator Network Architecture}
+
+The discriminator is a \ac{CNN}-based image binary classifier network that takes an image as input and outputs a scalar probability that the given image is real or generated.
+The architecture is quite similar to the Generator network, except backwards.
+Here, the discriminator takes a $1\times28\times28$ input image, processes it through a series of convolutions, batch normalizations, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{discriminator}
+    \caption{Discriminator network architecture 3-d image\cite{radford_unsupervised_2016}}\label{visina8}
+\end{figure}
 %---}}}
+
 
 % |--- Results ---|----------------------{{{
 \chapter{Preliminary Results}
 
-\section{1D Compressed Sensing Reconstruction}
+\section{1-D Compressed Sensing Reconstruction}
+
+The trade-off really starts making a big difference with L size around 200 samples, which is close to 80\% of the data present in the signal to be reconstructed.
+This demonstrates that there is no big prejudice in using indirect reconstrution method
+for very undersampled signals (close to 10\% of the data) such as the ones used in \ac{MRI}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{snr_lsize_experiment}
+    \caption{\ac{SNR} x \textit{L} size for direct and indirect L1-minimization for 200 random 1d signals}\label{visina8}
+\end{figure}
+
 \section{Compressed Sensing Reconstruction with Pre Filtered Signal}
 
 The results in the experiment shows a huge gain of resolution in the pre-filtering method reconstructed image compared to the L1-minimization alone.
