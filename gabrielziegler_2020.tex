@@ -460,19 +460,21 @@ Where i is the layer index
 L1-minimization admits both direct and indirect approaches, in which there is the accuracy x resources trade-off.
 The direct method often produces a higher quality reconstruction but is very memory consuming, whilst the indirect method loses a little bit of quality, but requires much less memory to compute the equations system.
 
-To visualize this trade-off, I have created 200 random 1-d arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
+To visualize this trade-off, I have created 200 random 1-D arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
 The $L$ variable denotes the %TODO
 The figure below displays the first 10 signals created.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{1d_signal_plot}
-    \caption{First 10 random 1-d signals}\label{visina8}
+    \caption{First 10 random 1-D signals}\label{visina8}
 \end{figure}
 
 \section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
 
 To test the method of applying pre-filtering to the input signals in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization\cite{miosso_compressive_2009-1}.
+
+\subsection{Subsampling}
 
 I then created an phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module. 
 Then, I simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
@@ -488,6 +490,8 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
     \caption{Spiral undersampling method.}
   \end{minipage}
 \end{figure}
+
+\subsection{Pre-filtering sparsifying transform}
 
 For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed. 
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
@@ -562,7 +566,7 @@ The generator network architecture is implemented using PyTorch as:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{generator}
-    \caption{Generator network architecture for a 3-d image\cite{radford_unsupervised_2016}}\label{visina8}
+    \caption{Generator network architecture of a 3-D image. Source:~\cite{radford_unsupervised_2016, oreilly_gan}}\label{visina8}
 \end{figure}
 
 The latent space (random signal) input goes through each layer being upscaled until it reaches the target image dimension $28\times28$ and then fed into the discriminator network.
@@ -576,7 +580,7 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{discriminator}
-    \caption{Discriminator network architecture 3-d image\cite{radford_unsupervised_2016}}\label{visina8}
+    \caption{Discriminator network architecture of a 3-D image. Source:\cite{radford_unsupervised_2016, oreilly_gan}}\label{visina8}
 \end{figure}
 %---}}}
 
@@ -586,7 +590,7 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 
 \section{1-D Compressed Sensing Reconstruction}
 
-The trade-off really starts making a big difference with L size around 200 samples, which is close to 80\% of the data present in the signal to be reconstructed.
+The quality over resources demanded trade-off really starts making a big difference with L size around 200 samples, which is close to 80\% of the data present in the signal to be reconstructed.
 This demonstrates that there is no big prejudice in using indirect reconstrution method
 for very undersampled signals (close to 10\% of the data) such as the ones used in \ac{MRI}
 
@@ -624,7 +628,7 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \end{minipage}
 \end{figure}
 
-The usage of l1-minimization for certainly improves the \ac{MRI} reconstruction, but the metrics reinforce how adding the pre-filtering step to preprocess the image achieves incredibly higher scores in \ac{PSNR} and \ac{SNR}.
+The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction, but the metrics reinforce how adding the pre-filtering step to preprocess the image achieves incredibly higher scores in \ac{PSNR} and \ac{SNR}.
 
 \begin{table}[h!]
   \begin{center}
@@ -659,12 +663,49 @@ The usage of l1-minimization for certainly improves the \ac{MRI} reconstruction,
 \end{figure}
 
 \section{MRI Compressed Sensing Reconstruction}
+
 \section{MRI BART Compressed Sensing Reconstruction}
+
 \section{Preliminary Tests with Generative Adversarial Networks}
+
+
+\ac{GAN}s have a particular loss curve behaviour as both discriminator losses start very high and quickly decreases as the generator loss curve goes up in an invertly correlated manner.
+This happens because the generator starts tricking the discriminator network that is very naïve to determine if an image is real or generated, but quickly the discriminator manages to interpret that the generated images are very different from the training examples it is seeing.
+This phenoma reveals how bad the generator is in the first epochs and how easily the discriminator que distinguish between created and real.
+Then as the epochs go by, the generator starts to get better at creating the desired signal style and makes the discriminator's loss get higher again as it is observed in the loss curves below.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{Discriminator_Loss_Fake}
+    \caption{Discriminator fake loss over epochs}
+  \end{minipage}
+  \begin{minipage}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{Discriminator_Loss_Real}
+    \caption{Discriminator real loss over epochs}
+  \end{minipage}
+  \begin{minipage}[b]{0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Generator_Loss}
+    \caption{Generator loss over epochs}
+  \end{minipage}
+\end{figure}
+
+After 100 epochs, the \ac{DCGAN} for MNIST number generation had an exceptionally good
+performance when the generated images are displayed.
+It is hard to tell if these are generated images or if they are part of the training set.
+The generated images sometimes have a bit more of blur to them, but certainly with more epochs and more training samples this could be minimized.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gan_generated_images}
+    \caption{GAN generated MNIST digits}
+\end{figure}
+
+
 %---}}}
 
 % |--- Conclusion ---|----------------------{{{
-\chapter{}
+\chapter{Conclusion}
 %---}}}
 
 % |--- References ---|----------------------{{{
