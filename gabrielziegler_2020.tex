@@ -632,12 +632,12 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
 
 \begin{table}[h!]
   \begin{center}
-    \begin{tabular}{l|lll}
-                      & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}      \\
+    \begin{tabular}{l|llll}
+                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
       \hline
-        \textbf{Zero-fill}                    & 64.8096  & 0.9976 & 3.4805   \\
-        \textbf{L1-minimization}              & 79.4408  & 0.9999 & 19.1227  \\
-        \textbf{Pre-filtering L1-minimization} & 183.9644 & 0.9999 & 122.0507
+        \textbf{Zero-fill}                             & 22.41 & 0.36 & 4.22 & 0.02     \\
+        \textbf{L1-minimization}                       & 38.76 & 0.96 & 20.57 & 5.3e-5   \\
+        \textbf{Pre-filtering L1-minimization}         & 91.89 & 0.99 & 73.70 & 2.5e-9
     \end{tabular}
   \end{center}
 \end{table}
@@ -669,10 +669,13 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
 \section{Preliminary Tests with Generative Adversarial Networks}
 
 
-\ac{GAN}s have a particular loss curve behaviour as both discriminator losses start very high and quickly decreases as the generator loss curve goes up in an invertly correlated manner.
-This happens because the generator starts tricking the discriminator network that is very naïve to determine if an image is real or generated, but quickly the discriminator manages to interpret that the generated images are very different from the training examples it is seeing.
-This phenoma reveals how bad the generator is in the first epochs and how easily the discriminator que distinguish between created and real.
-Then as the epochs go by, the generator starts to get better at creating the desired signal style and makes the discriminator's loss get higher again as it is observed in the loss curves below.
+\ac{GAN}s have a particular loss curve behaviour. 
+Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an invertly correlated manner.
+This happens specially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated. 
+Quickly the discriminator starts to detect how the data is disposed and manages to interpret the generated images are different from the training examples it is seeing.
+
+This phenoma exposes how bad the generator is in the first epochs and how easily the discriminator can distinguish between created and real.
+Then as the epochs go by and both networks get more sophisticated, the generator starts to get better at creating the desired signal style and makes the discriminator's loss get higher again as it is observed in the loss curves below.
 
 \begin{figure}[H]
   \centering
