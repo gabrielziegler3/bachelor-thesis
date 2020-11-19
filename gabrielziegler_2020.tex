@@ -642,6 +642,41 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
   \end{center}
 \end{table}
 
+\subsection{Head Reconstruction}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{head}
+    \caption{Reference Image}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_head_zero_fill}
+    \caption{Zero-fill}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_head_l1}
+    \caption{L1-minimization}
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \includegraphics[width=\textwidth]{recon_head_prefilter}
+    \caption{L1-minimization with pre-filtering}
+  \end{minipage}
+\end{figure}
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{l|llll}
+                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+      \hline
+        \textbf{Zero-fill}                             & 17.68 & 0.32 & 5.52 & 2392.57 \\
+        \textbf{L1-minimization}                       & 21.51 & 0.43 & 8.76 & 1134.88  \\
+        \textbf{Pre-filtering L1-minimization}         & 21.03 & 0.45 & 8.97 & 1081.53
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
 \begin{figure}[H]
   \centering
   \begin{minipage}[t]{0.22\textwidth}
