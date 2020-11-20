@@ -450,7 +450,7 @@ There are several types of activation functions for different purposes and netwo
 
 The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer. 
 The discriminator network uses LeakyReLU activations for all layers and a \textit{sigmoid} function for the output layer.
-LeakyReLU activation functions\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modeling\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper\cite{goodfellow_generative_2014}.
+LeakyReLU activation functions~\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modeling~\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper~\cite{goodfellow_generative_2014}.
 
 \begin{table}[H]
     \centering
@@ -487,7 +487,7 @@ Some of the most used and also required activation functions in the use of \ac{G
 
 \subsubsection{\ac{ReLU}}
 
-The \ac{ReLU}\cite{hahnloser_digital_2000} transform activates a node only if the input is above a certain threshold having a linear relationship with the dependent variable and outputs zero for every input below zero.
+The \ac{ReLU}~\cite{hahnloser_digital_2000} transform activates a node only if the input is above a certain threshold having a linear relationship with the dependent variable and outputs zero for every input below zero.
 
 \begin{figure}[H]
     \centering
@@ -497,6 +497,12 @@ The \ac{ReLU}\cite{hahnloser_digital_2000} transform activates a node only if th
 
 \subsubsection{Leaky ReLU}
 
+\ac{ReLU} activation functions have the ``dying ReLU'' problem, where a ReLU neuron is stuck in the negative side and always outputs 0~\cite{trottier_2017, deep_learning_relu}.
+This happens when the slope of \ac{ReLU} in the negative range is also 0, once a neuron gets negative, it is unlikely for it to recover.
+These ``dead'' neurons are not playing any role in discriminating the input and are essentially useless.
+
+To mitigate this issue within \ac{ReLU}s, LeakyReLUs are a strategy that opposed to having the function being zero when $x < 0$, it has instead a small negative slope (most times with $\alpha = 0.01$).
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{leaky_relu}
@@ -505,6 +511,8 @@ The \ac{ReLU}\cite{hahnloser_digital_2000} transform activates a node only if th
 
 \subsubsection{Tanh}
 
+Tanh is a hyperbolic trigonometric function that deals more easily with negative numbers\cite{patterson_deep_2017}. Unlike the Sigmoid function, tanh ranges from -1 to 1.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{tanh}
@@ -512,6 +520,8 @@ The \ac{ReLU}\cite{hahnloser_digital_2000} transform activates a node only if th
 \end{figure}
 
 \subsubsection{Sigmoid}
+
+Sigmoids can reduce extreme values or outliers in data without removing them, framing the input from 0 to 1 and most outputs will be close to either 0 or 1.
 
 \begin{figure}[H]
     \centering
