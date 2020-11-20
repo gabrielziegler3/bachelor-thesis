@@ -235,6 +235,7 @@ The final version of this document will include an abstract. This will summarize
 \acrodef{SSIM}[SSIM]{Structural SIMilarity}
 \acrodef{PSNR}[PSNR]{Peak Signal-to-Noise Ratio}
 \acrodef{DCGAN}[DCGAN]{Deep Convolutional GAN}
+\acrodef{ReLU}[ReLU]{Rectified linear units}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -255,6 +256,7 @@ The final version of this document will include an abstract. This will summarize
     \acro{SSIM}{Structural SIMilarity}
     \acro{PSNR}{Peak Signal-to-Noise Ratio}
     \acro{DCGAN}{Deep Convolutional GAN}
+    \acro{ReLU}{Rectified linear units}
 \end{acronym}
 
 \clearpage
@@ -329,9 +331,9 @@ In order to achieve the general objective described above, we have set the follo
 \section{Magnetic Resonance Imagery}
 
 \ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy\cite{lauterbur_image_1973}. 
-The acquisition of these signals is performed by a measuring intrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils\cite{zbontar_fastmri_2019}.
+The acquisition of these signals is performed by a measuring intrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 These receiver coils are placed in proximity to a specific region in the subject to be imaged.
-During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which indulce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil\cite{zbontar_fastmri_2019}.
+During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which indulce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 
 \subsection{K-space}
 
@@ -342,7 +344,7 @@ This k-space representation contains an implicit sparsity that is exploited when
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{kspace_coil.png}
-    \caption{(a) FastMRI K-space data from 15 coils    (b) FastMRI individual fully sampled coil spatial images\cite{zbontar_fastmri_2019}.}\label{visina8}
+    \caption{(a) FastMRI K-space data from 15 coils    (b) FastMRI individual fully sampled coil spatial images\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.}\label{visina8}
 \end{figure}
 
 \subsection{Sampling}
@@ -356,7 +358,7 @@ This allows machines to collect only a fraction of data measurements needed for 
 There are some undersampling patterns to use and each has its benefits depending on several parameters, such as: the subject's region extraction, algorithm used for reconstruction, acquisition time.
 
 In the figure below we can see some of the most used patterns. 
-In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset\cite{zbontar_fastmri_2019}, which we will use for our experiments.
+In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset\cite{zbontar_fastmri_2019, knoll_fastmri_2020}, which we will use for our experiments.
 
 \begin{figure}[H]
     \centering
@@ -442,6 +444,81 @@ Where i is the layer index
 \end{figure}
 
 \subsection{Activation Functions}
+
+Activation functions are a scalar-to-scalar function used to propagate the output of one layer's neurons forward to the next layer.
+There are several types of activation functions for different purposes and network architectures.
+
+The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer. 
+The discriminator network uses LeakyReLU activations for all layers and a \textit{sigmoid} function for the output layer.
+LeakyReLU activation functions\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modeling\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper\cite{goodfellow_generative_2014}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|c|c|cc|}
+      \toprule
+      Name & Function & Derivative & \\
+      \midrule
+      \hline
+      Sigmoid & $\phi(x) = \dfrac{1}{1+e^{-x}}$ &  $\phi'(x) = \phi(x)(1-\phi(x))$\\[3ex]
+      TanH    & $\phi(x) = \dfrac{2}{1+e^{-2x}} - 1$ & $\phi'(x) = 1-\phi(x)^2$ \\[3ex]
+      ReLU    & $\phi(x) = \begin{cases}
+                           0 & x \leq 0 \\
+                           x & x > 0
+                         \end{cases} $ 
+                         & $\phi'(x) = \begin{cases}
+                                           0 & x \leq 0 \\
+                                           1 & x > 0 
+                                         \end{cases} $ \\[4ex]
+      Leaky ReLU & $\phi(x) = \begin{cases}
+                           \alpha x & x \leq 0 \\
+                           x & x > 0
+                         \end{cases} $ 
+                         & $\phi'(x) = \begin{cases}
+                                           \alpha & x \leq 0 \\
+                                           1 & x > 0 
+                                         \end{cases} $ \\
+      \bottomrule
+    \end{tabular}
+    \caption{Activation functions and their derivatives.} 
+    \label{tab:activation-functions}
+\end{table}
+
+Some of the most used and also required activation functions in the use of \ac{GAN}s and other widely used neural networks are described below.
+
+\subsubsection{\ac{ReLU}}
+
+The \ac{ReLU}\cite{hahnloser_digital_2000} transform activates a node only if the input is above a certain threshold having a linear relationship with the dependent variable and outputs zero for every input below zero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{relu}
+    \caption{\ac{ReLU} activation function}\label{visina8}
+\end{figure}
+
+\subsubsection{Leaky ReLU}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{leaky_relu}
+    \caption{Leaky \ac{ReLU} activation function}\label{visina8}
+\end{figure}
+
+\subsubsection{Tanh}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{tanh}
+    \caption{\textit{Tanh} activation function. Source:\cite{patterson_deep_2017}}\label{visina8}
+\end{figure}
+
+\subsubsection{Sigmoid}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{sigmoid}
+    \caption{Sigmoid activation function. Source:\cite{patterson_deep_2017}}\label{visina8}
+\end{figure}
+
 \subsection{Loss Functions}
 \subsection{Backpropagation}
 \subsection{Gradient Descent}
@@ -696,10 +773,6 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
     \caption{L1-minimization with pre-filtering}
   \end{minipage}
 \end{figure}
-
-\section{MRI Compressed Sensing Reconstruction}
-
-\section{MRI BART Compressed Sensing Reconstruction}
 
 \section{Preliminary Tests with Generative Adversarial Networks}
 

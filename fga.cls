@@ -43,6 +43,7 @@
 \usepackage{amsfonts}
 \usepackage{booktabs}
 \usepackage{siunitx}
+\usepackage{amsmath}
 % \usepackage[toc,page]{appendix}
 
 \newcommand{\indice}{
