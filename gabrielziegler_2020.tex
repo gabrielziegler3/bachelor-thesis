@@ -270,19 +270,19 @@ Achieving higher quality with reduced number of samples allows faster exam proce
 
 \section{Context}
 
-\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today\cite{bryan_introduction_2009}, making \ac{MRI} the best option for medical imaging whenever it is possible to use.
+\ac{MRI} is a widely used imaging modality in medical practice because of its great tissue contrast capabilities, it has evolved into the richest and most versatile biomedical imaging technique today~\cite{bryan_introduction_2009}, making \ac{MRI} the best option for medical imaging whenever it is possible to use.
 
 However, like everything in life, there is a trade-off to consider when using \ac{MRI}.
 Typically, reconstructing an \ac{MRI} is an ill-posed linear inverse task (a problem that has either none or infinite solutions in the desired class).
-Problems of this nature impose a trade-off between \textit{accuracy} and \textit{speed}\cite{kabanikhin_definitions_2008}.
-The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed\cite{miosso_compressive_2009-1}.
+Problems of this nature impose a trade-off between \textit{accuracy} and \textit{speed}~\cite{kabanikhin_definitions_2008}.
+The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed~\cite{miosso_compressive_2009-1}.
 This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when reconstructing \ac{MRI}, hence we here propose a novel \ac{CS} prior information approach for better results.
 
-\ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of prior information\cite{miosso_compressive_2009-1}.
+\ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of prior information~\cite{miosso_compressive_2009-1}.
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
-These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
+These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields~\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
 These fast-paced developments led to improvements in medical data processing using \ac{DL} as well.
 \ac{ML} techniques can be used in several different manners to improve medical analysis, here we focus on applying \ac{GAN} in the process of attaining improved prior information to feed the \ac{CS} algorithm obtaining higher signal-to-noise ratios and faster computation procedures.
 
@@ -330,21 +330,21 @@ In order to achieve the general objective described above, we have set the follo
 
 \section{Magnetic Resonance Imagery}
 
-\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy\cite{lauterbur_image_1973}. 
-The acquisition of these signals is performed by a measuring intrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
+\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy~\cite{lauterbur_image_1973}. 
+The acquisition of these signals is performed by a measuring intrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 These receiver coils are placed in proximity to a specific region in the subject to be imaged.
-During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which indulce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
+During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which indulce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 
 \subsection{K-space}
 
 The k-space is the output generated by the \ac{MRI} machine scan after extracting measurements from a given subject tissue.
 The k-space is represented in the spatial frequency in two or three dimensions of a subject and may also be referred as the Fourier space.
-This k-space representation contains an implicit sparsity that is exploited when performing undersampling\cite{lustig_sparse_2007} and reinforce the usage of algorithms like \ac{CS} for \ac{MRI} reconstruction as \ac{CS} depend on signals that have a sparse representation in an orthonormal basis.
+This k-space representation contains an implicit sparsity that is exploited when performing undersampling~\cite{lustig_sparse_2007} and reinforce the usage of algorithms like \ac{CS} for \ac{MRI} reconstruction as \ac{CS} depend on signals that have a sparse representation in an orthonormal basis.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{kspace_coil.png}
-    \caption{(a) FastMRI K-space data from 15 coils    (b) FastMRI individual fully sampled coil spatial images\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.}\label{visina8}
+    \caption{(a) FastMRI K-space data from 15 coils    (b) FastMRI individual fully sampled coil spatial images~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.}\label{visina8}
 \end{figure}
 
 \subsection{Sampling}
@@ -358,12 +358,12 @@ This allows machines to collect only a fraction of data measurements needed for 
 There are some undersampling patterns to use and each has its benefits depending on several parameters, such as: the subject's region extraction, algorithm used for reconstruction, acquisition time.
 
 In the figure below we can see some of the most used patterns. 
-In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset\cite{zbontar_fastmri_2019, knoll_fastmri_2020}, which we will use for our experiments.
+In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}, which we will use for our experiments.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{sampling_trajectories}
-    \caption{Under-sampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}\cite{ye_compressed_2019}.}\label{visina8}
+    \caption{Under-sampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}~\cite{ye_compressed_2019}.}\label{visina8}
 \end{figure}
 
 
@@ -372,17 +372,17 @@ In this research, we will focus mostly on the cartesian undersampling method, as
 \ac{CS} is an extremely powerful algorithm that was introduced in 2004 proposing a novel technique for the acquisition of signals of sparse or compressible nature.
 \ac{CS} has disrupted the signal processing field as it has broken the \textit{Shannon's theorem}: the sampling signal rate must be at least twice the maximum frequency present in the signal (Nyquist rate).
 \ac{CS} has been proven to sample the signal at a much lower rate than the Nyquist sampling rate.
-In MRI, when \textit{k-space} is undersampled, the Nyquist criterion is violated.\cite{lustig_sparse_2007}
+In MRI, when \textit{k-space} is undersampled, the Nyquist criterion is violated~\cite{lustig_sparse_2007}.
 
 The idea was inpired from questioning the necessity of extracting large portions of samples when much of these samples are discarded, exposing the inefficiency of trying to gather all signal.
 
 \textquote{Why go to so much effort to acquire all the data when most of what we get will be thrown away?
 Can we not just directly measure the part that will not
-end up being thrown away?\cite{donoho_compressed_2006}}
+end up being thrown away?~\cite{donoho_compressed_2006}}
 
 \ac{CS} tackles the necessity to reconstruct signals with
 
-\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier), then the $N$ most important coeffiecients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$\cite{donoho_compressed_2006}.
+\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier), then the $N$ most important coeffiecients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
 
 
 \section{Artificial Neural Networks}
@@ -391,8 +391,8 @@ end up being thrown away?\cite{donoho_compressed_2006}}
 
 \ac{ANN}s, as the name suggests, have been (loosely) inpired by biological neural networks (brains) from animals.
 The concept of using many layers of vector-valued representation is drawn from neuroscience.
-The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute\cite{goodfellow_deep_2016}.
-Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal\cite{patterson_deep_2017}.
+The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute~\cite{goodfellow_deep_2016}.
+Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal~\cite{patterson_deep_2017}.
 
 \subsection{Multilayer Perceptron}
 
@@ -406,7 +406,7 @@ After this, the logit is passed to a function $f$ in order to generate the value
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{neuron}
-    \caption{Schematic of an Artificial Neuron.\cite{patterson_deep_2017}}\label{visina8}
+    \caption{Schematic of an Artificial Neuron.~\cite{quddus_machine_2018}}\label{visina8}
 \end{figure}
 
 % TODO check quotation
@@ -421,7 +421,7 @@ Each layer is fully connected to the adjacent layer.
 % TODO check quotation
 \ac{MLP}s are computational models that flow information throuth the function being evaluated from \textbf{x}.
 The goal is to approximate some function $f*$, for instance, for a classifier, $y = f * (x)$ maps an input $x$ to a category $y$.
-The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation\cite{goodfellow_deep_2016}.
+The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation~\cite{goodfellow_deep_2016}.
 
 The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other.
 
@@ -439,7 +439,7 @@ Where i is the layer index
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=150mm,scale=0.7]{mlp_architecture}
+    \includegraphics[width=0.7\textwidth]{mlp_architecture}
     \caption{\ac{ANN} Architecture Sample.}\label{visina8}
 \end{figure}
 
@@ -511,12 +511,12 @@ To mitigate this issue within \ac{ReLU}s, LeakyReLUs are a strategy that opposed
 
 \subsubsection{Tanh}
 
-Tanh is a hyperbolic trigonometric function that deals more easily with negative numbers\cite{patterson_deep_2017}. Unlike the Sigmoid function, tanh ranges from -1 to 1.
+Tanh is a hyperbolic trigonometric function that deals more easily with negative numbers~\cite{patterson_deep_2017}. Unlike the Sigmoid function, tanh ranges from -1 to 1.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{tanh}
-    \caption{\textit{Tanh} activation function. Source:\cite{patterson_deep_2017}}\label{visina8}
+    \caption{\textit{Tanh} activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
 \end{figure}
 
 \subsubsection{Sigmoid}
@@ -526,12 +526,22 @@ Sigmoids can reduce extreme values or outliers in data without removing them, fr
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{sigmoid}
-    \caption{Sigmoid activation function. Source:\cite{patterson_deep_2017}}\label{visina8}
+    \caption{Sigmoid activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
 \end{figure}
 
 \subsection{Loss Functions}
+
+Loss functions are used to determine how a neural network is perfoming on the given data.
+A metric is calculated based on the error observed in the network's predictions and the model then tries to minimize this error in a optimization problem fashion.
+
 \subsection{Backpropagation}
 \subsection{Gradient Descent}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gradient_descent}
+    \caption{Sigmoid activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
+\end{figure}
 
 \section{Generative Adversarial Networks}
 
@@ -559,7 +569,7 @@ The figure below displays the first 10 signals created.
 
 \section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
 
-To test the method of applying pre-filtering to the input signals in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization\cite{miosso_compressive_2009-1}.
+To test the method of applying pre-filtering to the input signals in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization~\cite{miosso_compressive_2009-1}.
 
 \subsection{Subsampling}
 
@@ -582,7 +592,7 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
 
 For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed. 
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
-The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image\cite{miosso_compressive_2009-1}.
+The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image~\cite{miosso_compressive_2009-1}.
 The different filters used can be better seeing in the figure below.
 
 \begin{figure}[H]
@@ -621,7 +631,7 @@ Each MNIST image contains a $28\times28$ black and white image, like the followi
     \caption{Sample of digits from MNIST}\label{visina8}
 \end{figure}
 
-A \ac{DCGAN} was used for the experiment. A \ac{DCGAN} is an extension of the \ac{GAN}, except that it explicitly uses convolutional and convolutional-transpose layers in the discriminator and generator networks, respectively.\cite{radford_unsupervised_2016}
+A \ac{DCGAN} was used for the experiment. A \ac{DCGAN} is an extension of the \ac{GAN}, except that it explicitly uses convolutional and convolutional-transpose layers in the discriminator and generator networks, respectively~\cite{radford_unsupervised_2016}.
 
 \subsection{Data Transformation}
 
@@ -667,7 +677,7 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{discriminator}
-    \caption{Discriminator network architecture of a 3-D image. Source:\cite{radford_unsupervised_2016, oreilly_gan}}\label{visina8}
+    \caption{Discriminator network architecture of a 3-D image. Source:~\cite{radford_unsupervised_2016, oreilly_gan}}\label{visina8}
 \end{figure}
 %---}}}
 
@@ -727,9 +737,17 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
         \textbf{Pre-filtering L1-minimization}         & 91.89 & 0.99 & 73.70 & 2.5e-9
     \end{tabular}
   \end{center}
+  \caption{Phantom reconstruction metrics.} 
+  \label{tab:phantom-reconstruction}
 \end{table}
 
-\subsection{Head Reconstruction}
+\subsection{Brain Sagittal Reconstruction}
+
+Another experiment done was using a reference sagittal head image of shape $(256 \times 256)$.
+The same spiral undersampling pattern with 30.95\% data points used in the phantom experiment was used here for artificial undersampling.
+
+This image poses a harder reconstruction challenge as it is filled with more details and more complex structures than the phantom.
+That said, it is clear that the undersampling pattern and amount of data points has not been sufficient to reconstruct a high fidelity image in any scenario, but the L1-minimization with pre-filtering reconstruction looks like the winner again, reinforcing the idea that pre-filtering is a good pre-processing strategy.
 
 \begin{figure}[H]
   \centering
@@ -751,6 +769,8 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
   \end{minipage}
 \end{figure}
 
+The metrics evaluated were not affected as much as they were for the phantom experiment, but they were mostly improved by the pre-filtering usage.
+
 \begin{table}[h!]
   \begin{center}
     \begin{tabular}{l|llll}
@@ -761,8 +781,11 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
         \textbf{Pre-filtering L1-minimization}         & 21.03 & 0.45 & 8.97 & 1081.53
     \end{tabular}
   \end{center}
+  \caption{Sagittal reconstruction metrics.} 
+  \label{tab:sagittal-reconstruction}
 \end{table}
 
+\subsection{Knee Singlecoil Reconstruction}
 
 \begin{figure}[H]
   \centering
