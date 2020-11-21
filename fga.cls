@@ -419,19 +419,20 @@ I. FGA UnB/UnB. & & II. Título (série)
 
 \vspace{00pt}
 
-\noindent\maiusc{\@nomeinvertido} (\@ano). \@titulofichadois. Trabalho de Conclusão de Curso, Engenharia de Software, Faculdade UnB Gama, Universidade de Brasília, Brasília, DF, \pageref{LastPage}p.
+\noindent\maiusc{\@nomeinvertido} (\@ano). \@titulofichadois. Bachelor Thesis, Software Engineering, UnB Gama Faculty, University of Brasilia, Brasilia, DF, \pageref{LastPage}p.
 
 \vspace{12pt}
 
 \vfill
 
+%TODO
 \noindent{\bf\maiusc{Cessão de Direitos}}
 
 \vspace{00pt}
 
 \noindent\maiusc{Author: }\@author\\[03pt]
 \noindent\maiusc{Title: } \@titulofichadois\\[03pt]
-\noindent\maiusc{Degree: } Bacharel em Engenharia de Software\\[03pt]
+\noindent\maiusc{Degree: } Bachelor of Engineering in Software Engineering\\[03pt]
 \noindent\maiusc{Year: } \@ano\\[12pt]
 \noindent É concedida à Universidade de Brasília permissão para reproduzir cópias desta monografia de conclusão de curso e para emprestar ou vender tais cópias somente para propósitos acadêmicos e científicos. O autor reserva outros direitos de publicação e nenhuma parte desta monografia pode ser reproduzida sem a autorização por escrito do autor.\\[36pt]
 

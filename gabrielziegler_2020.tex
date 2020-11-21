@@ -12,9 +12,9 @@
 \titulofichadois{Título para a ficha (parte 2)}
 \author{Gabriel Gomes Ziegler}
 \nomeinvertido{Ziegler, Gabriel}
-\orientador{Cristiano Jacques Miosso, PhD}
-\coorientador{Davi Benevides Gusmão, MSc}
-\data{September 2020}
+\orientador{~Cristiano Jacques Miosso, PhD}
+\coorientador{~Davi Benevides Gusmão, MSc}
+\data{December 2020}
 \ano{2020}
 \areaum{Deep Learning} % Preencher com termos escolhidos para identificar a área
 \areadois{Magnetic Resonance Image Reconstruction}
@@ -196,18 +196,18 @@
 % |--- Resumo e Abstract ---|----------------------{{{
 \newgeometry{bottom=0.8in, top=0.9in, left=0.9in, right=0.9in}
 
-\noindent{\bfseries{\maiusc{\large Resumo}} }
-
-\vspace{12pt}
-A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
+%\noindent{\bfseries{\maiusc{\large Resumo}} }
+%
+%\vspace{12pt}
+%A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
 \acresetall % Manter essa linha!
 \clearpage
 \restoregeometry
-% \chapter{Abstract}
-\noindent{\bfseries{\maiusc{\large Abstract}} }
-
-\vspace{24pt}
-The final version of this document will include an abstract. This will summarize the introduction (contextualization, objectives, justification), the methodology, the results, and the conclusion.
+%\chapter{Abstract}
+%\noindent{\bfseries{\maiusc{\large Abstract}} }
+%
+%\vspace{24pt}
+%The final version of this document will include an abstract. This will summarize the introduction (contextualization, objectives, justification), the methodology, the results, and the conclusion.
 \acresetall % Manter essa linha!
 \indice
 %---}}}
@@ -330,7 +330,7 @@ In order to achieve the general objective described above, we have set the follo
 
 \section{Magnetic Resonance Imagery}
 
-\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy~\cite{lauterbur_image_1973}. 
+\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy~\cite{lauterbur_image_1973}.
 The acquisition of these signals is performed by a measuring intrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 These receiver coils are placed in proximity to a specific region in the subject to be imaged.
 During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which indulce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
@@ -349,15 +349,15 @@ This k-space representation contains an implicit sparsity that is exploited when
 
 \subsection{Sampling}
 
-The time required to acquire all the measurements responses from every single atom in a subject would be extremely high and problematic to every one involved (pacients, doctors and clinics). 
-The way machines can do faster \ac{MRI} is by performing \textit{undersampling}, also referred as subsampling and sampling, when scanning the subject. 
+The time required to acquire all the measurements responses from every single atom in a subject would be extremely high and problematic to every one involved (pacients, doctors and clinics).
+The way machines can do faster \ac{MRI} is by performing \textit{undersampling}, also referred as subsampling and sampling, when scanning the subject.
 
 Undersampling is performed by giving the machine a known prescribed path in which it will extract measurements from the multidimensional k-space representation.
 This allows machines to collect only a fraction of data measurements needed for image reconstruction hence speeding up the data acquisition process without critical quality loss.
 
 There are some undersampling patterns to use and each has its benefits depending on several parameters, such as: the subject's region extraction, algorithm used for reconstruction, acquisition time.
 
-In the figure below we can see some of the most used patterns. 
+In the figure below we can see some of the most used patterns.
 In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}, which we will use for our experiments.
 
 \begin{figure}[H]
@@ -448,7 +448,7 @@ Where i is the layer index
 Activation functions are a scalar-to-scalar function used to propagate the output of one layer's neurons forward to the next layer.
 There are several types of activation functions for different purposes and network architectures.
 
-The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer. 
+The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer.
 The discriminator network uses LeakyReLU activations for all layers and a \textit{sigmoid} function for the output layer.
 LeakyReLU activation functions~\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modeling~\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper~\cite{goodfellow_generative_2014}.
 
@@ -464,22 +464,22 @@ LeakyReLU activation functions~\cite{maas_rectier_nodate, empirical_relu_cnn} ha
       ReLU    & $\phi(x) = \begin{cases}
                            0 & x \leq 0 \\
                            x & x > 0
-                         \end{cases} $ 
+                         \end{cases} $
                          & $\phi'(x) = \begin{cases}
                                            0 & x \leq 0 \\
-                                           1 & x > 0 
+                                           1 & x > 0
                                          \end{cases} $ \\[4ex]
       Leaky ReLU & $\phi(x) = \begin{cases}
                            \alpha x & x \leq 0 \\
                            x & x > 0
-                         \end{cases} $ 
+                         \end{cases} $
                          & $\phi'(x) = \begin{cases}
                                            \alpha & x \leq 0 \\
-                                           1 & x > 0 
+                                           1 & x > 0
                                          \end{cases} $ \\
       \bottomrule
     \end{tabular}
-    \caption{Activation functions and their derivatives.} 
+    \caption{Activation functions and their derivatives.}
     \label{tab:activation-functions}
 \end{table}
 
@@ -573,7 +573,7 @@ To test the method of applying pre-filtering to the input signals in the k-space
 
 \subsection{Subsampling}
 
-I then created an phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module. 
+I then created an phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module.
 Then, I simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
 
 \begin{figure}[H]
@@ -590,7 +590,7 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
 
 \subsection{Pre-filtering sparsifying transform}
 
-For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed. 
+For the pre-filtering step, three filters are used to increase sparsity in the signal to be reconstructed.
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
 The filtered images are then composed to one single image containing the highest gain each filter could provide given a single pixel in the image~\cite{miosso_compressive_2009-1}.
 The different filters used can be better seeing in the figure below.
@@ -618,7 +618,7 @@ The pre-filtering method is evaluated against the zero-fill reconstruction metho
 
 In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, I have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
 The MNIST dataset contains 60,000 examples for training and 10,000 examples for testing.
-The digits have been size-normalized and centered in a fixed-size image ($28\times28$ pixels) with values from 0 to 9. 
+The digits have been size-normalized and centered in a fixed-size image ($28\times28$ pixels) with values from 0 to 9.
 For simplicity, each image has been flattened and converted into a 1-dimensional numpy array of 784 features ($28\times28$).
 
 The idea is to test if the neural network can output liable digits that look both readable (to the extent in which the MNIST dataset is) and also like it has been made by a human, just like the dataset itself.
@@ -702,7 +702,7 @@ for very undersampled signals (close to 10\% of the data) such as the ones used 
 The results in the experiment shows a huge gain of resolution in the pre-filtering method reconstructed image compared to the L1-minimization alone.
 
 The zero-filled reconstruction (dummy baseline) was unable to reconstruct a high fidelity image and performed very poorly in the PSNR and SNR metrics.
-The L1-minimization compressed sensing approach reconstructed the image with some noticeable noise artifacts, yet much better than the zero-filling approach. 
+The L1-minimization compressed sensing approach reconstructed the image with some noticeable noise artifacts, yet much better than the zero-filling approach.
 Finally, the L1-minimization along the usage of sparsifying pre-filtering delivered a great looking image without eye-catching artifacts and also increased the metrics hugely.
 
 \begin{figure}[H]
@@ -737,7 +737,7 @@ The usage of L1-minimization for certainly improves the \ac{MRI} reconstruction,
         \textbf{Pre-filtering L1-minimization}         & 91.89 & 0.99 & 73.70 & 2.5e-9
     \end{tabular}
   \end{center}
-  \caption{Phantom reconstruction metrics.} 
+  \caption{Phantom reconstruction metrics.}
   \label{tab:phantom-reconstruction}
 \end{table}
 
@@ -781,7 +781,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
         \textbf{Pre-filtering L1-minimization}         & 21.03 & 0.45 & 8.97 & 1081.53
     \end{tabular}
   \end{center}
-  \caption{Sagittal reconstruction metrics.} 
+  \caption{Sagittal reconstruction metrics.}
   \label{tab:sagittal-reconstruction}
 \end{table}
 
@@ -810,9 +810,9 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 \section{Preliminary Tests with Generative Adversarial Networks}
 
 
-\ac{GAN}s have a particular loss curve behaviour. 
+\ac{GAN}s have a particular loss curve behaviour.
 Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an invertly correlated manner.
-This happens specially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated. 
+This happens specially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated.
 Quickly the discriminator starts to detect how the data is disposed and manages to interpret the generated images are different from the training examples it is seeing.
 
 This phenoma exposes how bad the generator is in the first epochs and how easily the discriminator can distinguish between created and real.
@@ -844,6 +844,10 @@ The generated images sometimes have a bit more of blur to them, but certainly wi
     \includegraphics[width=0.6\textwidth]{gan_generated_images}
     \caption{GAN generated MNIST digits}
 \end{figure}
+
+
+
+sjdkfhasldfhasdkjfha
 
 
 %---}}}
