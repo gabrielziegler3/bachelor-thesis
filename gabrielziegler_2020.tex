@@ -236,6 +236,7 @@
 \acrodef{PSNR}[PSNR]{Peak Signal-to-Noise Ratio}
 \acrodef{DCGAN}[DCGAN]{Deep Convolutional GAN}
 \acrodef{ReLU}[ReLU]{Rectified linear units}
+\acrodef{SGD}[SGD]{Stochastic Gradient Descent}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -257,6 +258,7 @@
     \acro{PSNR}{Peak Signal-to-Noise Ratio}
     \acro{DCGAN}{Deep Convolutional GAN}
     \acro{ReLU}{Rectified linear units}
+    \acro{SGD}{Stochastic Gradient Descent}
 \end{acronym}
 
 \clearpage
@@ -394,7 +396,7 @@ The concept of using many layers of vector-valued representation is drawn from n
 The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute~\cite{goodfellow_deep_2016}.
 Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal~\cite{patterson_deep_2017}.
 
-\subsection{Multilayer Perceptron}
+\subsection{Neuron}
 
 The most basic unit in \ac{ANN}s is the \textit{artificial neuron}.
 These artificial neurons that are modeled mirroring the biological neurons behaviour as both of them are stimulated by inputs.
@@ -411,7 +413,7 @@ After this, the logit is passed to a function $f$ in order to generate the value
 
 % TODO check quotation
 
-% \subsection{Deep Feedforward Networks}
+\subsection{Multilayer Perceptron}
 
 \ac{DFN} or \ac{MLP}s are a type of \ac{ANN} very commonly used.
 It is the foundation to many famous architectures like \ac{CNN}s.
@@ -534,18 +536,54 @@ Sigmoids can reduce extreme values or outliers in data without removing them, fr
 Loss functions are used to determine how a neural network is perfoming on the given data.
 A metric is calculated based on the error observed in the network's predictions and the model then tries to minimize this error in a optimization problem fashion.
 
+The original \ac{GAN} paper presents a loss function called \textit{minmax}~\cite{goodfellow_generative_2014}, that is described as.
+
+\begin{equation}
+    min_Gmax_DV(D,G)= E_{x\sim P_{data}(x)}[logD(x)]+E_{z\sim pz(z)}[log(1 - D(G(z)))]
+\end{equation}
+
+Where $x$ is the input data representing an image, $D(x)$ is the discriminator network, $G(x)$ is the generator function and $z$ represents the latent vector that is mapped to data-space by $G$.
+Hence, the scalar probability that the output of the generator $G$ is a real image is given by $D(G(z))$~\cite{goodfellow_generative_2014}.
+
+
+%Some of the most commonly used functions are described in the table below.
+%
+%\begin{table}[H]
+%    \centering
+%    \begin{tabular}{|lccc}
+%      \midrule
+%        Mean squared error & MSE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}e_t^2$   \\
+%        \hline
+%        Root mean squared error & RMSE &= &$\displaystyle\sqrt{\frac{1}{n}\sum_{t=1}^{n}e_t^2}$ \\
+%        \hline
+%        Mean absolute error & MAE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}|e_t|$ \\
+%        \hline
+%        Mean absolute percentage error & MAPE &= &$\displaystyle\frac{100\%}{n}\sum_{t=1}^{n}\left |\frac{e_t}{y_t}\right|$\\
+%    \end{tabular}
+%    \caption{Loss functions and their formulas.}
+%    \label{tab:loss-functions}
+%\end{table}
+
 \subsection{Backpropagation}
-\subsection{Gradient Descent}
+
+In multi-layer networks, the gradient of a composition function is computed using the backpropagation~\cite{backpropagation_1986}, that computes the error derivatives with respect to a single training example.
+
+\subsection{\ac{Stochastic Gradient Descent}}
+
+Most deep learning models are powered by the \ac{SGD}, which is an extension of the gradient descent algorithm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{gradient_descent}
-    \caption{Sigmoid activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
+    \caption{Gradient Descent example visualization.}\label{visina8}
 \end{figure}
 
 \section{Generative Adversarial Networks}
 
-\subsection{MRI Application}
+\ac{GAN}s play a minimax two-player game in which $D$ tries to maximize the probability to correctly classify real and fake samples ($\log D(x)$), whilst $G$ tries to minimize the chance that $D$ will correctly predict its generated outputs are fake ($\log (1-D(G(x)))$).
+
+Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs. 
+However, \ac{GAN}s are still a novel neural network approach with its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
 
 %---}}}
 
@@ -580,11 +618,11 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
   \centering
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{phantom_shepplogan.png}
-    \caption{$256\times256$ Shepp-Logan phantom.}
+    \caption{Shepp-Logan phantom reference image.}
   \end{minipage}
   \begin{minipage}[b]{0.4\textwidth}
     \includegraphics[width=\textwidth]{spiral_phantom_experiment.png}
-    \caption{Spiral undersampling method.}
+    \caption{Spiral undersampling method with 30.95\% data points.}
   \end{minipage}
 \end{figure}
 
@@ -599,15 +637,15 @@ The different filters used can be better seeing in the figure below.
   \centering
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter1.png}
-      \caption{High pass horizontal filter.}
+      \caption{2-D High pass horizontal filter.}
   \end{minipage}
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter2.png}
-      \caption{High pass vertical filter.}
+      \caption{2-D High pass vertical filter.}
   \end{minipage}
   \begin{minipage}[b]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter3.png}
-      \caption{High pass diagonal filter.}
+      \caption{2-D High pass diagonal filter.}
   \end{minipage}
 \end{figure}
 
@@ -681,7 +719,6 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 \end{figure}
 %---}}}
 
-
 % |--- Results ---|----------------------{{{
 \chapter{Preliminary Results}
 
@@ -709,19 +746,19 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \centering
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{phantom_shepplogan.png}
-    \caption{Reference Image}
+    \caption{Phantom reference image}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_zero_fill.png}
-    \caption{Zero-fill}
+    \caption{Phantom zero-filled reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_l1.png}
-    \caption{L1-minimization}
+    \caption{Phantom L1-minimization reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_prefilter.png}
-    \caption{L1-minimization with pre-filtering}
+    \caption{Phantom L1-minimization with pre-filtering reconstruction}
   \end{minipage}
 \end{figure}
 
@@ -753,19 +790,19 @@ That said, it is clear that the undersampling pattern and amount of data points 
   \centering
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{head}
-    \caption{Reference Image}
+    \caption{Sagittal head reference image}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_zero_fill}
-    \caption{Zero-fill}
+    \caption{Sagittal head zero-filled reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_l1}
-    \caption{L1-minimization}
+    \caption{Sagittal head L1-minimization reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_prefilter}
-    \caption{L1-minimization with pre-filtering}
+    \caption{Sagittal head L1-minimization with pre-filtering reconstruction}
   \end{minipage}
 \end{figure}
 
@@ -791,26 +828,39 @@ The metrics evaluated were not affected as much as they were for the phantom exp
   \centering
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{singlecoil_knee_fullysampled.png}
-    \caption{Reference Image}
+    \caption{Singlecoil knee reference image}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_zero_filled_knee.png}
-    \caption{Zero-fill}
+    \caption{Knee zero-filled reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_singlecoil_knee.png}
-    \caption{L1-minimization}
+    \caption{Knee L1-minimization reconstruction}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_prefiltering_singlecoil_knee.png}
-    \caption{L1-minimization with pre-filtering}
+    \caption{Knee L1-minimization with pre-filtering reconstruction}
   \end{minipage}
 \end{figure}
+
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{l|llll}
+                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+      \hline
+        \textbf{Zero-fill}                             &  &  &  &  \\
+        \textbf{L1-minimization}                       &  &  &  &   \\
+        \textbf{Pre-filtering L1-minimization}         &  &  &  & 
+    \end{tabular}
+  \end{center}
+  \caption{Singlecoil knee reconstruction metrics.}\label{tab:singlecoilknee-reconstruction}
+\end{table}
 
 \section{Preliminary Tests with Generative Adversarial Networks}
 
 
-\ac{GAN}s have a particular loss curve behaviour.
 Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an invertly correlated manner.
 This happens specially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated.
 Quickly the discriminator starts to detect how the data is disposed and manages to interpret the generated images are different from the training examples it is seeing.
@@ -839,16 +889,12 @@ After 100 epochs, the \ac{DCGAN} for MNIST number generation had an exceptionall
 performance when the generated images are displayed.
 It is hard to tell if these are generated images or if they are part of the training set.
 The generated images sometimes have a bit more of blur to them, but certainly with more epochs and more training samples this could be minimized.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{gan_generated_images}
     \caption{GAN generated MNIST digits}
 \end{figure}
-
-
-
-sjdkfhasldfhasdkjfha
-
 
 %---}}}
 
