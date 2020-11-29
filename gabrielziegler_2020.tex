@@ -383,7 +383,6 @@ The idea was inpired from questioning the necessity of extracting large portions
 Can we not just directly measure the part that will not
 end up being thrown away?~\cite{donoho_compressed_2006}}
 
-\blockquote{Why go to so much effort to acquire all the data when most of what we get will be thrown away?}
 
 \ac{CS} tackles the necessity to reconstruct signals with
 
@@ -414,8 +413,6 @@ After this, the logit is passed to a function $f$ in order to generate the value
     \caption{Schematic of an Artificial Neuron.~\cite{quddus_machine_2018}}\label{visina8}
 \end{figure}
 
-% TODO check quotation
-
 \subsection{Multilayer Perceptron}
 
 \ac{DFN} or \ac{MLP}s are a type of \ac{ANN} very commonly used.
@@ -424,11 +421,12 @@ It is the foundation to many famous architectures like \ac{CNN}s.
 Each layer is fully connected to the adjacent layer.
 
 % TODO check quotation
-\ac{MLP}s are computational models that flow information throuth the function being evaluated from \textbf{x}.
+\ac{MLP}s are computational models that flow information through the function that evaluates $x$.
 The goal is to approximate some function $f*$, for instance, for a classifier, $y = f * (x)$ maps an input $x$ to a category $y$.
 The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation~\cite{goodfellow_deep_2016}.
 
-The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other.
+The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other and how complex the model is.
+Often adding too much complexity to the network will lead to overfitting the training set, which occurs when the model shapes the training data too preciselly and cannot generalise new data fed.
 
 % TODO check plagi
 Most \ac{ANN}s are organized into rows of neurons called layers.
