@@ -401,6 +401,8 @@ Another trait they share is that just like the human brain can be trained to pas
 \subsection{Neuron}
 
 The most basic unit in \ac{ANN}s is the \textit{artificial neuron}.
+Neurons act as feature detectors and this is one of the advantages of deep learning techniques in contrast to classical machine learning as the \ac{ANN} is responsible for doing feature engineering and selection, and often outperform humans in this task.
+
 These artificial neurons that are modeled mirroring the biological neurons behaviour as both of them are stimulated by inputs.
 Each artificial neuron play an analogous role to a neuron carrying some information they receive to other artificial neurons in the \ac{ANN}.
 Artificial neurons take in inputs $x_1, x_2,\ldots, x_n$, each and multiply them by their respective weights $w_1, w_2,\ldots, w_n$.
@@ -410,7 +412,7 @@ After this, the logit is passed to a function $f$ in order to generate the value
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{neuron}
-    \caption{Schematic of an Artificial Neuron.~\cite{quddus_machine_2018}}\label{visina8}
+    \caption{Schematic of an Artificial Neuron. Source:~\cite{quddus_machine_2018}}\label{visina8}
 \end{figure}
 
 \subsection{Multilayer Perceptron}
@@ -420,25 +422,22 @@ It is the foundation to many famous architectures like \ac{CNN}s.
 \ac{DFN}s have an input layer followed by one or many hidden layers and a single output layer.
 Each layer is fully connected to the adjacent layer.
 
-% TODO check quotation
-\ac{MLP}s are computational models that flow information through the function that evaluates $x$.
-The goal is to approximate some function $f*$, for instance, for a classifier, $y = f * (x)$ maps an input $x$ to a category $y$.
+\ac{MLP}s are computational models that flow information through the function $f$ that evaluates $x$.
+The goal is to approximate some function $f*$.
+For instance, a classifier $y = f * (x)$ maps an input $x$ to a category $y$.
 The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation~\cite{goodfellow_deep_2016}.
 
 The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other and how complex the model is.
 Often adding too much complexity to the network will lead to overfitting the training set, which occurs when the model shapes the training data too preciselly and cannot generalise new data fed.
 
-% TODO check plagi
 Most \ac{ANN}s are organized into rows of neurons called layers.
 These layers are arranged in a chain-like structure, with each layer being a function of the layer before it.
 These layers' goal is to extract \textit{representations} out of the data fed and generalize what is meaningful towards minimizing the error rate.
-This architecture scheme is represented by the following equation:
+This architecture scheme is represented by the following equation, where $i$ is the layer index:
 
 \begin{gather*}
     h^{(i)} = g^{(i)} (W^{(i)T}x + b^{(i)})
 \end{gather*}
-
-Where i is the layer index
 
 \begin{figure}[H]
     \centering
@@ -534,7 +533,7 @@ Sigmoids can reduce extreme values or outliers in data without removing them, fr
 
 \subsection{Loss Functions}
 
-Loss functions are used to determine how a neural network is perfoming on the given data.
+Loss functions are used to determine how a neural network is performing on the given data.
 A metric is calculated based on the error observed in the network's predictions and the model then tries to minimize this error in a optimization problem fashion.
 
 Some of the most commonly used functions are described in the table below.
@@ -567,10 +566,20 @@ Hence, the scalar probability that the output of the generator $G$ is a real ima
 
 \subsection{Backpropagation}
 
-%TODO
-
-Backpropagation is a technique used to implement gradient descent in weight space for a \ac{MLP}~\cite{backpropagation_1986, werbos_1994}. 
+Backpropagation is a technique used to implement gradient descent in weight space for a \ac{MLP}~\cite{backpropagation_1986, werbos_1994}.
 In essence, backpropagation computes the error partial derivatives of an approximating function $F(w, x)$ computed by the \ac{ANN} with respect to the weight and input vector for each training example~\cite{haykin_neural_2009}.
+
+The development of the backpropagation algorithm is a milestone in neural network development and research as it made computationally efficient to train \ac{MLP}s, thus confirming that \ac{ANN}s research field was filled with potential in the mid-1980s.
+
+In order to evaluate the derivatives of the function $F(w,x)$ with respect to all the elements in the weight vector $w$ for an input vector $x = [x_1, x_2, \ldots, x_{m0}]^T$ for a \ac{MLP} with layer $l=2$, we have the following equation where $\varphi$ is the activation function, $w$ is the ordered weight vector and $x$ is the input vector fed into the \ac{MLP}~\cite{haykin_neural_2009}:
+
+\begin{equation}
+    \centering
+    F(\mathbf{w}, \mathbf{x})=\sum_{j=0}^{m_{1}} w_{o j} \varphi\left(\sum_{i=0}^{m_{0}} w_{j i} x_{i}\right)
+\end{equation}
+
+% \centering
+% $\frac{\partial F(\mathbf{w}, \mathbf{x})}{\partial w_{1 k}^{(3)}}=\varphi^{\prime}\left(\mathscr{A}_{1}^{(3)}\right) \varphi\left(\mathscr{A}_{k}^{(2)}\right)$
 
 \subsection{Gradient Descent}
 
@@ -580,6 +589,7 @@ In scenarios where there is a large quantity of data instances, a variation of g
 \ac{SGD} updates the coefficients for each training instance or batch instead of at the end after running through all the trainig set instances.
 
 Most deep learning models are powered by the \ac{SGD} and it can be visualized as the figure below demonstrates: the function starts in a random point in the loss function and after each iteration, the \ac{SGD} calculates how it should adjust parameters in order to reach the minimal point in the loss function, hence moving towards the valley as illustrated.
+
 
 \begin{figure}[H]
     \centering
@@ -597,7 +607,7 @@ The discriminator takes an image $(x)$ as input from two sources: real examples 
 
 \ac{GAN}s play a minimax two-player game in which $D$ tries to maximize the probability to correctly classify real and fake samples ($\log D(x)$), whilst $G$ tries to minimize the chance that $D$ will correctly predict its generated outputs are fake ($\log (1-D(G(x)))$).
 
-Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs. 
+Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs.
 However, \ac{GAN}s are still a novel neural network approach with its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
 
 \begin{figure}[H]
@@ -874,7 +884,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
       \hline
         \textbf{Zero-fill}                             &  &  &  &  \\
         \textbf{L1-minimization}                       &  &  &  &   \\
-        \textbf{Pre-filtering L1-minimization}         &  &  &  & 
+        \textbf{Pre-filtering L1-minimization}         &  &  &  &
     \end{tabular}
   \end{center}
   \caption{Singlecoil knee reconstruction metrics.}\label{tab:singlecoilknee-reconstruction}

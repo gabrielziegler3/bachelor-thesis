@@ -44,6 +44,7 @@
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{amsmath}
+\usepackage{mathrsfs}
 % \usepackage[toc,page]{appendix}
 
 \newcommand{\indice}{
