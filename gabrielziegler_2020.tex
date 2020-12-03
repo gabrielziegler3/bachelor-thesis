@@ -54,6 +54,16 @@
     linkcolor=black,
     urlcolor=blue
 }
+
+% TODO ver numeros romanos
+% introducao OK
+% especificar titulos (contexto, scientific problem, theory foundation)
+% renomear methodology para
+% metodologia: fazer introducao para metodos propostos
+% L1 preliminary tests
+% prefiltered measurements instead of signal
+% Conclusion: next steps and schedule fazer tabela com cronograma de atividades
+%
 %---}}}
 
 % |- Formato de referências (use apenas uma das 2 linhas seguintes; comente a outra) -|-{{{
@@ -141,6 +151,8 @@
 \hyphenation{development results Commissioning possibility Philadelphia Devic Calculations Calculation}
 %---}}}
 
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
 % |--- Texto principal ---|----------------------{{{
 \begin{document}
 
@@ -312,7 +324,7 @@ This will reduce the number of samples needed, making the \ac{MRI} exams faster 
 
 This thesis' goal is to develop an \ac{MR} prior information system retriever based on \ac{GAN} architecture to analyse if the quality of the prior information fed to \ac{CS} algorithms can be improved, hence improving quality in reconstructed \ac{MRI} and decreased necessity for larger sampling.
 
-\subsection{Specific Objective}
+\subsection{Specific Objectives}
 
 In order to achieve the general objective described above, we have set the following specific goals:
 
@@ -378,10 +390,11 @@ In MRI, when \textit{k-space} is undersampled, the Nyquist criterion is violated
 
 The idea was inspired from questioning the necessity of extracting large portions of samples when much of these samples are discarded, exposing the inefficiency of trying to gather all signal.
 
-%TODO fix quotation
-\blockquote{Why go to so much effort to acquire all the data when most of what we get will be thrown away?
+\begin{changemargin}{2cm}{2cm}
+``\emph{Why go to so much effort to acquire all the data when most of what we get will be thrown away?
 Can we not just directly measure the part that will not
-end up being thrown away?~\cite{donoho_compressed_2006}}
+end up being thrown away?''~\cite{donoho_compressed_2006}}
+\end{changemargin}
 
 \ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
 
@@ -758,7 +771,7 @@ for very undersampled signals (close to 10\% of the data) such as the ones used 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{snr_lsize_experiment}
+    \includegraphics[width=\textwidth]{snr_lsize_experiment}
     \caption{\ac{SNR} x \textit{L} size for direct and indirect L1-minimization for 200 random 1d signals}\label{visina8}
 \end{figure}
 
