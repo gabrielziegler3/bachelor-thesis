@@ -346,14 +346,14 @@
 
           \vfill
                                                 }
-         %\ifthenelse{\equal{\@coorientador}{}}{}{
-         % \noindent\underline{\hspace{100mm}}
+         % \ifthenelse{\equal{\@coorientador}{}}{}{
+          % \noindent\underline{\hspace{100mm}}
 
-         % \noindent{\bf\@coorientador{}}
+          % \noindent{\bf\@coorientador{}}
 
-         % \noindent{\bf(Co-orientador)}
+          % \noindent{\bf(Co-advisor)}
 
-          %\vfill
+         \vfill
                                                % }
 
          \ifthenelse{\equal{\@membrobancainterno}{}}{}{
@@ -389,7 +389,7 @@
 
 \vfill
 
-  \noindent\maiusc{Ficha Catalográfica}
+  \noindent\maiusc{Catalogue Sheet}
 \end{bf}
 \\[-12pt]
 
@@ -406,7 +406,7 @@
 \begin{tabular}{lll}
 1. \@areaum{} & \hspace*{10mm}& 2. \@areadois{}\\
 3. \@areatres{} & & 4. \@areaquatro{}\\
-I. FGA UnB/UnB. & & II. Título (série)
+I. FGA UnB/UnB. & & 
 \end{tabular}\\
 
 \hline
@@ -426,8 +426,7 @@ I. FGA UnB/UnB. & & II. Título (série)
 
 \vfill
 
-%TODO
-\noindent{\bf\maiusc{Cessão de Direitos}}
+\noindent{\bf\maiusc{Assignment of rights}}
 
 \vspace{00pt}
 
@@ -435,7 +434,7 @@ I. FGA UnB/UnB. & & II. Título (série)
 \noindent\maiusc{Title: } \@titulofichadois\\[03pt]
 \noindent\maiusc{Degree: } Bachelor of Engineering in Software Engineering\\[03pt]
 \noindent\maiusc{Year: } \@ano\\[12pt]
-\noindent É concedida à Universidade de Brasília permissão para reproduzir cópias desta monografia de conclusão de curso e para emprestar ou vender tais cópias somente para propósitos acadêmicos e científicos. O autor reserva outros direitos de publicação e nenhuma parte desta monografia pode ser reproduzida sem a autorização por escrito do autor.\\[36pt]
+\noindent The University of Brasilia is granted permission to reproduce copies of this thesis at the end of the course and to lend or sell such copies for academic and scientific purposes only. The author reserves other publishing rights and no part of this thesis may be reproduced without the written permission of the author.\\[36pt]
 
 \vfill
 

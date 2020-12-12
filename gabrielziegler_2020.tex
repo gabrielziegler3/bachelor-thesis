@@ -2,29 +2,29 @@
 
 % |--- Títulos, autor, banca ---|----------------------{{{
 \title{} % título na forma principal
-\tituloficha{Título para a ficha,\\\,[Distrito Federal], 2018.} % título na forma a constar da ficha
+\tituloficha{GAN Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2020.} % título na forma a constar da ficha
                                                   % catalográfica (incluir mudanças de
                                                   % linha usando \\ quando necessário)
 \titulocapaA{Generative Adversarial Network Prior Information}
 \titulocapaB{for Improved Compressed Sensing}
 \titulocapaC{Magnetic Resonance Image Reconstruction}
 
-\titulofichadois{Título para a ficha (parte 2)}
+\titulofichadois{Generative Adversarial Network Prior Information for Improved Compressed Sensing Magnetic Resonance Imagery Reconstruction}
 \author{Gabriel Gomes Ziegler}
 \nomeinvertido{Ziegler, Gabriel}
 \orientador{~Cristiano Jacques Miosso, PhD}
-\coorientador{~Davi Benevides Gusmão, MSc}
+%\coorientador{~Davi Benevides Gusmão, MSc}
 \data{December 2020}
 \ano{2020}
-\areaum{Deep Learning} % Preencher com termos escolhidos para identificar a área
+\areaum{Deep Learning}
 \areadois{Magnetic Resonance Image Reconstruction}
 \areatres{\emph{Compressive Sensing}}
 \areaquatro{Generative Adversarial Network}
 \endereco{gabrielziegler3@gmail.com}
-\cep{CEP xxxxx-xxx}
+\cep{CEP 72.444\-240}
 
-\membrobancainterno{Prof. José da Silva, PhD}
-\membrobancaexterno{Prof. João da Silva, PhD}
+\membrobancainterno{Prof. Adson Rocha, PhD}
+\membrobancaexterno{Davi Gusmão, MSc}
 %---}}}
 
 % |--- Bibliotecas utilizadas ---|----------------------{{{
@@ -55,7 +55,7 @@
     urlcolor=blue
 }
 
-% TODO ver numeros romanos
+% TODO
 % introducao OK
 % especificar titulos (contexto, scientific problem, theory foundation)
 % renomear methodology para
@@ -208,8 +208,22 @@
 % |--- Resumo e Abstract ---|----------------------{{{
 \newgeometry{bottom=0.8in, top=0.9in, left=0.9in, right=0.9in}
 
-%\noindent{\bfseries{\maiusc{\large Resumo}} }
-%
+\noindent{\bfseries{\maiusc{\large Resumo}} }
+
+A obtenção de imagens de ressonância magnética de alta qualidade é uma tarefa árdua pelo funcionamento das máquinas e pela complexidade dos tecidos analisados, tornando praticamente impossível a obtenção de todas as medidas do objeto de estudo em um exame de breve execução.
+Para lidar com este problema, diversas técnicas foram aplicadas para gerar imagens de alta qualidade com quantidades menores de medidas, entre elas, \ac{CS} tem sido a técnica com melhores resultados e mais aprofundada no contexto de reconstrução de imagens de ressonância magnética nas últimas duas décadas. 
+\ac{CS} é capaz de produzir imagens de altíssima qualidade com proporções muito menores de amostragens, como 10\%,15\% do total de medidas disponíveis utilizando técnicas de \textit{undersampling} por sua boa capacidade de lidar com sinais esparsos. 
+
+O desempenho do \ac{CS} evoluiu com as contribuições de uso de filtros esparsificantes e com o uso de informação a priori.
+Recentemente, o estado-da-arte veio sendo composto pelo uso de redes neurais profundas, muitas vezes em conjunto com o uso de \ac{CS} e outras de maneira singular.
+Desta maneira, esta monografia tem como intuito trazer o uso de \ac{CS} com pré-filtragem e aplicar o uso de redes adversárias generativas para a extração de informação a priori.
+
+A metodologia é composta pela utilização de formas variadas de \ac{CS} para a reconstrução de imagens comparando métodos, pré-processamentos e parâmetros, a fim de explicitar os diferentes resultados atingíveis com \ac{CS}.
+Experimentos com redes adversárias generativas também foram conduzidos com o intuito de demonstrar a capacidade das mesmas para geração de sinais com alta fidelidade.
+
+Os resultados obtidos demonstram que o uso de pré-filtragem é preferível para a reconstrução de imagens, melhorando as métricas de relação sinal-ruído (SNR), relação sinal-ruído de pico (PSNR) e similaridade estrutural (SSIM).
+Os resultados das GANs mostram que estas são capazes de gerar sinais com alto teor de realismo quando comparadas as imagens criadas com as imagens de treino. 
+Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de forma manual e posteriormente usando GANs, comparando todas as técnicas e transformações aplicadas.
 %\vspace{12pt}
 %A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
 \acresetall % Manter essa linha!
@@ -276,6 +290,8 @@
 \clearpage
 %---}}}
 
+\pagenumbering{arabic}
+
 % |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
@@ -328,13 +344,12 @@ This thesis' goal is to develop an \ac{MR} prior information system retriever ba
 
 In order to achieve the general objective described above, we have set the following specific goals:
 
-% TODO check
 \begin{itemize}
-    \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm and apply to \textit{k-space} measurements.
-    \item Evaluate \ac{CS} \ac{MRI} reconstructions with real image data.
-    \item Implement a \ac{GAN} for regular image generation with a known \ac{CV} dataset.
-    \item Implement a \ac{GAN} architecture for prior information retrieval and train it against \textit{k-space} measurements.
-    \item Evaluate the use of \ac{GAN} architecture for prior information retrieval against state-of-art prior information techniques.
+    \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm using undersampled \textit{k-space} measurements.
+    \item Evaluate \ac{CS} \ac{MRI} reconstructions against fully sampled \ac{MRI}.
+    \item Implement a \ac{GAN} for ordinary image generation with the well-known MNIST dataset.
+    \item Implement a \ac{GAN} architecture for optimized prior information retrieval.
+    \item Evaluate the use of \ac{GAN} architecture for prior information retrieval against state-of-art \ac{MRI} reconstruction techniques.
 \end{itemize}
 
 %---}}}
@@ -641,8 +656,8 @@ The direct method often produces a higher quality reconstruction but is very mem
 
 To visualize this trade-off, I have created 200 random 1-D arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
 
-The $L$ variable denotes the %TODO
-The figure below displays the first 10 signals created.
+$L$ is the number of linear measurements extracted from the 1-D signal.
+The figure below displays the first 10 signals created in the standard normal distribution range.
 
 \begin{figure}[H]
     \centering
@@ -650,9 +665,12 @@ The figure below displays the first 10 signals created.
     \caption{First 10 random 1-D signals}\label{visina8}
 \end{figure}
 
-\section{Phantom Compressed Sensing Reconstruction with Pre Filtered Signal}
+\section{2D Compressed Sensing Reconstruction with Pre Filtered Signal}
 
-To experiment the sparsifying method of applying pre-filtering to the input measurements in the k-space, I have conducted an experiment with the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} to evaluate how the usage of sparsifying filters impact the total-variation minimization as it is known to improve the reconstruction in several scenarios~\cite{miosso_phd, miosso_prefiltering_2009}.
+In order to experiment the sparsifying method of applying pre-filtering processing to the input measurements in the k-space for 2D images, I have conducted experiments some different images.
+A simple 2D image of the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} for baseline is used for the first experiment and two \ac{MR} (sagittal head slice and a singlecoil knee~\cite{knoll_fastmri_2020, zbontar_fastmri_2019}) images that are considerably more complex than the phantom for the reconstruction task.
+
+Within these images, $SNR$ improvement gained by applying sparsifying pre-filtering~\cite{miosso_phd, miosso_prefiltering_2009} can be best visualized and confirmed for these different scenarios.
 
 \subsection{Subsampling}
 
@@ -869,41 +887,41 @@ The metrics evaluated were not affected as much as they were for the phantom exp
   \label{tab:sagittal-reconstruction}
 \end{table}
 
-\subsection{Knee Singlecoil Reconstruction}
-
-\begin{figure}[H]
-  \centering
-  \begin{minipage}[t]{0.22\textwidth}
-    \includegraphics[width=\textwidth]{singlecoil_knee_fullysampled.png}
-    \caption{Singlecoil knee reference image}
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}
-    \includegraphics[width=\textwidth]{recon_zero_filled_knee.png}
-    \caption{Knee zero-filled reconstruction}
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}
-    \includegraphics[width=\textwidth]{recon_singlecoil_knee.png}
-    \caption{Knee L1-minimization reconstruction}
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}
-    \includegraphics[width=\textwidth]{recon_prefiltering_singlecoil_knee.png}
-    \caption{Knee L1-minimization with pre-filtering reconstruction}
-  \end{minipage}
-\end{figure}
-
-
-\begin{table}[h!]
-  \begin{center}
-    \begin{tabular}{l|llll}
-                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
-      \hline
-        \textbf{Zero-fill}                             &  &  &  &  \\
-        \textbf{L1-minimization}                       &  &  &  &   \\
-        \textbf{Pre-filtering L1-minimization}         &  &  &  &
-    \end{tabular}
-  \end{center}
-  \caption{Singlecoil knee reconstruction metrics.}\label{tab:singlecoilknee-reconstruction}
-\end{table}
+% \subsection{Knee Singlecoil Reconstruction}
+% 
+% \begin{figure}[H]
+%   \centering
+%   \begin{minipage}[t]{0.22\textwidth}
+%     \includegraphics[width=\textwidth]{singlecoil_knee_fullysampled.png}
+%     \caption{Singlecoil knee reference image}
+%   \end{minipage}
+%   \begin{minipage}[t]{0.22\textwidth}
+%     \includegraphics[width=\textwidth]{recon_zero_filled_knee.png}
+%     \caption{Knee zero-filled reconstruction}
+%   \end{minipage}
+%   \begin{minipage}[t]{0.22\textwidth}
+%     \includegraphics[width=\textwidth]{recon_singlecoil_knee.png}
+%     \caption{Knee L1-minimization reconstruction}
+%   \end{minipage}
+%   \begin{minipage}[t]{0.22\textwidth}
+%     \includegraphics[width=\textwidth]{recon_prefiltering_singlecoil_knee.png}
+%     \caption{Knee L1-minimization with pre-filtering reconstruction}
+%   \end{minipage}
+% \end{figure}
+% 
+% 
+% \begin{table}[h!]
+%   \begin{center}
+%     \begin{tabular}{l|llll}
+%                                         & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+%       \hline
+%         \textbf{Zero-fill}                             &  &  &  &  \\
+%         \textbf{L1-minimization}                       &  &  &  &   \\
+%         \textbf{Pre-filtering L1-minimization}         &  &  &  &
+%     \end{tabular}
+%   \end{center}
+%   \caption{Singlecoil knee reconstruction metrics.}\label{tab:singlecoilknee-reconstruction}
+% \end{table}
 
 \section{Preliminary Tests with Generative Adversarial Networks}
 
@@ -947,6 +965,18 @@ The generated images sometimes have a bit more blur to them, but certainly with 
 
 % |--- Conclusion ---|----------------------{{{
 \chapter{Conclusion}
+
+The next steps in this thesis involve using prior-information for best \ac{CS} results and training a \ac{GAN} for prior information leverage aiming for better resolution reconstructions and \ac{MRI} video.
+
+The cronogram has been split in four major activities: prior information with \ac{CS}, \ac{GAN} architecture design and implementation, experiment \ac{GAN} for prior information generation and evaluate \ac{GAN} results for image and video reconstrutions.
+These tasks have been organized within the expected for each task to be well done and documented.
+There is not yet an official date for the conclusion of this thesis, but the tasks have more than enough time to be well developed and evaluated.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{cronogram}
+    \caption{Activies cronogram}
+\end{figure}
 %---}}}
 
 % |--- References ---|----------------------{{{
