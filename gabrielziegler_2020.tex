@@ -2,11 +2,11 @@
 
 % |--- Títulos, autor, banca ---|----------------------{{{
 \title{} % título na forma principal
-\tituloficha{GAN Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2020.} % título na forma a constar da ficha
+\tituloficha{Gaussian Probabilitistic Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2020.} % título na forma a constar da ficha
                                                   % catalográfica (incluir mudanças de
                                                   % linha usando \\ quando necessário)
-\titulocapaA{Generative Adversarial Network Prior Information}
-\titulocapaB{for Improved Compressed Sensing}
+\titulocapaA{Compressed Sensing with Gaussian Probabilitistic}
+\titulocapaB{Prior Information For}
 \titulocapaC{Magnetic Resonance Image Reconstruction}
 
 \titulofichadois{Generative Adversarial Network Prior Information for Improved Compressed Sensing Magnetic Resonance Imagery Reconstruction}
@@ -211,8 +211,8 @@
 \noindent{\bfseries{\maiusc{\large Resumo}} }
 
 A obtenção de imagens de ressonância magnética de alta qualidade é uma tarefa árdua pelo funcionamento das máquinas e pela complexidade dos tecidos analisados, tornando praticamente impossível a obtenção de todas as medidas do objeto de estudo em um exame de breve execução.
-Para lidar com este problema, diversas técnicas foram aplicadas para gerar imagens de alta qualidade com quantidades menores de medidas, entre elas, \ac{CS} tem sido a técnica com melhores resultados e mais aprofundada no contexto de reconstrução de imagens de ressonância magnética nas últimas duas décadas. 
-\ac{CS} é capaz de produzir imagens de altíssima qualidade com proporções muito menores de amostragens, como 10\%,15\% do total de medidas disponíveis utilizando técnicas de \textit{undersampling} por sua boa capacidade de lidar com sinais esparsos. 
+Para lidar com este problema, diversas técnicas foram aplicadas para gerar imagens de alta qualidade com quantidades menores de medidas, entre elas, \ac{CS} tem sido a técnica com melhores resultados e mais aprofundada no contexto de reconstrução de imagens de ressonância magnética nas últimas duas décadas.
+\ac{CS} é capaz de produzir imagens de altíssima qualidade com proporções muito menores de amostragens, como 10\%,15\% do total de medidas disponíveis utilizando técnicas de \textit{undersampling} por sua boa capacidade de lidar com sinais esparsos.
 
 O desempenho do \ac{CS} evoluiu com as contribuições de uso de filtros esparsificantes e com o uso de informação a priori.
 Recentemente, o estado-da-arte veio sendo composto pelo uso de redes neurais profundas, muitas vezes em conjunto com o uso de \ac{CS} e outras de maneira singular.
@@ -222,7 +222,7 @@ A metodologia é composta pela utilização de formas variadas de \ac{CS} para a re
 Experimentos com redes adversárias generativas também foram conduzidos com o intuito de demonstrar a capacidade das mesmas para geração de sinais com alta fidelidade.
 
 Os resultados obtidos demonstram que o uso de pré-filtragem é preferível para a reconstrução de imagens, melhorando as métricas de relação sinal-ruído (SNR), relação sinal-ruído de pico (PSNR) e similaridade estrutural (SSIM).
-Os resultados das GANs mostram que estas são capazes de gerar sinais com alto teor de realismo quando comparadas as imagens criadas com as imagens de treino. 
+Os resultados das GANs mostram que estas são capazes de gerar sinais com alto teor de realismo quando comparadas as imagens criadas com as imagens de treino.
 Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de forma manual e posteriormente usando GANs, comparando todas as técnicas e transformações aplicadas.
 %\vspace{12pt}
 %A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
@@ -263,6 +263,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 \acrodef{DCGAN}[DCGAN]{Deep Convolutional GAN}
 \acrodef{ReLU}[ReLU]{Rectified linear units}
 \acrodef{SGD}[SGD]{Stochastic Gradient Descent}
+\acrodef{IRLS}[IRLS]{Iteratively Reweighted Least Squares}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -285,6 +286,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
     \acro{DCGAN}{Deep Convolutional GAN}
     \acro{ReLU}{Rectified linear units}
     \acro{SGD}{Stochastic Gradient Descent}
+    \acro{IRLS}{iteratively reweighted least squares}
 \end{acronym}
 
 \clearpage
@@ -418,6 +420,27 @@ end up being thrown away?''~\cite{donoho_compressed_2006}}
 \end{changemargin}
 
 \ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
+
+\section{Prior Information}
+
+The application of prior information in \ac{MRI} reconstruction was first introduced with the general idea of exploiting the common information shared throughout sequential frames acquired from the \ac{MR} scan \cite{miosso_phd, miosso_compressive_2009}.
+This would not only improve the reconstruction of \ac{MR} images, but would also make dynamic scans more feasible as large portions of the image could be used as prior information for the reconstruction of future and previous frames.
+The \ac{MRI} exam is known for requiring the patient to stand still throught the exam so that there are not grand differences between different frames.
+
+A cardiac \ac{MRI} for instance, is naturally an occasion that will be impossible for the patient to be still all the exam, as the heart will keep beating normally; hence increasing the reconstruction difficulty.
+Although a cardiac exam has this innate motion characteristic, it also contains crucial portions of \textit{support regions} shared between most of the frames.
+These support regions are essentially structures that will hold -- practically -- the same position therefore, these are elements in the image that share the same information and prior information application exploits this nature by slightly reducing the number of variables in our underdetermined system in the \ac{CS} algorithm.
+
+\subsection{Prior Information Retrieval}
+
+To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method \cite{miosso_compressive_2009}.
+In practice, this operation tells the $l_p$-minimization that those are values with a higher magnitude and also, likely a support position.
+These procedures are extensivelly explored in the experiments documented in the experiments chapter.
+
+Prior information was then introduced as a deterministic approach -- whether the pixel was a support position or it was not.
+This approach, of course, raises a few questions: what if the subject moved slightly and the support position has been moderately altered? What if the next frame contain support positions that are getting narrower or wider? E.g. Brain \ac{MRI}s, where the cranial structure's diameter is increased or decreased frame-by-frame.
+Prior information theory responds these question with a high tolerance impact in the reconstruction.
+It has been documented that using the same amount of mistaken support positions and correct ones will improve \ac{SNR} in the next frame's reconstruction. \cite{} % TODO
 
 
 \section{Artificial Neural Networks}
@@ -888,7 +911,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 \end{table}
 
 % \subsection{Knee Singlecoil Reconstruction}
-% 
+%
 % \begin{figure}[H]
 %   \centering
 %   \begin{minipage}[t]{0.22\textwidth}
@@ -908,8 +931,8 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 %     \caption{Knee L1-minimization with pre-filtering reconstruction}
 %   \end{minipage}
 % \end{figure}
-% 
-% 
+%
+%
 % \begin{table}[h!]
 %   \begin{center}
 %     \begin{tabular}{l|llll}
