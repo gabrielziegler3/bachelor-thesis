@@ -442,6 +442,30 @@ This approach, of course, raises a few questions: what if the subject moved slig
 Prior information theory responds these question with a high tolerance impact in the reconstruction.
 It has been documented that using the same amount of mistaken support positions and correct ones will improve \ac{SNR} in the next frame's reconstruction. \cite{} % TODO
 
+Alternatively, a non-deterministic approach for prior information generation was proposed to achieve a more robust prior information.
+This technique uses a Gaussian -- or normal -- distribution with fixed covariance matrix value for each pixel of the support positions in the space domain instead of a deterministic 0 or 1 value.
+Using probabilistic support positions improves reconstruction metrics as shown in~\cite{} %TODO.
+
+Additionaly, we propose a novel non-deterministic approach by proposing different covariance matrices for different regions in the image.
+When moving from a frame to another, portions of the image are dislocated in different degrees, that is, some regions will be more likely to contain support positions than others.
+By taking this into account, we propose four levels of variance by identifying portions of \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
+
+Our experiments were conducted with manually segmented images in the according levels. The regions labeled as \textit{high} movement receive a covariance matrix with higher variance; thus assigning this region as a low-confidence support position, whilst the regions labeled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with a low variance, representing it as a highly likely support position prior information.
+
+% TODO Fix alignment
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{segmentation.png}
+    \caption{Manual segmentation. Pink, red and yellow regions with most perceived movement respectively.}
+  \end{minipage}
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{gaussian_heatmap.png}
+    \caption{The corresponding prior information matrix with adjusted covariance matrices.}
+  \end{minipage}
+\end{figure}
+
+Evidently, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
 
 \section{Artificial Neural Networks}
 
