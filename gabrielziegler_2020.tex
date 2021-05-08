@@ -424,10 +424,10 @@ end up being thrown away?''~\cite{donoho_compressed_2006}}
 \section{Prior Information}
 
 The application of prior information in \ac{MRI} reconstruction was first introduced with the general idea of exploiting the common information shared throughout sequential frames acquired from the \ac{MR} scan \cite{miosso_phd, miosso_compressive_2009}.
-This would not only improve the reconstruction of \ac{MR} images, but would also make dynamic scans more feasible as large portions of the image could be used as prior information for the reconstruction of future and previous frames.
-The \ac{MRI} exam is known for requiring the patient to stand still throught the exam so that there are not grand differences between different frames.
+This would not only improve the reconstruction of \ac{MR} images but would also make dynamic scans more feasible as large portions of the image could be used as prior information for the reconstruction of future and previous frames.
+The \ac{MRI} exam is known for requiring the patient to stand still throughout the exam so that there are not grand differences between different frames.
 
-A cardiac \ac{MRI} for instance, is naturally an occasion that will be impossible for the patient to be still all the exam, as the heart will keep beating normally; hence increasing the reconstruction difficulty.
+A cardiac \ac{MRI} for instance is naturally an occasion that will be impossible for the patient to be still all the exam, as the heart will keep beating normally; hence increasing the reconstruction difficulty.
 Although a cardiac exam has this innate motion characteristic, it also contains crucial portions of \textit{support regions} shared between most of the frames.
 These support regions are essentially structures that will hold -- practically -- the same position therefore, these are elements in the image that share the same information and prior information application exploits this nature by slightly reducing the number of variables in our underdetermined system in the \ac{CS} algorithm.
 
@@ -435,22 +435,22 @@ These support regions are essentially structures that will hold -- practically -
 
 To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method \cite{miosso_compressive_2009}.
 In practice, this operation tells the $l_p$-minimization that those are values with a higher magnitude and also, likely a support position.
-These procedures are extensivelly explored in the experiments documented in the experiments chapter.
+These procedures are extensively explored in the experiments documented in the experiments chapter.
 
 Prior information was then introduced as a deterministic approach -- whether the pixel was a support position or it was not.
-This approach, of course, raises a few questions: what if the subject moved slightly and the support position has been moderately altered? What if the next frame contain support positions that are getting narrower or wider? E.g. Brain \ac{MRI}s, where the cranial structure's diameter is increased or decreased frame-by-frame.
-Prior information theory responds these question with a high tolerance impact in the reconstruction.
+This approach, of course, raises a few questions: what if the subject moved slightly and the support position has been moderately altered? What if the next frame contains support positions that are getting narrower or wider? E.g. Brain \ac{MRI}s, where the cranial structure's diameter is increased or decreased frame-by-frame.
+Prior information theory responds to these question with a high tolerance impact in the reconstruction.
 It has been documented that using the same amount of mistaken support positions and correct ones will improve \ac{SNR} in the next frame's reconstruction. \cite{} % TODO
 
-Alternatively, a non-deterministic approach for prior information generation was proposed to achieve a more robust prior information.
+Alternatively, a non-deterministic approach for prior information generation was proposed to achieve more robustness based on more accurate information.
 This technique uses a Gaussian -- or normal -- distribution with fixed covariance matrix value for each pixel of the support positions in the space domain instead of a deterministic 0 or 1 value.
 Using probabilistic support positions improves reconstruction metrics as shown in~\cite{} %TODO.
 
-\subsection{Context Dependent Probabilitistic Prior Information}
+\subsection{Context-Dependent Probabilitistic Prior Information}
 
 We propose a novel approach to the non-deterministic prior information extraction by using knowledge about regions in the image that are more dislocated than others to apply different variance in the normal distributions procedure.
 When moving from a frame to another, portions of the image are dislocated in different degrees, that is, some regions will be more likely to contain support positions than others.
-By taking this into account, we segmented the image in four levels of movement -- \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
+By taking this into account, we segmented the image into four levels of movement -- \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 
 % TODO change to higher resolution image
 \begin{figure}[H]
@@ -461,14 +461,14 @@ By taking this into account, we segmented the image in four levels of movement -
   \end{minipage}
   \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{segmentation_mask.pdf}
-    \caption{Manual segmentation: the lighter the color, the more pixels are dislocated in the region throughout frames.}
+    \caption{Manual segmentation: the lighter the colour, the more pixels are dislocated in the region throughout frames.}
   \end{minipage}
 \end{figure}
 
 Identifying these different regions gives us the possibility to apply different weights for each region in the image.
-The regions labeled as \textit{high} movement receive a covariance matrix with higher variance; thus assigning this region as a low-confidence support position, whilst the regions labeled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with a low variance, representing it as a support position prior information.
-A \textit{weights} matrix is generated by computing a element-wise Gaussian distribution with the according covariance matrix on the segmented mask and then adding these distributions each iteration, forming an accumulation on regions on the center of several support positions.
-The regions labeled \textit{high} are specifically multiplied by $-1$ so that the confidence is represented with negative magnitudes.
+The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with a low variance, representing it as a support position prior information.
+A \textit{weights} matrix is generated by computing an element-wise Gaussian distribution with the according covariance matrix on the segmented mask and then adding these distributions each iteration, forming accumulations onthe centre of several support positions.
+The regions labelled \textit{high} are specifically multiplied by $-1$ so that the confidence is represented with negative magnitudes.
 After computing the \textit{weights} matrix, we expect to see distinguishably different magnitude levels, representing different confidences.
 
 \begin{figure}[H]
@@ -492,7 +492,7 @@ As observed in the previous figures, the generated \textit{weights} matrix conta
 \end{equation}
 
 Where $\omega$ is our re-weighted \textit{weights} matrix, $x$ is the \textit{weights} matrix, $\tau$ is the factor by which the values are multiplied and $\beta$ is the \textit{bias} term that increments all elements in the re-weighted matrix.
-The bias term defines $min x_i$ for exery $x_i$ in the regions labeled as \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
+The bias term defines $min x_i$ for every $x_i$ in the regions labelled as \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 
 At this point, the \textit{weights} matrix is computed and re-weighted, so now this matrix is multiplied element-wise with each of the $\Phi$ masks created in the same fashion as the deterministic prior information, generating a \textit{weighted phi} mask $\kappa$.
 
@@ -501,15 +501,15 @@ At this point, the \textit{weights} matrix is computed and re-weighted, so now t
     \kappa = \omega \circ \Phi
 \end{equation}
 
-After this operation, our $\Phi$ positions no longer holds deterministic values, but rather dispose of different levels of importance due to the \textit{weights} values.
+After this operation, our $\Phi$ positions no longer holds deterministic values, but rather dispose of different levels of importance due to the \textit{weights}' values.
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.45\textwidth}
+  \begin{minipage}[b]{0.475\textwidth}
     \includegraphics[width=\textwidth]{2d_norm_weighted_phi}
     \caption{2D \textit{weights} matrix visualization.}
   \end{minipage}
-  \begin{minipage}[b]{0.45\textwidth}
+  \begin{minipage}[b]{0.475\textwidth}
     \includegraphics[width=\textwidth]{weighted_phi_surf.pdf}
     \caption{3D \textit{weights} matrix visualization.}
   \end{minipage}
@@ -518,7 +518,7 @@ After this operation, our $\Phi$ positions no longer holds deterministic values,
 \subsection{\textit{L1}-minimization Adaptation}
 
 % TODO verificar variaveis
-After calculating $\kappa$, a minor modification is necessary in the \textit{L1}-minimization algorithm.
+After calculating $\kappa$, a minor modification is necessary for the \textit{L1}-minimization algorithm.
 In essence, we perform an element-wise multiplication between the input and $\kappa$ every time before an iteration so that the prior information is applied in the computation.
 
 % TODO checar variaveis q inventei
@@ -543,7 +543,7 @@ After some fine-tuning experiments in the covariance matrices, biases and $\tau$
 Naturally, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
 
 % TODO
-Our experiments were conducted with manually segmented images in the according levels. The regions labeled as \textit{high} movement receive a covariance matrix with higher variance; thus assigning this region as a low-confidence support position, whilst the regions labeled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with a low variance, representing it as a highly likely support position prior information.
+Our experiments were conducted with manually segmented images in the according levels. The regions labelled as \textit{high} movement receive a covariance matrix with higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with a low variance, representing it as a highly likely support position prior information.
 
 
 \section{Artificial Neural Networks}
