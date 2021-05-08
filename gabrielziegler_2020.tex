@@ -2,7 +2,7 @@
 
 % |--- Títulos, autor, banca ---|----------------------{{{
 \title{} % título na forma principal
-\tituloficha{Gaussian Probabilitistic Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2020.} % título na forma a constar da ficha
+\tituloficha{Gaussian Probabilitistic Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2021.} % título na forma a constar da ficha
                                                   % catalográfica (incluir mudanças de
                                                   % linha usando \\ quando necessário)
 \titulocapaA{Compressed Sensing with Gaussian Probabilitistic}
@@ -10,21 +10,21 @@
 \titulocapaC{Magnetic Resonance Image Reconstruction}
 
 \titulofichadois{Generative Adversarial Network Prior Information for Improved Compressed Sensing Magnetic Resonance Imagery Reconstruction}
-\author{Gabriel Gomes Ziegler}
+\author{~Gabriel Gomes Ziegler}
 \nomeinvertido{Ziegler, Gabriel}
 \orientador{~Cristiano Jacques Miosso, PhD}
-%\coorientador{~Davi Benevides Gusmão, MSc}
-\data{December 2020}
-\ano{2020}
-\areaum{Deep Learning}
+\coorientador{~Davi Benevides Gusmão, MSc}
+\data{May 2021}
+\ano{2021}
+\areaum{Compressed Sensing}
 \areadois{Magnetic Resonance Image Reconstruction}
-\areatres{\emph{Compressive Sensing}}
-\areaquatro{Generative Adversarial Network}
+\areatres{\emph{Prior Information}}
+\areaquatro{Non deterministic}
 \endereco{gabrielziegler3@gmail.com}
 \cep{CEP 72.444\-240}
 
 \membrobancainterno{Prof. Adson Rocha, PhD}
-\membrobancaexterno{Davi Gusmão, MSc}
+% \membrobancaexterno{Davi Gusmão, MSc}
 %---}}}
 
 % |--- Bibliotecas utilizadas ---|----------------------{{{
@@ -464,6 +464,28 @@ Our experiments were conducted with manually segmented images in the according l
     \caption{The corresponding prior information matrix with adjusted covariance matrices.}
   \end{minipage}
 \end{figure}
+
+
+\begin{figure}[H]
+    \includegraphics[width=0.5\textwidth]{2d_weights.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.5\textwidth]{weight_surf.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.5\textwidth]{weighted_phi_surf.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.5\textwidth]{2d_norm_weighted_phi.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.5\textwidth]{2d_weighted_phi.pdf}
+\end{figure}
+   
 
 Evidently, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
 
