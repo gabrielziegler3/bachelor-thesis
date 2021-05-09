@@ -512,14 +512,14 @@ Conclusions: The challenge led to new developments in machine learning for image
 	file = {Lauterbur - 1973 - Image Formation by Induced Local Interactions Exa.pdf:/home/gabrielziegler/Zotero/storage/5G7XDV7W/Lauterbur - 1973 - Image Formation by Induced Local Interactions Exa.pdf:application/pdf}
 }
 
-@article{knoll_fastmri_2020,
-	title = {{fastMRI}: {A} {Publicly} {Available} {Raw} k-{Space} and {DICOM} {Dataset} of {Knee} {Images} for {Accelerated} {MR} {Image} {Reconstruction} {Using} {Machine} {Learning}.},
-	volume = {2 1},
-	journal = {Radiology. Artificial intelligence},
-	author = {Knoll, Florian and Zbontar, J. and Sriram, Anuroop and Muckley, M. and Bruno, M. and Defazio, Aaron and Parente, Marc and Geras, Krzysztof J. and Katsnelson, Joe and Chandarana, H. and Zhang, Zi-zhao and Drozdzalv, Michal and Romero, A. and Rabbat, M. and Vincent, Pascal and Pinkerton, James T. and Wang, D. and Yakubova, N. and Owens, E. and Zitnick, C. L. and Recht, M. and Sodickson, D. and Lui, Y.},
-	year = {2020},
-	pages = {e190007}
-}
+    # @article{knoll_fastmri_2020,
+    # 	title = {{fastMRI}: {A} {Publicly} {Available} {Raw} k-{Space} and {DICOM} {Dataset} of {Knee} {Images} for {Accelerated} {MR} {Image} {Reconstruction} {Using} {Machine} {Learning}.},
+    # 	volume = {2 1},
+    # 	journal = {Radiology. Artificial intelligence},
+    # 	author = {Knoll, Florian and Zbontar, J. and Sriram, Anuroop and Muckley, M. and Bruno, M. and Defazio, Aaron and Parente, Marc and Geras, Krzysztof J. and Katsnelson, Joe and Chandarana, H. and Zhang, Zi-zhao and Drozdzalv, Michal and Romero, A. and Rabbat, M. and Vincent, Pascal and Pinkerton, James T. and Wang, D. and Yakubova, N. and Owens, E. and Zitnick, C. L. and Recht, M. and Sodickson, D. and Lui, Y.},
+    # 	year = {2020},
+    # 	pages = {e190007}
+    # }
 
 @incollection{salimans_improved_2016,
 	title = {Improved {Techniques} for {Training} {GANs}},
@@ -785,4 +785,245 @@ Conclusions: The challenge led to new developments in machine learning for image
 	note = {OCLC: ocn237325326},
 	keywords = {Adaptive filters, Neural networks (Computer science)},
 	file = {Haykin and Haykin - 2009 - Neural networks and learning machines.pdf:/home/gabrielziegler/Zotero/storage/TQFSCVMZ/Haykin and Haykin - 2009 - Neural networks and learning machines.pdf:application/pdf}
+}
+
+@article{donoho_for_2004,
+	title = {For {Most} {Large} {Underdetermined} {Systems} of {Linear} {Equations} the {Minimal} ℓ1-norm {Solution} is also the {Sparsest} {Solution}},
+	volume = {59},
+	abstract = {We consider linear equations y = Φα where y is a given vector in R n, Φ is a given n by m matrix with n {\textless} m ≤ An, and we wish to solve for α ∈ R m. We suppose that the columns of Φ are normalized to unit ℓ 2 norm 1 and we place uniform measure on such Φ. We prove the existence of ρ = ρ(A) so that for large n, and for all Φ’s except a negligible fraction, the following property holds: For every y having a representation y = Φα0 by a coefficient vector α0 ∈ R m with fewer than ρ · n nonzeros, the solution α1 of the ℓ 1 minimization problem min �x�1 subject to Φα = y is unique and equal to α0. In contrast, heuristic attempts to sparsely solve such systems – greedy algorithms and thresholding – perform poorly in this challenging setting. The techniques include the use of random proportional embeddings and almost-spherical sections in Banach space theory, and deviation bounds for the eigenvalues of random Wishart matrices.},
+	journal = {Comm. Pure Appl. Math},
+	author = {Donoho, David L.},
+	year = {2004},
+	pages = {797--829},
+	file = {Citeseer - Full Text PDF:/home/gabrielziegler/Zotero/storage/D79UYUAF/Donoho - 2004 - For Most Large Underdetermined Systems of Linear E.pdf:application/pdf;Citeseer - Snapshot:/home/gabrielziegler/Zotero/storage/XYHEWMA6/download.html:text/html}
+}
+
+@article{quan_compressed_2018,
+	title = {Compressed {Sensing} {MRI} {Reconstruction} {Using} a {Generative} {Adversarial} {Network} {With} a {Cyclic} {Loss}},
+	volume = {37},
+	issn = {0278-0062, 1558-254X},
+	url = {https://ieeexplore.ieee.org/document/8327637/},
+	doi = {10.1109/TMI.2018.2820120},
+	abstract = {Compressed Sensing MRI (CS-MRI) has provided theoretical foundations upon which the time-consuming MRI acquisition process can be accelerated. However, it primarily relies on iterative numerical solvers which still hinders their adaptation in time-critical applications. In addition, recent advances in deep neural networks have shown their potential in computer vision and image processing, but their adaptation to MRI reconstruction is still in an early stage. In this paper, we propose a novel deep learning-based generative adversarial model, ReﬁneGAN, for fast and accurate CS-MRI reconstruction. The proposed model is a variant of fully-residual convolutional autoencoder and generative adversarial networks (GANs), speciﬁcally designed for CS-MRI formulation; it employs deeper generator and discriminator networks with cyclic data consistency loss for faithful interpolation in the given under-sampled k-space data. In addition, our solution leverages a chained network to further enhance the reconstruction quality. ReﬁneGAN is fast and accurate – the reconstruction process is extremely rapid, as low as tens of milliseconds for reconstruction of a 256x256 image, because it is one-way deployment on a feed-forward network, and the image quality is superior even for extremely low sampling rate (as low as 10\%) due to the data-driven nature of the method. We demonstrate that ReﬁneGAN outperforms the state-of-the-art CS-MRI methods by a large margin in terms of both running time and image quality via evaluation using several open-source MRI databases.},
+	language = {en},
+	number = {6},
+	urldate = {2021-02-27},
+	journal = {IEEE Transactions on Medical Imaging},
+	author = {Quan, Tran Minh and Nguyen-Duc, Thanh and Jeong, Won-Ki},
+	month = jun,
+	year = {2018},
+	pages = {1488--1497},
+	file = {Quan et al. - 2018 - Compressed Sensing MRI Reconstruction Using a Gene.pdf:/home/gabrielziegler/Zotero/storage/MZ8GV2TM/Quan et al. - 2018 - Compressed Sensing MRI Reconstruction Using a Gene.pdf:application/pdf}
+}
+
+@article{knoll_fastmri_2020,
+	title = {{fastMRI}: {A} {Publicly} {Available} {Raw} k-{Space} and {DICOM} {Dataset} of {Knee} {Images} for {Accelerated} {MR} {Image} {Reconstruction} {Using} {Machine} {Learning}},
+	volume = {2},
+	issn = {2638-6100},
+	shorttitle = {{fastMRI}},
+	url = {http://pubs.rsna.org/doi/10.1148/ryai.2020190007},
+	doi = {10.1148/ryai.2020190007},
+	language = {en},
+	number = {1},
+	urldate = {2021-02-28},
+	journal = {Radiology: Artificial Intelligence},
+	author = {Knoll, Florian and Zbontar, Jure and Sriram, Anuroop and Muckley, Matthew J. and Bruno, Mary and Defazio, Aaron and Parente, Marc and Geras, Krzysztof J. and Katsnelson, Joe and Chandarana, Hersh and Zhang, Zizhao and Drozdzalv, Michal and Romero, Adriana and Rabbat, Michael and Vincent, Pascal and Pinkerton, James and Wang, Duo and Yakubova, Nafissa and Owens, Erich and Zitnick, C. Lawrence and Recht, Michael P. and Sodickson, Daniel K. and Lui, Yvonne W.},
+	month = jan,
+	year = {2020},
+	pages = {e190007},
+	file = {Knoll et al. - 2020 - fastMRI A Publicly Available Raw k-Space and DICO.pdf:/home/gabrielziegler/Zotero/storage/9WIE6QMP/Knoll et al. - 2020 - fastMRI A Publicly Available Raw k-Space and DICO.pdf:application/pdf}
+}
+
+@article{cole_unsupervised_2020,
+	title = {Unsupervised {MRI} {Reconstruction} with {Generative} {Adversarial} {Networks}},
+	url = {http://arxiv.org/abs/2008.13065},
+	abstract = {Deep learning-based image reconstruction methods have achieved promising results across multiple MRI applications. However, most approaches require large-scale fully-sampled ground truth data for supervised training. Acquiring fully-sampled data is often either difficult or impossible, particularly for dynamic contrast enhancement (DCE), 3D cardiac cine, and 4D flow. We present a deep learning framework for MRI reconstruction without any fully-sampled data using generative adversarial networks. We test the proposed method in two scenarios: retrospectively undersampled fast spin echo knee exams and prospectively undersampled abdominal DCE. The method recovers more anatomical structure compared to conventional methods.},
+	urldate = {2020-10-11},
+	journal = {arXiv:2008.13065 [cs, eess, stat]},
+	author = {Cole, Elizabeth K. and Pauly, John M. and Vasanawala, Shreyas S. and Ong, Frank},
+	month = aug,
+	year = {2020},
+	note = {arXiv: 2008.13065
+version: 1},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning, Electrical Engineering and Systems Science - Image and Video Processing},
+	file = {arXiv.org Snapshot:/home/gabrielziegler/Zotero/storage/57J4VRPK/Cole et al. - 2020 - Unsupervised MRI Reconstruction with Generative Ad.html:text/html}
+}
+
+@article{lyu_super-resolution_2018,
+	title = {Super-resolution {MRI} through {Deep} {Learning}},
+	url = {http://arxiv.org/abs/1810.06776},
+	abstract = {Magnetic resonance imaging (MRI) is extensively used for diagnosis and image-guided therapeutics. Due to hardware, physical and physiological limitations, acquisition of high-resolution MRI data takes long scan time at high system cost, and could be limited to low spatial coverage and also subject to motion artifacts. Super-resolution MRI can be achieved with deep learning, which is a promising approach and has a great potential for preclinical and clinical imaging. Compared with polynomial interpolation or sparse-coding algorithms, deep learning extracts prior knowledge from big data and produces superior MRI images from a low-resolution counterpart. In this paper, we adapt two state-of-the-art neural network models for CT denoising and deblurring, transfer them for super-resolution MRI, and demonstrate encouraging super-resolution MRI results toward two-fold resolution enhancement.},
+	urldate = {2020-09-29},
+	journal = {arXiv:1810.06776 [physics]},
+	author = {Lyu, Qing and You, Chenyu and Shan, Hongming and Wang, Ge},
+	month = oct,
+	year = {2018},
+	note = {arXiv: 1810.06776},
+	keywords = {Physics - Medical Physics}
+}
+
+@article{dias_metodos_nodate,
+	title = {Métodos para {Reconstrução} de {Imagens} de {Tomografia} da {Coroa} {Solar} {Baseados} em},
+	language = {pt},
+	author = {Dias, Daniele},
+	pages = {82},
+	file = {Dias - Métodos para Reconstrução de Imagens de Tomografia.pdf:/home/gabrielziegler/Zotero/storage/LLMCVKWJ/Dias - Métodos para Reconstrução de Imagens de Tomografia.pdf:application/pdf}
+}
+
+@inproceedings{devlin_bert_2019,
+	address = {Minneapolis, Minnesota},
+	title = {{BERT}: {Pre}-training of {Deep} {Bidirectional} {Transformers} for {Language} {Understanding}},
+	shorttitle = {{BERT}},
+	url = {https://www.aclweb.org/anthology/N19-1423},
+	doi = {10.18653/v1/N19-1423},
+	abstract = {We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models (Peters et al., 2018a; Radford et al., 2018), BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5 (7.7 point absolute improvement), MultiNLI accuracy to 86.7\% (4.6\% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).},
+	urldate = {2020-07-28},
+	booktitle = {Proceedings of the 2019 {Conference} of the {North} {American} {Chapter} of the {Association} for {Computational} {Linguistics}: {Human} {Language} {Technologies}, {Volume} 1 ({Long} and {Short} {Papers})},
+	publisher = {Association for Computational Linguistics},
+	author = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
+	month = jun,
+	year = {2019},
+	pages = {4171--4186},
+	file = {Full Text PDF:/home/gabrielziegler/Zotero/storage/BNPCGSTX/Devlin et al. - 2019 - BERT Pre-training of Deep Bidirectional Transform.pdf:application/pdf}
+}
+
+@incollection{goodfellow_generative_2014,
+	title = {Generative {Adversarial} {Nets}},
+	url = {http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf},
+	urldate = {2020-07-03},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems} 27},
+	publisher = {Curran Associates, Inc.},
+	author = {Goodfellow, Ian and Pouget-Abadie, Jean and Mirza, Mehdi and Xu, Bing and Warde-Farley, David and Ozair, Sherjil and Courville, Aaron and Bengio, Yoshua},
+	editor = {Ghahramani, Z. and Welling, M. and Cortes, C. and Lawrence, N. D. and Weinberger, K. Q.},
+	year = {2014},
+	pages = {2672--2680},
+	file = {NIPS Full Text PDF:/home/gabrielziegler/Zotero/storage/FIPFYCKU/Goodfellow et al. - 2014 - Generative Adversarial Nets.pdf:application/pdf;NIPS Snapshot:/home/gabrielziegler/Zotero/storage/8EMLKE8Z/5423-generative-adversarial-nets.html:text/html}
+}
+
+@article{deshmane_parallel_2012,
+	title = {Parallel {MR} imaging},
+	volume = {36},
+	issn = {10531807},
+	url = {http://doi.wiley.com/10.1002/jmri.23639},
+	doi = {10.1002/jmri.23639},
+	language = {en},
+	number = {1},
+	urldate = {2021-03-06},
+	journal = {Journal of Magnetic Resonance Imaging},
+	author = {Deshmane, Anagha and Gulani, Vikas and Griswold, Mark A. and Seiberlich, Nicole},
+	month = jul,
+	year = {2012},
+	pages = {55--72},
+	file = {Full Text:/home/gabrielziegler/Zotero/storage/ZCN7B243/Deshmane et al. - 2012 - Parallel MR imaging.pdf:application/pdf}
+}
+
+@article{eun_deep-learning-based_2020,
+	title = {Deep-learning-based image quality enhancement of compressed sensing magnetic resonance imaging of vessel wall: comparison of self-supervised and unsupervised approaches},
+	volume = {10},
+	issn = {2045-2322},
+	shorttitle = {Deep-learning-based image quality enhancement of compressed sensing magnetic resonance imaging of vessel wall},
+	url = {http://www.nature.com/articles/s41598-020-69932-w},
+	doi = {10.1038/s41598-020-69932-w},
+	language = {en},
+	number = {1},
+	urldate = {2021-03-22},
+	journal = {Scientific Reports},
+	author = {Eun, Da-in and Jang, Ryoungwoo and Ha, Woo Seok and Lee, Hyunna and Jung, Seung Chai and Kim, Namkug},
+	month = dec,
+	year = {2020},
+	pages = {13950},
+	file = {Full Text:/home/gabrielziegler/Zotero/storage/HNMSDKN6/Eun et al. - 2020 - Deep-learning-based image quality enhancement of c.pdf:application/pdf}
+}
+
+@inproceedings{garcia-frias_exploiting_2007,
+	address = {Snowbird, UT, USA},
+	title = {Exploiting {Prior} {Knowledge} in {The} {Recovery} of {Signals} from {Noisy} {Random} {Projections}},
+	isbn = {978-0-7695-2791-8},
+	url = {http://ieeexplore.ieee.org/document/4148772/},
+	doi = {10.1109/DCC.2007.37},
+	abstract = {It has been recently shown that if a signal can be compressed in some basis, then it can be reconstructed in such basis from a certain number of random projections. By allowing additional distortion, this holds even if the projections are corrupted by noise. We extend this result by showing that it is possible to exploit prior knowledge (e.g., if the signal is a realization of a stochastic process,) to signiﬁcantly improve reconstruction performance. This is done in a fashion resembling standard joint source-channel coding of digital sources. Moreover, the exploitation of such knowledge allows for reconstruction in bases where the signal is not sparse.},
+	language = {en},
+	urldate = {2021-04-24},
+	booktitle = {2007 {Data} {Compression} {Conference} ({DCC}'07)},
+	publisher = {IEEE},
+	author = {Garcia-Frias, Javier and Esnaola, Inaki},
+	year = {2007},
+	pages = {333--342},
+	file = {Garcia-Frias and Esnaola - 2007 - Exploiting Prior Knowledge in The Recovery of Sign.pdf:/home/gabrielziegler/Zotero/storage/APV9QHKI/Garcia-Frias and Esnaola - 2007 - Exploiting Prior Knowledge in The Recovery of Sign.pdf:application/pdf}
+}
+
+@inproceedings{esnaola_exploiting_2007,
+	address = {Baltimore, MD, USA},
+	title = {Exploiting {Prior} {Knowledge} in the {Recovery} of {Non}-{Sparse} {Signals} from {Noisy} {Random} {Projections}},
+	isbn = {978-1-4244-1037-8},
+	url = {http://ieeexplore.ieee.org/document/4298402/},
+	doi = {10.1109/CISS.2007.4298402},
+	language = {en},
+	urldate = {2021-04-24},
+	booktitle = {2007 41st {Annual} {Conference} on {Information} {Sciences} and {Systems}},
+	publisher = {IEEE},
+	author = {Esnaola, Inaki and Garcia-Frias, Javier},
+	month = mar,
+	year = {2007},
+	pages = {731--731},
+	file = {Esnaola and Garcia-Frias - 2007 - Exploiting Prior Knowledge in the Recovery of Non-.pdf:/home/gabrielziegler/Zotero/storage/G2D4JBCF/Esnaola and Garcia-Frias - 2007 - Exploiting Prior Knowledge in the Recovery of Non-.pdf:application/pdf}
+}
+
+@book{carmi_compressed_2014,
+	address = {Berlin, Heidelberg},
+	series = {Signals and {Communication} {Technology}},
+	title = {Compressed {Sensing} \& {Sparse} {Filtering}},
+	isbn = {978-3-642-38397-7 978-3-642-38398-4},
+	url = {http://link.springer.com/10.1007/978-3-642-38398-4},
+	language = {en},
+	urldate = {2021-05-09},
+	publisher = {Springer Berlin Heidelberg},
+	editor = {Carmi, Avishy Y. and Mihaylova, Lyudmila and Godsill, Simon J.},
+	year = {2014},
+	doi = {10.1007/978-3-642-38398-4},
+	file = {Carmi et al. - 2014 - Compressed Sensing & Sparse Filtering.pdf:/home/gabrielziegler/Zotero/storage/BKBMKPUJ/Carmi et al. - 2014 - Compressed Sensing & Sparse Filtering.pdf:application/pdf}
+}
+
+@article{kutyniok_compressed_nodate,
+	title = {Compressed {Sensing}},
+	language = {en},
+	author = {Kutyniok, Gitta and Eldar, Yonina C},
+	pages = {558},
+	file = {Kutyniok and Eldar - Compressed Sensing.pdf:/home/gabrielziegler/Zotero/storage/KHLG6YFL/Kutyniok and Eldar - Compressed Sensing.pdf:application/pdf}
+}
+
+@article{candes_near-optimal_2006,
+	title = {Near-{Optimal} {Signal} {Recovery} {From} {Random} {Projections}: {Universal} {Encoding} {Strategies}?},
+	volume = {52},
+	issn = {0018-9448},
+	shorttitle = {Near-{Optimal} {Signal} {Recovery} {From} {Random} {Projections}},
+	url = {http://ieeexplore.ieee.org/document/4016283/},
+	doi = {10.1109/TIT.2006.885507},
+	language = {en},
+	number = {12},
+	urldate = {2021-05-09},
+	journal = {IEEE Transactions on Information Theory},
+	author = {Candes, Emmanuel J. and Tao, Terence},
+	month = dec,
+	year = {2006},
+	pages = {5406--5425},
+	file = {Candes and Tao - 2006 - Near-Optimal Signal Recovery From Random Projectio.pdf:/home/gabrielziegler/Zotero/storage/PSQ5I86F/Candes and Tao - 2006 - Near-Optimal Signal Recovery From Random Projectio.pdf:application/pdf}
+}
+
+@article{candes_robust_2006,
+	title = {Robust uncertainty principles: exact signal reconstruction from highly incomplete frequency information},
+	volume = {52},
+	issn = {0018-9448},
+	shorttitle = {Robust uncertainty principles},
+	url = {http://ieeexplore.ieee.org/document/1580791/},
+	doi = {10.1109/TIT.2005.862083},
+	language = {en},
+	number = {2},
+	urldate = {2021-05-09},
+	journal = {IEEE Transactions on Information Theory},
+	author = {Candes, E.J. and Romberg, J. and Tao, T.},
+	month = feb,
+	year = {2006},
+	pages = {489--509},
+	file = {Candes et al. - 2006 - Robust uncertainty principles exact signal recons.pdf:/home/gabrielziegler/Zotero/storage/73WJ95F5/Candes et al. - 2006 - Robust uncertainty principles exact signal recons.pdf:application/pdf}
 }
