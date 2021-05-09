@@ -374,11 +374,11 @@ This k-space representation contains an implicit sparsity that is exploited when
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.4\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=10cm,height=12cm,keepaspectratio]{kspace_multicoil}
     \caption{FastMRI K-space data from 15 coils. Source:~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}}
   \end{minipage}
-  \begin{minipage}[b]{0.4\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=10cm,height=12cm,keepaspectratio]{fastmri_fullysampled.png}
     \caption{FastMRI fully sampled coil spatial images. Source:~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}}
   \end{minipage}
@@ -452,7 +452,7 @@ We propose a novel approach to the non-deterministic prior information extractio
 When moving from a frame to another, portions of the image are dislocated in different degrees, that is, some regions will be more likely to contain support positions than others.
 By taking this into account, we segmented the image into four levels of movement -- \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a highly likely support position prior information.
-The \textit{medium} positions, accordingly, are assigned an intermediate variance for an intermediate confidence.
+Similarly, the \textit{medium} labeled positions are assigned an intermediate variance for an intermediate confidence.
 
 % TODO change to higher resolution image
 \begin{figure}[H]
@@ -475,11 +475,11 @@ After computing the \textit{weights} matrix, we expect to see distinguishably di
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.45\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{2d_weights.pdf}
     \caption{2D \textit{weights} matrix visualization.}
   \end{minipage}
-  \begin{minipage}[b]{0.45\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{weight_surf.pdf}
     \caption{3D \textit{weights} matrix visualization.}
   \end{minipage}
@@ -507,11 +507,11 @@ After this operation, our $\Phi$ positions no longer holds deterministic values,
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.475\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{2d_norm_weighted_phi}
     \caption{2D \textit{weights} matrix visualization.}
   \end{minipage}
-  \begin{minipage}[b]{0.475\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{weighted_phi_surf.pdf}
     \caption{3D \textit{weights} matrix visualization.}
   \end{minipage}
@@ -789,7 +789,7 @@ The figure below displays the first 10 signals created in the standard normal di
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{1d_signal_plot}
+    \includegraphics[width=\textwidth]{first_tensignals}
     \caption{First 10 random 1-D signals}\label{visina8}
 \end{figure}
 
@@ -807,11 +807,11 @@ Then, I simulated an undersampled phantom image by applying the spiral undersamp
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.4\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{phantom_shepplogan.png}
     \caption{Shepp-Logan phantom reference image.}
   \end{minipage}
-  \begin{minipage}[b]{0.4\textwidth}
+  \begin{minipage}[t]{0.475\textwidth}
     \includegraphics[width=\textwidth]{spiral_undersampling.png}
     \caption{Spiral undersampling method with 30.95\% data points.}
   \end{minipage}
@@ -826,15 +826,15 @@ The different filters used can be better seeing in the figure below.
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{0.3\textwidth}
+  \begin{minipage}[t]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter1.png}
       \caption{2-D High pass horizontal filter.}
   \end{minipage}
-  \begin{minipage}[b]{0.3\textwidth}
+  \begin{minipage}[t]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter2.png}
       \caption{2-D High pass vertical filter.}
   \end{minipage}
-  \begin{minipage}[b]{0.3\textwidth}
+  \begin{minipage}[t]{0.3\textwidth}
       \includegraphics[width=\textwidth]{filter3.png}
       \caption{2-D High pass diagonal filter.}
   \end{minipage}
@@ -923,8 +923,8 @@ This demonstrates that there is no big prejudice in using indirect reconstructio
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{snr_lsize_experiment}
-    \caption{\ac{SNR} x \textit{L} size for direct and indirect L1-minimization for 200 random 1d signals}\label{visina8}
+    \includegraphics[width=\textwidth]{1d_snr}
+    \caption{\ac{SNR} x \textit{L} size for direct and indirect L1-minimization for 200 random 1D signals}\label{visina8}
 \end{figure}
 
 \section{Compressed Sensing Reconstruction with Pre Filtered Signal}
@@ -1071,7 +1071,7 @@ Then as the epochs go by and both networks get more sophisticated, the generator
     \includegraphics[width=\textwidth]{Discriminator_Loss_Real}
     \caption{Discriminator real loss over epochs}
   \end{minipage}
-  \begin{minipage}[b]{0.4\textwidth}
+  \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Generator_Loss}
     \caption{Generator loss over epochs}
