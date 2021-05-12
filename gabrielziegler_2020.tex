@@ -340,7 +340,8 @@ This will reduce the number of samples needed, making the \ac{MRI} exams faster 
 
 \subsection{General Objective}
 
-This thesis' goal is to develop an \ac{MR} prior information system retriever based on \ac{GAN} architecture to analyse if the quality of the prior information fed to \ac{CS} algorithms can be improved, hence improving quality in reconstructed \ac{MRI} and decreased necessity for larger sampling.
+This thesis' goal is to develop an improved \ac{MR} prior information algorithm based on \ac{GAN} the usage of motion information for dynamic \ac{MRI} and support position similarity for multi-frame \ac{MRI} scans. 
+The expected outcome of this algorithm is to improve reconstruction also in runtime, hence improving quality in reconstructed \ac{MRI} and decreasing necessity for larger sampling allowing for faster exams.
 
 \subsection{Specific Objectives}
 
@@ -395,7 +396,7 @@ This allows machines to collect only a fraction of data measurements needed for 
 There are some undersampling patterns to use and each has its benefits depending on several parameters, such as: the subject's region extraction, the algorithm used for reconstruction, acquisition time.
 
 In the figure below we can see some of the most used patterns.
-In this research, we will focus mostly on the cartesian undersampling method, as that is the one used in the FastMRI dataset~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}, which we will use for our experiments.
+In this research, we will focus mostly on the radial, spiral and cartesian undersampling method which we later use in our experiments.
 
 \begin{figure}[H]
     \centering
@@ -403,18 +404,15 @@ In this research, we will focus mostly on the cartesian undersampling method, as
     \caption{Under-sampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}~\cite{ye_compressed_2019}.}\label{visina8}
 \end{figure}
 
+In \ac{MRI}, the undersampling techniques are used to acquire $eta$ elements where $\eta < 2\eta< N$, violating the Nyquist criterion.
+
 \section{Compressed Sensing}
 
 \subsection{Introduction}
 
 Compressed sensing, often referred to as Compressive Sensing, represented a major breakthrough in signal processing when it was introduced by Donoho, Candès, Romberg, and Tao in 2004 ~\cite{donoho_compressed_2006, candes_robust_2006, candes_near-optimal_2006} since it allows a sampling at a rate much lower then the Nyquist-Shannon's theorem: the sampling signal rate must be at least twice the maximum frequency present in the signal (Nyquist rate).
 
-\ac{CS} is a powerful algorithm that implements a novel technique for the acquisition of signals of sparse or compressible nature.
-\ac{CS} theory aims to provide accurate reconstruction of unknown sparse signals from underdetermined linear measurements.
-% For \ac{CS} to work, the given signal must have a sparse representation in some known domain e.g. Fourier transform, cosine transform, wavelet transform, etc.
-\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier, cosine, etc), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
-
-The idea was inspired from questioning the necessity of extracting large portions of samples when much of these samples are discarded, exposing the inefficiency of trying to gather all signal.
+The idea behind the \ac{CS} theory was inspired from questioning the necessity of extracting large portions of samples when much of these very samples are discarded, exposing the inefficiency of trying to gather all signal.
 
 \begin{changemargin}{2cm}{2cm}
 ``\emph{Why go to so much effort to acquire all the data when most of what we get will be thrown away?
@@ -422,14 +420,33 @@ Can we not just directly measure the part that will not
 end up being thrown away?''~\cite{donoho_compressed_2006}}
 \end{changemargin}
 
-In MRI, the so-called \textit{k-space} is a sparse representation of the image to be reconstructed and when it is undersampled, the Nyquist criterion is violated~\cite{lustig_sparse_2007}.
+\ac{CS} is a powerful algorithm that implements a novel technique for the acquisition of signals of sparse or compressible nature.
+\ac{CS} theory aims to provide accurate reconstruction of unknown sparse signals from underdetermined linear measurements $l$.
+% For \ac{CS} to work, the given signal must have a sparse representation in some known domain e.g. Fourier transform, cosine transform, wavelet transform, etc.
+\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier, cosine, etc), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
+
+A signal $x$ is known to have a sparse representation if there is a deterministic and invertible matrix $T_{N \times N}$ so that the transformed vector $\hat{x}$ is composed of most of its $N$ components equal to zero~\cite{miosso_phd}.
+
+\begin{equation}
+    \label{eqn:sparsity}
+    %\overset{\sim}x = Tx
+    \hat{x} = Tx
+\end{equation}
+
+\ac{MRI} $l$ extracted measurements from the \ac{MR} scanner correspond to some of the coefficients in $\hat{x} = Tx$.
+In MRI context, the so-called \textit{k-space} is a sparse representation of the image to be reconstructed and when it is undersampled, the Nyquist criterion is violated~\cite{lustig_sparse_2007}.
+This occurs due to the fact that it is extremely expensive to acquire at $l = 2\eta$, as suggested by the Nyquist criterion~\cite{miosso_compressive_2009}.
 These are favorable conditions for the \ac{CS} theory, hence all thousands of papers citing the usage of \ac{CS} for \ac{MRI} reconstruction and state-of-the-art results involving any application of \ac{CS} for \ac{MRI} reconstruction.
 
-\subsection{Reconstructing using the L1 Regularization}
-
 % TODO
+\subsection{Reconstructing using the LP Regularization}
 
+Given an $N$-dimensional complex discrete-time signal $x$, that is compressible by a linear transformation with a sparse representation tested with~\ref{eqn:sparsity}, it is said that this signal is $x$ can be fully reconstructed from an $l$-dimensional vector of measurements defined as
 
+\begin{equation}
+    \label{eqn:measurements}
+    b = Mx
+\end{equation}
 
 \section{Prior Information}
 
@@ -444,7 +461,7 @@ These support regions are essentially structures that will hold -- practically -
 \subsection{Prior Information Retrieval}
 
 To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method \cite{miosso_compressive_2009}.
-In practice, this operation tells the $l_p$-minimization that those are values with a higher magnitude and also, likely a support position.
+In practice, this operation tells the $l_p$-minimization that these values with a higher magnitude are likely a values in a support position $\Phi$.
 These procedures are extensively explored in the experiments documented in the experiments chapter.
 
 Prior information was then introduced as a deterministic approach -- whether the pixel was a support position or it was not.
