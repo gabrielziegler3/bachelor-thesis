@@ -260,6 +260,8 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 \acrodef{SNR}[SNR]{Signal-to-Noise Ratio}
 \acrodef{SSIM}[SSIM]{Structural SIMilarity}
 \acrodef{PSNR}[PSNR]{Peak Signal-to-Noise Ratio}
+\acrodef{NMSE}[NMSE]{Normalized Mean Squared Error}
+\acrodef{MSE}[MSE]{Mean Squared Error}
 \acrodef{DCGAN}[DCGAN]{Deep Convolutional GAN}
 \acrodef{ReLU}[ReLU]{Rectified linear units}
 \acrodef{SGD}[SGD]{Stochastic Gradient Descent}
@@ -297,8 +299,9 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 % |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
-In this thesis, we propose a \ac{GAN} approach for prior information extraction to feed a \ac{CS} algorithm, aiming to reconstruct images with both reduced signal-to-noise error and less acquisition time compared to conventional \ac{CS}.
-Achieving higher quality with a reduced number of samples allows faster exam procedures, making \ac{MRI} cheaper, faster and more convenient for both patients and clinics.
+In this thesis, we propose a novel context-dependent prior information extraction algorithm that takes advantage of motion information across frames in a dynamic \ac{MRI} to weight the confidence that those extracted positions are effectively part of a support structure. 
+In our experiments, our approach provides better reconstruction in terms of the evaluated metrics (\ac{SNR}, \ac{PSNR}, \ac{SSIM}, \ac{NMSE}, \ac{MSE}) and also in computation time when contrasting with classic prior information and with \ac{CS} reconstructions that use no prior information.
+Achieving higher quality with a reduced number of samples allows faster exam procedures, making \ac{MRI} cheaper, faster and more convenient for both patients and clinics, which is our ultimate goal.
 
 \section{Context}
 
@@ -313,6 +316,10 @@ This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when
 \ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of sparsifying pre-filtering techniques and prior information~\cite{miosso_prefiltering_2009, miosso_compressive_2009}.
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
+There is still room for improvement in signal processing approaches for \ac{MRI} reconstruction like the one novel implementation of the prior information algorithm that we present in this thesis, but ultimately, the task of reconstructing a signal from very few extracted measurements can be mostly improved with \ac{ML} techniques.
+Many times, classic-oriented approaches tend to orient where \ac{ML} models should start tackling the problem.
+In this case, we propose a novel prior information implementation and also investigate possibilities to improve the quality of this prior information even more by utilizing the so-called \ac{GAN}s.
+
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
 These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields~\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
 These fast-paced developments led to improvements in medical data processing using \ac{DL} as well.
@@ -320,28 +327,32 @@ These fast-paced developments led to improvements in medical data processing usi
 
 \section{Scientific Problem Definition and Proposal}
 
-\ac{MRI} is great for high-quality tissue images, but there are some drawbacks: \ac{MRI} exams are often very long and require the patient to be in a static position throughout the whole process, this makes the exam challenging for patients that have difficulties in keeping a still position for several minutes.
-Another intrinsic complication in \ac{MRI} procedures is that it is nearly impossible to get images from moving tissues like a beating heart or flowing blood veins as that would require an enormous amount of samples, which with current technologies used in clinics is not viable.
-Algorithms that reconstruct \ac{MRI} try to tackle this sampling issue by producing the best possible quality images for the least amount of samples collected, making the exams faster and less sample-dependent.
+\ac{MRI} is great for high-quality tissue images and definitely one of the highest image-quality medical imaging modalities, but there are some drawbacks: \ac{MRI} exams are often very long and require the patient to be in a static position throughout the whole process, this makes the exam challenging for patients that have difficulties in keeping a still position for several minutes.
+Another intrinsic complication in \ac{MRI} procedures is that it is extremely complicated to extract images from moving tissues like a beating heart or flowing blood veins as that would require an enormous amount of samples, which with current technologies used in clinics is not viable.
+Algorithms that reconstruct \ac{MRI} try to tackle this sampling issue by producing the best possible quality images from the least amount of samples collected, making the exams faster and less sample-dependent.
 
-\ac{CS} algorithms have been the state-of-art in \ac{MRI} reconstruction for the past few years, and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN} are powerful in imaging processing, especially \ac{CNN} and, more recently, \ac{GAN} networks are becoming the new state-of-art techniques in several computer vision areas.
+\ac{CS} algorithms have been the state-of-art in \ac{MRI} reconstruction for the past few years, and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN}s are powerful in imaging processing, especially \ac{CNN}s and, more recently, \ac{GAN}s are becoming the new state-of-art techniques in several computer vision areas.
 Most \ac{CS} contributions without the use of machine learning cite the usage of sparsifying pre-filtering techniques and prior information that have been proven to improve efficiency and achieve better reconstructions~\cite{miosso_compressive_2009, miosso_prefiltering_2009}.
 More recently, the contributions in \ac{MRI} reconstruction has been more focused in deep learning approaches, with some architectures using \ac{CS} along \ac{ANN}s~\cite{yang_deep_2016, yang_dagan_2018, mardani_deep_2019, liang_deep_2019, cole_unsupervised_2020, deep_magnetic_2020}.
 
-Prior information for \ac{CS} can go from previous \ac{MRI} frames and exams to even medical records.
-Prior information is normally generated by simplistic mathematical approaches like filtering and thresholding on the images.
-Besides the simpler technique applied, these information extraction procedures oftentimes is restricted to few frames and does not take into account the nature of organs and tissues structures, a feature that \ac{DL} should be able to identify and use to generate better quality information.
-This means that there is a lot of room for improvement towards prior information engineering techniques, as \ac{DL} models have been proven superior in tasks of this nature.
+\ac{CS} reconstructions often use a preprocessing step called prior information which focuses on the extraction of support positions -- regions that normally would not move from a frame to another -- and when these positions are fed to the $l_p$-minimization algorithm (one of the possible ways to solve), the reconstructed image quality is improved significantly~\cite{miosso_compressive_2009, miosso_phd}.
+Prior information is normally generated by mathematical approaches like filtering and thresholding on the images and can be leveraged from previous and next frames in the same \ac{MRI} exam to to even medical records from previous scans.
+These information extraction procedures oftentimes are restricted to few frames and do not take into account the nature of organs and tissues structures.
+Another observation from this classical prior information extraction is that these support positions are binary, they either are part of a support position or they are not. 
+Onee could think that using a non-deterministic approach to this technique would likely correct some errors introduced in-between frames and that is exactly what happens when the extracted prior information is treated as a probabilistic support position~\cite{daniel_msc}.
+Although non-deterministic do perform better than deterministic ones, they still do not consider the different level of confidence in each region of the subject -- that is, some regions are different in terms of motion, hence they should be treated as different levels of confidence, which is right what we investigate within this work.
 
-Within this context, we propose a modern prior information engineering system with the usage of \ac{GAN}, aiming for higher quality prior information to feed the \ac{CS} and reducing the number of samples dependability.
-This will reduce the number of samples needed, making the \ac{MRI} exams faster and, consequently, cheaper.
+Additionaly, \ac{DL} models are constantly improving image reconstruction quality like the ones mentioned in~\cite{zbontar_fastmri_2019, knoll_fastmri_2020} and this implies that there is a lot of room for improvement towards \ac{MRI} and following the same logic, we believe that prior information can be even more improved by the usage of \ac{GAN}s for prior information extraction and so we also documented our research in such contexts aiming towards a more detailed research project in a master's degree, where more experimentation can be done to validate our hypothesis.
 
 \section{Objectives}
 
 \subsection{General Objective}
 
-This thesis' goal is to develop an improved \ac{MR} prior information algorithm based on \ac{GAN} the usage of motion information for dynamic \ac{MRI} and support position similarity for multi-frame \ac{MRI} scans. 
-The expected outcome of this algorithm is to improve reconstruction also in runtime, hence improving quality in reconstructed \ac{MRI} and decreasing necessity for larger sampling allowing for faster exams.
+Ultimately, the main goal behind this research can be roughly summarized in two intended contributions: faster \ac{MRI} exams and better \ac{MR} image quality.
+To achieve this goal, we have set minor goals that are described more deeply further.
+In terms of research, our goal is to introduce a novel context-dependent non-deterministic prior information algorithm utilizing the different motion across the frames in a dynamic \ac{MRI} for higher confidence support position extraction.
+The expected outcome of this algorithm is to improve reconstruction in quality and in runtime directly impacting both our main goals.
+Additionaly, we also present fundamentals and preliminary experiments for a sequel to this study using \ac{DL} techniques like \ac{GAN}s.
 
 \subsection{Specific Objectives}
 
@@ -349,16 +360,16 @@ In order to achieve the general objective described above, we have set the follo
 
 \begin{itemize}
     \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm using undersampled \textit{k-space} measurements.
-    \item Evaluate \ac{CS} \ac{MRI} reconstructions against fully sampled \ac{MRI}.
-    \item Implement a \ac{GAN} for ordinary image generation with the well-known MNIST dataset.
-    \item Implement a \ac{GAN} architecture for optimized prior information retrieval.
-    \item Evaluate the use of \ac{GAN} architecture for prior information retrieval against state-of-art \ac{MRI} reconstruction techniques.
+    \item Demonstrate experiments with \ac{CS} using pre-filtering and classical prior-information.
+    \item Demonstrate our novel context-dependent prior information algorithm and compare with other prior-information techniques.
+    \item Test our algorithm with fastMRI samples provided by the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
+    \item Present a case study with a dynamic \ac{MRI} using the context-dependent prior information algorithm to show how our technique could eventually impact in real exams.
 \end{itemize}
 
 %---}}}
 
 % |--- Theory Foundation and State-of-Art ---|----------------------{{{
-\chapter{Machine Learning in MRI Concepts and State-of-Art}\label{chap:FT}
+\chapter{MRI Concepts and Compressed Sensing State-of-Art}\label{chap:FT}
 
 \section{Magnetic Resonance Imagery}
 
@@ -696,7 +707,7 @@ The discriminator takes an image $(x)$ as input from two sources: real examples 
 \ac{GAN}s play a minimax two-player game in which $D$ tries to maximize the probability to correctly classify real and fake samples ($\log D(x)$), whilst $G$ tries to minimize the chance that $D$ will correctly predict its generated outputs are fake ($\log (1-D(G(x)))$).
 
 Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs.
-However, \ac{GAN}s are still a novel neural network approach with its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
+However, \ac{GAN}s are still new neural network techniques and its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
 
 \begin{figure}[H]
     \centering
@@ -953,7 +964,7 @@ This demonstrates that there is no big prejudice in using indirect reconstructio
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{1d_snr}
-    \caption{\ac{SNR} x \textit{L} size for direct and indirect L1-minimization for 200 random 1D signals}\label{visina8}
+    \caption{SNR x \textit{L} size for direct and indirect L1-minimization for 200 random 1D signals}\label{visina8}
 \end{figure}
 
 \section{Compressed Sensing Reconstruction with Pre Filtered Signal}
