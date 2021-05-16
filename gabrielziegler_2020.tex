@@ -1,15 +1,18 @@
 \documentclass[a4paper, 12pt]{fga}
 
 % |--- Títulos, autor, banca ---|----------------------{{{
-\title{} % título na forma principal
-\tituloficha{Gaussian Probabilitistic Prior Information for Improved Compressed Sensing MRI Reconstruction,\\\,[Distrito Federal], 2021.} % título na forma a constar da ficha
+\title{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction} % título na forma principal
+\tituloficha{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction,\\\,[Federal District], 2021.} % título na forma a constar da ficha
                                                   % catalográfica (incluir mudanças de
                                                   % linha usando \\ quando necessário)
-\titulocapaA{Compressed Sensing with Gaussian Probabilitistic}
-\titulocapaB{Prior Information For}
-\titulocapaC{Magnetic Resonance Image Reconstruction}
+% \titulocapaA{Compressed Sensing with Gaussian Probabilitistic}
+% \titulocapaB{Prior Information For}
+% \titulocapaC{Magnetic Resonance Image Reconstruction}
+\titulocapaA{Context-Dependent Probabilitistic}
+\titulocapaB{Prior Information Strategy for MRI Reconstruction}
+\titulocapaC{}
 
-\titulofichadois{Generative Adversarial Network Prior Information for Improved Compressed Sensing Magnetic Resonance Imagery Reconstruction}
+\titulofichadois{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction}
 \author{~Gabriel Gomes Ziegler}
 \nomeinvertido{Ziegler, Gabriel}
 \orientador{~Cristiano Jacques Miosso, PhD}
@@ -19,7 +22,7 @@
 \areaum{Compressed Sensing}
 \areadois{Magnetic Resonance Image Reconstruction}
 \areatres{\emph{Prior Information}}
-\areaquatro{Non deterministic}
+\areaquatro{Deep Learning}
 \endereco{gabrielziegler3@gmail.com}
 \cep{CEP 72.444\-240}
 
@@ -55,6 +58,8 @@
     linkcolor=black,
     urlcolor=blue
 }
+\captionsetup[subfigure]{labelformat=empty}
+
 
 % TODO
 % introducao OK
@@ -156,6 +161,8 @@
 \let\endchangemargin=\endlist
 % |--- Texto principal ---|----------------------{{{
 \begin{document}
+
+\sloppy
 
 \maketitle
 
@@ -267,6 +274,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 \acrodef{ReLU}[ReLU]{Rectified linear units}
 \acrodef{SGD}[SGD]{Stochastic Gradient Descent}
 \acrodef{IRLS}[IRLS]{Iteratively Reweighted Least Squares}
+\acrodef{DCT}[DCT]{Discrete Cosine Transform}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -290,6 +298,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
     \acro{ReLU}{Rectified linear units}
     \acro{SGD}{Stochastic Gradient Descent}
     \acro{IRLS}{iteratively reweighted least squares}
+    \acro{DCT}{Discrete Cosine Transform}
 \end{acronym}
 
 \clearpage
@@ -300,7 +309,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 % |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
-In this thesis, we propose a novel context-dependent probabilistic prior information extraction algorithm that takes advantage of motion information across frames in a dynamic \ac{MRI} to weight the confidence that those extracted positions are effectively part of a support structure. 
+In this thesis, we propose a novel context-dependent probabilistic prior information extraction algorithm that takes advantage of motion information across frames in a dynamic \ac{MRI} to weight the confidence that those extracted positions are effectively part of a support structure.
 In our experiments, our approach provides better reconstruction in terms of the evaluated metrics (\ac{SNR}, \ac{PSNR}, \ac{SSIM}, \ac{NMSE}, \ac{MSE}) and also in computation time when contrasting with classic prior information and with \ac{CS} reconstructions that use no prior information.
 Achieving higher quality with a reduced number of samples allows faster exam procedures, making \ac{MRI} cheaper, faster and more convenient for both patients and clinics, which is our ultimate goal.
 
@@ -318,7 +327,7 @@ This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
 There is still room for improvement in signal processing approaches for \ac{MRI} reconstruction like the one novel implementation of the prior information algorithm that we present in this thesis, but ultimately, the task of reconstructing a signal from very few extracted measurements can be mostly improved with \ac{ML} techniques.
-Many times, classic-oriented approaches tend to orient where \ac{ML} models should start tackling the problem.
+Many times, classical approaches serve as the starting point where \ac{ML} models should start tackling the problem.
 In this case, we propose a novel prior information implementation and also investigate possibilities to improve the quality of this prior information even more by utilizing the so-called \ac{GAN}s.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
@@ -339,7 +348,7 @@ More recently, the contributions in \ac{MRI} reconstruction has been more focuse
 \ac{CS} reconstructions often use a preprocessing step called prior information which focuses on the extraction of support positions -- regions that normally would not move from a frame to another -- and when these positions are fed to the $l_p$-minimization algorithm (one of the possible ways to solve), the reconstructed image quality is improved significantly~\cite{miosso_compressive_2009, miosso_phd}.
 Prior information is normally generated by mathematical approaches like filtering and thresholding on the images and can be leveraged from previous and next frames in the same \ac{MRI} exam to to even medical records from previous scans.
 These information extraction procedures oftentimes are restricted to few frames and do not take into account the nature of organs and tissues structures.
-Another observation from this classical prior information extraction is that these support positions are binary, they either are part of a support position or they are not. 
+Another observation from this classical prior information extraction is that these support positions are binary, they either are part of a support position or they are not.
 Onee could think that using a non-deterministic approach to this technique would likely correct some errors introduced in-between frames and that is exactly what happens when the extracted prior information is treated as a probabilistic support position~\cite{daniel_msc}.
 Although non-deterministic do perform better than deterministic ones, they still do not consider the different level of confidence in each region of the subject -- that is, some regions are different in terms of motion, hence they should be treated as different levels of confidence, which is right what we investigate within this work.
 
@@ -435,7 +444,7 @@ end up being thrown away?''~\cite{donoho_compressed_2006}}
 \ac{CS} is a powerful algorithm that implements a novel technique for the acquisition of signals of sparse or compressible nature.
 \ac{CS} theory aims to provide accurate reconstruction of unknown sparse signals from underdetermined linear measurements $l$.
 % For \ac{CS} to work, the given signal must have a sparse representation in some known domain e.g. Fourier transform, cosine transform, wavelet transform, etc.
-\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g.wavelet, Fourier, cosine, etc), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
+\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g. wavelet, Fourier, \ac{DCT}, etc), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
 
 A signal $x$ is known to have a sparse representation if there is a deterministic and invertible matrix $T_{N \times N}$ so that the transformed vector $\hat{x}$ is composed of most of its $N$ components equal to zero~\cite{miosso_phd}.
 
@@ -472,20 +481,20 @@ These support regions are essentially structures that will hold -- practically -
 
 \subsection{Prior Information Retrieval}
 
-To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method \cite{miosso_compressive_2009}.
+To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method~\cite{miosso_compressive_2009}.
 In practice, this operation tells the $l_p$-minimization that these values with a higher magnitude are likely a values in a support position $\Phi$.
 These procedures are extensively explored in the experiments documented in the experiments chapter.
 
 Prior information was then introduced as a deterministic approach -- whether the pixel was a support position or it was not.
 This approach, of course, raises a few questions: what if the subject moved slightly and the support position has been moderately altered? What if the next frame contains support positions that are getting narrower or wider? E.g. Brain \ac{MRI}s, where the cranial structure's diameter is increased or decreased frame-by-frame.
 Prior information theory responds to these question with a high tolerance impact in the reconstruction.
-It has been documented that using the same amount of mistaken support positions and correct ones will improve \ac{SNR} in the next frame's reconstruction. \cite{miosso_compressive_2009}
+It has been documented that using the same amount of mistaken support positions and correct ones will improve \ac{SNR} in the next frame's reconstruction~\cite{miosso_compressive_2009}.
 
 Alternatively, a non-deterministic approach for prior information generation was proposed to achieve more robustness based on more accurate information.
 This technique uses a Gaussian -- or normal -- distribution with fixed covariance matrix values for each pixel of the support positions in the space domain instead of a deterministic 0 or 1 value.
 Using probabilistic support positions improves reconstruction metrics as shown in~\cite{daniel_msc}.
 
-% In order to illustrate the idea behind prior information extraction from applying border-detection filters mentioned in 
+% In order to illustrate the idea behind prior information extraction from applying border-detection filters mentioned in
 The images below are an example to represent a 15\% deterministic prior information of a sagittal head \ac{MR} scan from filters of horizon, vertical and diagonal borders detection.
 
 \begin{figure}[H]
@@ -502,10 +511,6 @@ The images below are an example to represent a 15\% deterministic prior informat
   \caption{Masks with 15\% points of deterministic prior information extraction.}
 \end{figure}
 
-\subsection{Future Contributions}
-
-% TODO Mover para outro lugar
-Naturally, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
 
 % TODO
 
@@ -730,7 +735,6 @@ However, \ac{GAN}s are still new neural network techniques and its convergence t
     \includegraphics[width=\textwidth]{gan_schema}
     \caption{\ac{GAN} training diagram. Source:~\cite{langr_gans_2019}}\label{visina8}
 \end{figure}
-, 
 %---}}}
 
 % |--- Methodology ---|----------------------{{{
@@ -744,7 +748,7 @@ The signal generation experiment with \ac{GAN}s is a step before implemeting the
 L1-minimization admits both direct and indirect approaches, in which there is the accuracy x resources trade-off.
 The direct method often produces a higher quality reconstruction but is very memory consuming, whilst the indirect method loses a little bit of quality, but requires much less memory to compute the equations system.
 
-To visualize this trade-off, I have created 200 random 1-D arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
+To visualize this trade-off, we have created 200 random 1-D arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
 
 $L$ is the number of linear measurements extracted from the 1-D signal.
 The figure below displays the first 10 signals created in the standard normal distribution range.
@@ -757,15 +761,15 @@ The figure below displays the first 10 signals created in the standard normal di
 
 \section{2D Compressed Sensing Reconstruction with Pre Filtered Signal}
 
-In order to experiment the sparsifying method of applying pre-filtering processing to the input measurements in the k-space for 2D images, I have conducted experiments some different images.
+In order to experiment the sparsifying method of applying pre-filtering processing to the input measurements in the k-space for 2D images, we have conducted experiments some different images.
 A simple 2D image of the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} for baseline is used for the first experiment and two \ac{MR} (sagittal head slice and a singlecoil knee obtained from the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{knoll_fastmri_2020, zbontar_fastmri_2019}) images that are considerably more complex than the phantom for the reconstruction task.
 
 Within these images, $SNR$ improvement gained by applying sparsifying pre-filtering~\cite{miosso_phd, miosso_prefiltering_2009} can be best visualized and confirmed for these different scenarios.
 
 \subsection{Undersampling}
 
-I then created a phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module.
-Then, I simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
+We then created a phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module.
+Then, we simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
 
 \begin{figure}[H]
   \centering
@@ -804,12 +808,14 @@ The different filters used can be better seeing in the figure below.
 
 The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and an L1-minimization method without pre-filtering with the very same parameters used in the pre-filtering L1-minimization.
 
-\section{Prior Information}
+\section{Dynamic Sagittal Cardiac Case Study}
+
+\subsection{Prior Information}
 
 The prior information step consists of creating $f$ 1-D arrays with the $\Phi$ positions of non-zero elements from the filtered images generated in the previous step.
-As those filtered images are composed of 
+As those filtered images are composed of
 These $\Phi$ positions are then multiplied by a $\tau$ factor of 10 at each iteration.
-This is the deterministic approach for prior information leverage and 
+This is the deterministic approach for prior information leverage and
 
 For the pre-filtering step, $f=3$ is used where $f$ is the number of filters applied to increase sparsity in the signal to be reconstructed.
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
@@ -826,7 +832,8 @@ By taking this motion information into account, we segmented the image into four
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a highly likely support position prior information.
 Similarly, the \textit{medium} labeled positions are assigned an intermediate variance for an intermediate confidence.
 
-% TODO change to higher resolution image
+In this section, we focus on the dynamic sagittal cardiac \ac{MR} and produce a manual segmentation for this case study specifically, but this could be generalized to other types of dynamic scans.
+
 \begin{figure}[H]
   \centering
   \begin{minipage}[t]{0.475\textwidth}
@@ -908,13 +915,11 @@ Where $x$, $i$, $k$...
 
 After some fine-tuning experiments in the covariance matrices, biases and $\tau$, we have found that these are the optimal configuration for a cardiac \ac{MRI}:
 
-% TODO insert parameters
+\section{Future Contribution Literature Review and Experiment}
 
+\subsection{Preliminary Tests with Generative Adversarial Networks}
 
-
-\section{Preliminary Tests with Generative Adversarial Networks}
-
-In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, I have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
+In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, we have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
 The MNIST dataset contains 60,000 examples for training and 10,000 examples for testing.
 The digits have been size-normalized and centred in a fixed-size image ($28\times28$ pixels) with values from 0 to 9.
 For simplicity, each image has been flattened and converted into a 1-dimensional numpy array of 784 features ($28\times28$).
@@ -980,14 +985,14 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 %---}}}
 
 % |--- Results ---|----------------------{{{
-\chapter{Preliminary Reconstruction and Generation Results}
+\chapter{CS Reconstruction and Preliminary Deep Learning Results}
 
-The results below serve to confirm the viability of the proposed methods as well as to create baselines with different images and signals that will later be compared to the fully-working \ac{GAN} + \ac{CS} proposed method.
-The following preliminary results are produced with a \ac{CS} algorithm version that is still under refinement and is not yet producing the highest reconstruction standard intended for the end of the present thesis.
+In this section we provide experiments in signal reconstruction using the \ac{CS} theory and contrast reconstruction quality of our proposed method -- context-depended probabilistic prior information --  with other \ac{CS} modalities.
+Additionaly, we also present the deep learning foundation for the future work we intend to proceed along with a preliminary generation experiment using \ac{GAN}s.
 
 \section{1-D Compressed Sensing Reconstruction}
 
-The reconstruction quality over computational resources demanded trade-off starts making a difference with $L$ size around 140, which is over 50\% of the fully sampled signal, a proportion a lot higher than the ones normally used in \ac{MRI} reconstruction.
+The reconstruction quality over computational resources demanded trade-off starts making a difference with $L$ size around 140, which is over 50\% of the fully sampled signal, a proportion much higher than the ones normally used in \ac{MRI} reconstruction.
 This demonstrates that there is no big prejudice in using indirect reconstruction method for very undersampled signals (close to 10\% of the data) such as the ones used in \ac{MRI}.
 
 \begin{figure}[H]
@@ -1003,26 +1008,6 @@ The results in the experiment show a huge gain of resolution in the pre-filterin
 The zero-filled reconstruction (dummy baseline) was unable to reconstruct a high fidelity image and performed very poorly in the PSNR and SNR metrics.
 The L1-minimization compressed sensing approach reconstructed the image with some noticeable noise artefacts, yet much better than the zero-filling approach.
 Finally, the L1-minimization along the usage of sparsifying pre-filtering delivered a great looking image without eye-catching artefacts and also increased the metrics largely.
-
-% \subsection{Pre Filtered Phantom Mask}
-% 
-% The pre-filtered images represent horizontal, vertical and diagonal borders masks produced from the element-wise multiplication described above and these are the masks that we will later use as our support position candidates.
-% 
-% \begin{figure}[H]
-%   \centering
-%   \begin{minipage}[t]{0.3\textwidth}
-%       \includegraphics[width=\textwidth]{filtered_phantom_hor}
-%   \end{minipage}
-%   \begin{minipage}[t]{0.3\textwidth}
-%       \includegraphics[width=\textwidth]{filtered_phantom_ver}
-%   \end{minipage}
-%   \begin{minipage}[t]{0.3\textwidth}
-%       \includegraphics[width=\textwidth]{filtered_phantom_diag}
-%   \end{minipage}
-%   \caption{Phantom borders filtered with 3\% of deterministic prior information extraction.}
-% \end{figure}
-% 
-% It becomes clearer when the masks above are observed that by using deterministic prior information, where all positions have the same likelyhood to belong to a support structure will induce some error, as we can note some artifacts generated in the above images for an example as simple as a phantom.
 
 \subsection{Phantom Reconstruction Evaluation}
 
@@ -1103,7 +1088,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
       \hline
         \textbf{Zero-fill}                             & 14.34 & 0.35 & 5.52 & 0.28 & 2392.57   \\
         \textbf{L1-minimization}                       & 17.54 & 0.48 & 8.73 & 0.13 & 1144.12   \\
-        \textbf{Pre-filtering L1-minimization}         & 17.79 & 0.49 & 8.97 & 0.12 & 1081.42 
+        \textbf{Pre-filtering L1-minimization}         & 17.79 & 0.49 & 8.97 & 0.12 & 1081.42
     \end{tabular}
   \end{center}
   \caption{Sagittal reconstruction metrics.}
@@ -1149,7 +1134,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 \section{Dynamic Sagittal Cardiac Case Study}
 
 In order to test if the extracted prior information from one frame is relevant and how it impacts the reconstruction of the next frame, we have tested reconstructing frames from a dynamic cardiac \ac{MRI} exam.
-The extracted frames are $(n \times n)$ in shape 
+The extracted frames are $(n \times n)$ in shape
 
 \subsection{Deterministic Prior Information}
 
@@ -1171,7 +1156,7 @@ For this dynamic cardiac images, we used the maximum amount of prior information
 \end{figure}
 
 These images look very noisy due to the proportion of prior information extracted and that these values are all represented by the same magnitude.
-It becomes clearer when the masks above are visually observed that by using deterministic prior information, where all positions have the same likelyhood to belong to a support structure, some error will be induced. 
+It becomes clearer when the masks above are visually observed that by using deterministic prior information, where all positions have the same likelyhood to belong to a support structure, some error will be induced.
 Also, we can note some artifacts generated in the above images that do not necessary are part of support positions.
 
 \subsection{Context-Dependent Probabilitistic Prior Information}
@@ -1190,67 +1175,59 @@ Also, we can note some artifacts generated in the above images that do not neces
   \caption{Context-dependent probabilistic prior information with 49.92\% data points proportion.}
 \end{figure}
 
-Although we are still using a great amount of prior information proportion, the regions that should have a high confidence of belonging to support structures in our subject are much clearer visually now when $\Phi$ values are weighted by our weights matrix $x$~\ref{eqn:reweighted}.
-This clarity observed in the visualizations is also reflected in the $l1$-minimization iteractions as can be observed in the results~\ref{tab:dynamic-cardiac}.
+Although we are still using a great amount of prior information proportion and with many noisy points, the regions that should have a high confidence of belonging to support structures in our subject are much better defined when the $\Phi$ values are multiplied by our weights matrix $x$~\ref{eqn:reweighted}.
+This definition observed in the visualizations above is also reflected in the $l1$-minimization as it can be noted in the results~\ref{tab:dynamic-cardiac}.
 
 \subsection{Dynamic Sagittal Cardiac Reconstruction Evaluation}
 
-\begin{figure}
+All experiments conducted for the dynamic sagittal cardiac were done in order to compare the different applications of prior information, thus all of the reconstructions were done with the usage of pre-filtering within the $l1$-minimization context.
+
+\begin{figure}[H]
     \centering
-    \begin{minipage}{.24\linewidth}
+    \begin{minipage}{.30\linewidth}
         \subfloat[]{\label{main:a}\includegraphics[width=\textwidth]{cardiac_zerofilled_frame1}}
+   %     \caption{Zero filled}
     \end{minipage}%
-    \begin{minipage}{.24\linewidth}
+    \begin{minipage}{.30\linewidth}
         \subfloat[]{\label{main:b}\includegraphics[width=\textwidth]{cardiac_nopi}}
-    \end{minipage}
-    \begin{minipage}{.24\linewidth}
+    \end{minipage}\par\medskip
+    \caption{On the left: zero-filled reconstruction. On the right: no prior information reconstruction}
+    \begin{minipage}{.30\linewidth}
         \subfloat[]{\label{main:b}\includegraphics[width=\textwidth]{cardiac_detpi}}
     \end{minipage}
-    \begin{minipage}{.24\linewidth}
+    \begin{minipage}{.30\linewidth}
         \subfloat[]{\label{main:b}\includegraphics[width=\textwidth]{cardiac_codeppi}}
-    \end{minipage}\par\medskip
-    \centering
-    \subfloat[]{\label{main:c}\includegraphics[width=0.49\textwidth]{cardiac_frame1}}
-    \caption{my fig}
+    \end{minipage}
+    \begin{minipage}{.30\linewidth}
+        \subfloat[]{\label{main:c}\includegraphics[width=\textwidth]{cardiac_frame1}}
+    \end{minipage}
+    \caption{From left to right: deterministic prior information; context-dependent probabilistic prior information; reference image}
     \label{fig:main}
 \end{figure}
 
-% % TODO change images
-% \begin{figure}[H]
-%   \centering
-%   \begin{minipage}[t]{0.22\textwidth}
-%     \includegraphics[width=\textwidth]{cardiac_fullysampled}
-%     \caption{Dynamic cardiac zero-filled reconstruction}
-%   \end{minipage}
-%   \begin{minipage}[t]{0.22\textwidth}
-%     \includegraphics[width=\textwidth]{cardiac_fullysampled}
-%     \caption{Dynamic cardiac L1-minimization reconstruction}
-%   \end{minipage}
-%   \begin{minipage}[t]{0.22\textwidth}
-%     \includegraphics[width=\textwidth]{cardiac_fullysampled}
-%     \caption{Dynamic cardiac L1-minimization with pre-filtering reconstruction}
-%   \end{minipage}
-%   \begin{minipage}[t]{0.22\textwidth}
-%     \includegraphics[width=\textwidth]{cardiac_fullysampled}
-%     \caption{Dynamic cardiac reference image}
-%   \end{minipage}
-% \end{figure}
+The images presented above are displayed from left to right in terms of best \ac{SNR}.
+These images represent the different strategies we took for \ac{MRI} reconstruting and are hard to distinguish and perceive actual gain in terms of image quality, thus we should also analyse the metrics from our dynamic \ac{MR} reconstrution.
 
-
-% TODO fill table
-\begin{table}[h!]
+\begin{table}[H]
   \begin{center}
-    \begin{tabular}{l|llll}
-                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+    \begin{tabular}{l|lllll}
+      & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
       \hline
-        \textbf{Zero-fill}                             & 17.68 & 0.32 & 5.52 & 2392.57 \\
-        \textbf{L1-minimization}                       & 21.51 & 0.43 & 8.76 & 1134.88  \\
-        \textbf{Pre-filtering L1-minimization}         & 21.03 & 0.45 & 8.97 & 1081.53
+        \textbf{Zero-fill}                                        & 25.41 & 0.68 & 15.42 & 2.86e-2 & 186.70 \\
+        \textbf{No Prior Information}                             & 27.75 & 0.74 & 17.76 & 1.67e-2 & 109.08 \\
+        \textbf{Deterministic}                                    & 27.75 & 0.74 & 17.76 & 1.67e-2 & 109.04 \\
+        \textbf{CODEPPI (ours)}                                   & \textbf{28.40} & \textbf{0.76} & \textbf{18.41} & \textbf{1.4e-2} & \textbf{93.88}
     \end{tabular}
   \end{center}
-  \caption{Sagittal reconstruction metrics.}
+  \caption{Dynamic sagittal cardiac reconstruction metrics in terms of prior information usage.}
   \label{tab:dynamic-cardiac}
 \end{table}
+
+
+\subsection{Future Contributions}
+
+% TODO Mover para outro lugar
+Naturally, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
 
 
 \section{Preliminary Tests with Generative Adversarial Networks}

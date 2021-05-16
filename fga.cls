@@ -263,7 +263,7 @@
 %-------------------------------------------------------------------------------------------------
 \thispagestyle{empty}
 \includepdf[pages=1, scale=1.0, frame=false, offset = 0 00, pagecommand={\vspace*{70mm}
-\begin{center}\scalebox{1.1}{\sffamily{University of Brasilia at Gama -- FGA/UnB}}\\
+\begin{center}\scalebox{1.1}{\sffamily{University of Brasilia -- FGA/UnB}}\\
 %\scalebox{1.2}{\sffamily{Campus Gama -- FGA}}\\
 \scalebox{1.2}{\sffamily{Software Engineering}}\\[45pt]
 \vfill
@@ -283,7 +283,7 @@
   \begin{center}
   \begin{large}
       {\bf{\maiusc{UnB -- {University of Brasilia}}}}\\[07pt]
-      {\bf{\maiusc{FGA -- Gama Faculty }}}\\[10pt]
+      {\bf{\maiusc{FGA -- Gama Faculty}}}\\[10pt]
       {\bf{\maiusc{Software Engineering}}}
    \end{large}
   \end{center}
@@ -299,9 +299,9 @@
         {\bf\large \maiusc{\@author} \par}
       \end{tabular}\par}%
          \vfill
-         {\bf\large \maiusc{Advisor: \@orientador} \par\vspace{10pt}}
+         {\bf\large \maiusc{Advisor:~\@orientador} \par\vspace{10pt}}
          \ifthenelse{\equal{\@coorientador}{}}{}{
-         {\bf\large \maiusc{Co-advisor: \@coorientador }} \par}
+         {\bf\large \maiusc{Co-advisor:~\@coorientador }} \par}
          \vspace{20pt}
          {\bf\large \maiusc{Bachelor Thesis \\ Software Engineering} \par}
          \vspace{24pt}
@@ -399,7 +399,7 @@
 
 \noindent\@tituloficha{}\\
 
-{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, Bachelor of Engineering in Software Engineering, 2020).
+{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, BEng in Software Engineering, 2020).
 
 \\Bachelor Thesis, UnB Gama Faculty,\, Software Engineering\\
 
