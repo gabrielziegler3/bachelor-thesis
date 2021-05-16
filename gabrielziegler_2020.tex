@@ -746,7 +746,7 @@ A simple 2D image of the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974
 
 Within these images, $SNR$ improvement gained by applying sparsifying pre-filtering~\cite{miosso_phd, miosso_prefiltering_2009} can be best visualized and confirmed for these different scenarios.
 
-\subsection{Subsampling}
+\subsection{Undersampling}
 
 I then created a phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module.
 Then, I simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
@@ -787,6 +787,37 @@ The different filters used can be better seeing in the figure below.
 \end{figure}
 
 The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and an L1-minimization method without pre-filtering with the very same parameters used in the pre-filtering L1-minimization.
+
+The pre-filtered images represent horizontal, vertical and diagonal borders masks produced from the element-wise multiplication described above and these are the masks that we will later use as our support position candidates.
+
+% TODO filtered pictures 
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter1.png}
+      \caption{2-D High pass horizontal filter.}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter2.png}
+      \caption{2-D High pass vertical filter.}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{filter3.png}
+      \caption{2-D High pass diagonal filter.}
+  \end{minipage}
+\end{figure}
+
+\section{Prior Information}
+
+The prior information step consists of creating $f$ 1-D arrays with the $\Phi$ positions of non-zero elements from the filtered images generated in the previous step.
+As those filtered images are composed of 
+These $\Phi$ positions are then multiplied by a $\tau$ factor of 10 at each iteration.
+This is the deterministic approach for prior information leverage and 
+
+For the pre-filtering step, $f=3$ is used where $f$ is the number of filters applied to increase sparsity in the signal to be reconstructed.
+The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
+The $3$ filtered images are then composed into one single image containing the highest gain each filter could provide given a single pixel in the image~\cite{miosso_prefiltering_2009}.
+The different filters used can be better seeing in the figure below.
 
 \section{Context-Dependent Probabilitistic Prior Information}
 
@@ -995,16 +1026,16 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \end{minipage}
 \end{figure}
 
-The usage of L1-minimization certainly improves the \ac{MRI} reconstruction, but the metrics reinforce how adding the pre-filtering step to preprocess the image achieves incredibly higher scores in \ac{PSNR} and \ac{SNR}.
+It is clear that reconstructing the image using the $l1$-minimization certainly improves the \ac{MRI} reconstruction and the metrics reinforce that the pre-filtering step to pre-process the image is crucial to achieve higher image quality.
 
 \begin{table}[h!]
   \begin{center}
-    \begin{tabular}{l|llll}
-                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+    \begin{tabular}{l|lllll}
+                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
       \hline
-        \textbf{Zero-fill}                             & 22.41 & 0.36 & 4.22 & 0.02     \\
-        \textbf{L1-minimization}                       & 38.76 & 0.96 & 20.57 & 5.3e-5   \\
-        \textbf{Pre-filtering L1-minimization}         & 91.89 & 0.99 & 73.70 & 2.5e-9
+        \textbf{Zero-fill}                             & 16.39 & 0.26 & 4.22  & 3.77e-1 & 2.29e-2   \\
+        \textbf{L1-minimization}                       & 30.46 & 0.82 & 18.28 & 1.38e-3 & 8.99e-4   \\
+        \textbf{Pre-filtering L1-minimization}         & 76.90 & 0.99 & 64.73 & 3.36e-7 & 2.04e-8
     \end{tabular}
   \end{center}
   \caption{Phantom reconstruction metrics.}
@@ -1043,12 +1074,12 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 
 \begin{table}[h!]
   \begin{center}
-    \begin{tabular}{l|llll}
-                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{MSE}     \\
+    \begin{tabular}{l|lllll}
+                                        & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
       \hline
-        \textbf{Zero-fill}                             & 17.68 & 0.32 & 5.52 & 2392.57 \\
-        \textbf{L1-minimization}                       & 21.51 & 0.43 & 8.76 & 1134.88  \\
-        \textbf{Pre-filtering L1-minimization}         & 21.03 & 0.45 & 8.97 & 1081.53
+        \textbf{Zero-fill}                             & 14.34 & 0.35 & 5.52 & 0.28 & 2392.57   \\
+        \textbf{L1-minimization}                       & 17.54 & 0.48 & 8.73 & 0.13 & 1144.12   \\
+        \textbf{Pre-filtering L1-minimization}         & 17.79 & 0.49 & 8.97 & 0.12 & 1081.42 
     \end{tabular}
   \end{center}
   \caption{Sagittal reconstruction metrics.}
