@@ -515,226 +515,6 @@ The images below are an example to represent a 15\% deterministic prior informat
 % TODO
 
 
-\section{Artificial Neural Networks}
-
-\subsection{Biological Inspirations}
-
-\ac{ANN}s, as the name suggests, have been (loosely) inspired by biological neural networks (brains) from animals.
-The concept of using many layers of vector-valued representation is drawn from neuroscience.
-The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute~\cite{goodfellow_deep_2016}.
-Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal~\cite{patterson_deep_2017}.
-
-\subsection{Neuron}
-
-The most basic unit in \ac{ANN}s is the \textit{artificial neuron}.
-Neurons act as feature detectors and this is one of the advantages of deep learning techniques in contrast to classical machine learning as the \ac{ANN} is responsible for doing feature engineering and selection, and often outperform humans in this task.
-
-These artificial neurons that are modelled mirroring the behaviour of the biological neuron as both of them are stimulated by inputs and carry some information they receive to other neurons.
-Artificial neurons take in inputs $x_1, x_2,\ldots, x_n$, each and multiply them by their respective weights $w_1, w_2,\ldots, w_n$.
-Then these weighted inputs are summed together producing the \textit{logit} of the artificial neuron, $z = \sum^n_{i=0} w_i x_i + b$, with $b$ being a constant number added called \textit{bias}.
-After this, the logit is passed to a function $f$ in order to generate the value $y = f(z)$.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=150mm,scale=0.7]{neuron}
-    \caption{Schematic of an Artificial Neuron. Source:~\cite{quddus_machine_2018}}\label{visina8}
-\end{figure}
-
-\subsection{Multilayer Perceptron}
-
-\ac{DFN} or \ac{MLP}s are a type of \ac{ANN} very commonly used.
-It is the foundation of many famous architectures like \ac{CNN}s.
-\ac{DFN}s have an input layer followed by one or many hidden layers and a single output layer.
-Each layer is fully connected to the adjacent layer.
-
-\ac{MLP}s are computational models that flow information through the function $f$ that evaluates $x$.
-The goal is to approximate some function $f*$.
-For instance, a classifier $y = f * (x)$ maps an input $x$ to a category $y$.
-The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation~\cite{goodfellow_deep_2016}.
-
-The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other and how complex the model is.
-Often adding too much complexity to the network will lead to overfitting the training set, which occurs when the model shapes the training data too precisely and cannot generalise new data fed.
-
-Most \ac{ANN}s are organized into rows of neurons called layers.
-These layers are arranged in a chain-like structure, with each layer being a function of the layer before it.
-These layers' goal is to extract \textit{representations} out of the data fed and generalize what is meaningful towards minimizing the error rate.
-This architecture scheme is represented by the following equation, where $i$ is the layer index:
-
-\begin{gather*}
-    h^{(i)} = g^{(i)} (W^{(i)T}x + b^{(i)})
-\end{gather*}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{mlp_architecture}
-    \caption{\ac{ANN} Architecture Sample.}\label{visina8}
-\end{figure}
-
-\subsection{Activation Functions}
-
-Activation functions are a scalar-to-scalar function used to propagate the output of one layer's neurons forward to the next layer.
-There are several types of activation functions for different purposes and network architectures.
-
-The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer.
-The discriminator network uses LeakyReLU activations for all layers and a \textit{sigmoid} function for the output layer.
-LeakyReLU activation functions~\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modelling~\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper~\cite{goodfellow_generative_2014}.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{l|c|c|cc|}
-      \toprule
-      Name & Function & Derivative & \\
-      \midrule
-      \hline
-      Sigmoid & $\phi(x) = \dfrac{1}{1+e^{-x}}$ &  $\phi'(x) = \phi(x)(1-\phi(x))$\\[3ex]
-      TanH    & $\phi(x) = \dfrac{2}{1+e^{-2x}} - 1$ & $\phi'(x) = 1-\phi(x)^2$ \\[3ex]
-      ReLU    & $\phi(x) = \begin{cases}
-                           0 & x \leq 0 \\
-                           x & x > 0
-                         \end{cases} $
-                         & $\phi'(x) = \begin{cases}
-                                           0 & x \leq 0 \\
-                                           1 & x > 0
-                                         \end{cases} $ \\[4ex]
-      Leaky ReLU & $\phi(x) = \begin{cases}
-                           \alpha x & x \leq 0 \\
-                           x & x > 0
-                         \end{cases} $
-                         & $\phi'(x) = \begin{cases}
-                                           \alpha & x \leq 0 \\
-                                           1 & x > 0
-                                         \end{cases} $ \\
-      \bottomrule
-    \end{tabular}
-    \caption{Activation functions and respective derivatives.}
-    \label{tab:activation-functions}
-\end{table}
-
-Some of the most used and also required activation functions in the use of \ac{GAN}s and other widely used neural networks are described below.
-
-\subsubsection{\ac{ReLU}}
-
-The \ac{ReLU}~\cite{hahnloser_digital_2000} transform activates a node only if the input is above a certain threshold having a linear relationship with the dependent variable and outputs zero for every input below zero.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{relu}
-    \caption{\ac{ReLU} activation function}\label{visina8}
-\end{figure}
-
-\subsubsection{Leaky ReLU}
-
-\ac{ReLU} activation functions have the ``dying ReLU'' problem, where a ReLU neuron is stuck in the negative side and always outputs $0$~\cite{trottier_2017, deep_learning_relu}.
-This happens when the slope of \ac{ReLU} in the negative range is also 0, once a neuron gets negative, it is unlikely for it to recover.
-These ``dead'' neurons are not playing any role in discriminating the input and are essentially useless.
-
-To mitigate this issue within \ac{ReLU}s, LeakyReLUs are a strategy that opposed to having the function being zero when $x < 0$, it has instead a small negative slope (most times with $\alpha = 0.01$).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{leaky_relu}
-    \caption{Leaky \ac{ReLU} activation function}\label{visina8}
-\end{figure}
-
-\subsubsection{Tanh}
-
-Tanh is a hyperbolic trigonometric function that deals more easily with negative numbers~\cite{patterson_deep_2017}. Unlike the Sigmoid function, tanh ranges from -1 to 1.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{tanh}
-    \caption{\textit{Tanh} activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
-\end{figure}
-
-\subsubsection{Sigmoid}
-
-Sigmoids can reduce extreme values or outliers in data without removing them, framing the input from 0 to 1 and most outputs will be close to either 0 or 1.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{sigmoid}
-    \caption{Sigmoid activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
-\end{figure}
-
-\subsection{Loss Functions}
-
-Loss functions are used to determine how a neural network is performing on the given data.
-A metric is calculated based on the error observed in the network's predictions and the model then tries to minimize this error in an optimization problem fashion.
-
-Some of the most commonly used functions are described in the table below.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|lccc}
-      \midrule
-        Mean squared error & MSE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}e_t^2$   \\
-        \hline
-        Root mean squared error & RMSE &= &$\displaystyle\sqrt{\frac{1}{n}\sum_{t=1}^{n}e_t^2}$ \\
-        \hline
-        Mean absolute error & MAE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}|e_t|$ \\
-        \hline
-        Mean absolute percentage error & MAPE &= &$\displaystyle\frac{100\%}{n}\sum_{t=1}^{n}\left |\frac{e_t}{y_t}\right|$\\
-    \end{tabular}
-    \caption{Loss functions and formulas.}
-    \label{tab:loss-functions}
-\end{table}
-
-In the case of generative networks, the original \ac{GAN} paper presents a loss function called \textit{minmax}~\cite{goodfellow_generative_2014}, that is described as.
-
-\begin{equation}
-    min_Gmax_DV(D,G)= E_{x\sim P_{data}(x)}[logD(x)]+E_{z\sim pz(z)}[log(1 - D(G(z)))]
-\end{equation}
-
-Where $x$ is the input data representing an image, $D(x)$ is the discriminator network, $G(x)$ is the generator function and $z$ represents the latent vector that is mapped to data-space by $G$.
-Hence, the scalar probability that the output of the generator $G$ is a real image is given by $D(G(z))$~\cite{goodfellow_generative_2014}.
-
-\subsection{Backpropagation}
-
-Backpropagation is a technique used to implement gradient descent in weight space for an \ac{MLP}~\cite{backpropagation_1986, werbos_1994}.
-In essence, backpropagation computes the error partial derivatives of an approximating function $F(w, x)$ computed by the \ac{ANN} with respect to the weight and input vector for each training example~\cite{haykin_neural_2009}.
-
-The development of the backpropagation algorithm is a milestone in neural networks development and research as it made computationally efficient to train \ac{MLP}s, thus confirming that \ac{ANN}s research field was filled with potential in the mid-1980s.
-
-In order to evaluate the derivatives of the function $F(w,x)$ with respect to all the elements in the weight vector $w$ for an input vector $x = [x_1, x_2, \ldots, x_{m0}]^T$ for an \ac{MLP} with layer $l=2$, we have the following equation where $\varphi$ is the activation function, $w$ is the ordered weight vector and $x$ is the input vector fed into the \ac{MLP}~\cite{haykin_neural_2009}:
-
-\begin{equation}
-    \centering
-    F(\mathbf{w}, \mathbf{x})=\sum_{j=0}^{m_{1}} w_{o j} \varphi\left(\sum_{i=0}^{m_{0}} w_{j i} x_{i}\right)
-\end{equation}
-
-\subsection{Gradient Descent}
-
-Gradient descent is an optimization algorithm frequently used in \ac{ANN}s to find the values of coefficients of a function that minimizes a cost function.
-Gradient descent can be very time consuming on large datasets due to the necessity of having a prediction for each instance in the training set.
-In scenarios where there is a large number of data instances, a variation of gradient descent called \ac{SGD} can be used.
-\ac{SGD} updates the coefficients for each training instance or batch instead of at the end after running through all the training set instances.
-
-Most deep learning models are powered by the \ac{SGD} and it can be visualized as the figure below demonstrates: the function starts in a random point in the loss function and after each iteration, the \ac{SGD} calculates how it should adjust parameters in order to reach the minimal point in the loss function, hence moving towards the valley as illustrated.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{gradient_descent.jpg}
-    \caption{Gradient descent example visualization. Source:~\cite{gradient_descent_2020}}\label{visina8}
-\end{figure}
-
-\section{Generative Adversarial Networks}
-
-\ac{GAN}s are a machine learning strategy proposed in 2014 by Ian Goodfellow~\cite{goodfellow_generative_2014} that consists of two simultaneously trained models: the \textit{Generator} $G(x)$ and the \textit{Discriminator} $D(x)$.
-The generator has the role to generate fake data whilst the discriminator is trained to discern whether the given input is real or fake.
-
-In essence, the generator takes a vector of random numbers $(z)$ as input and outputs a fake example that strives to look as close as possible to the training data pattern.
-The discriminator takes an image $(x)$ as input from two sources: real examples from the training set and fake examples generated by the generator network, then the discriminator outputs a scalar probability that the image is real~\cite{langr_gans_2019}.
-
-\ac{GAN}s play a minimax two-player game in which $D$ tries to maximize the probability to correctly classify real and fake samples ($\log D(x)$), whilst $G$ tries to minimize the chance that $D$ will correctly predict its generated outputs are fake ($\log (1-D(G(x)))$).
-
-Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs.
-However, \ac{GAN}s are still new neural network techniques and its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{gan_schema}
-    \caption{\ac{GAN} training diagram. Source:~\cite{langr_gans_2019}}\label{visina8}
-\end{figure}
 %---}}}
 
 % |--- Methodology ---|----------------------{{{
@@ -1223,14 +1003,234 @@ These images represent the different strategies we took for \ac{MRI} reconstruti
   \label{tab:dynamic-cardiac}
 \end{table}
 
+\section{Future Contributions: Deep Learning Applications}
 
-\subsection{Future Contributions}
+Our implementation counts on the usage of signal processing techniques without any machine learning usage, but that is only because this work is intended to be continued in a graduate degree where we would like to investigate more on two aspects: the generation of prior information support positions using \ac{GAN}s and a computer-vision system capable of segmenting the image based on levels of motion throughtout the frames in a dynamic exam.
 
-% TODO Mover para outro lugar
-Naturally, this implies that this task could gain a lot from a specialized image segmentation system or even a non-movement region detection system, which are more elaborated in future steps section.
+In this work, we have initiated the documentation of the \ac{DL} necessary for our next steps as well as have we also document an experiment for the generation of handwritten MNIST numbers using a \ac{GAN} in order to mitigate viability of our hypothesis to use generative algorithms in the near future.
 
+\section{Artificial Neural Networks}
 
-\section{Preliminary Tests with Generative Adversarial Networks}
+\subsection{Biological Inspirations}
+
+\ac{ANN}s, as the name suggests, have been (loosely) inspired by biological neural networks (brains) from animals.
+The concept of using many layers of vector-valued representation is drawn from neuroscience.
+The choice of the functions $f^{(i)}(x)$ used to compute these representations is also loosely guided by neuroscientific observations about the functions that biological neurons compute~\cite{goodfellow_deep_2016}.
+Another trait they share is that just like the human brain can be trained to pass forward only meaningful signals to achieve larger goals of the brain, the neurons on a neural network can be trained to pass along only useful signal~\cite{patterson_deep_2017}.
+
+\subsection{Neuron}
+
+The most basic unit in \ac{ANN}s is the \textit{artificial neuron}.
+Neurons act as feature detectors and this is one of the advantages of deep learning techniques in contrast to classical machine learning as the \ac{ANN} is responsible for doing feature engineering and selection, and often outperform humans in this task.
+
+These artificial neurons that are modelled mirroring the behaviour of the biological neuron as both of them are stimulated by inputs and carry some information they receive to other neurons.
+Artificial neurons take in inputs $x_1, x_2,\ldots, x_n$, each and multiply them by their respective weights $w_1, w_2,\ldots, w_n$.
+Then these weighted inputs are summed together producing the \textit{logit} of the artificial neuron, $z = \sum^n_{i=0} w_i x_i + b$, with $b$ being a constant number added called \textit{bias}.
+After this, the logit is passed to a function $f$ in order to generate the value $y = f(z)$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=150mm,scale=0.7]{neuron}
+    \caption{Schematic of an Artificial Neuron. Source:~\cite{quddus_machine_2018}}\label{visina8}
+\end{figure}
+
+\subsection{Multilayer Perceptron}
+
+\ac{DFN} or \ac{MLP}s are a type of \ac{ANN} very commonly used.
+It is the foundation of many famous architectures like \ac{CNN}s.
+\ac{DFN}s have an input layer followed by one or many hidden layers and a single output layer.
+Each layer is fully connected to the adjacent layer.
+
+\ac{MLP}s are computational models that flow information through the function $f$ that evaluates $x$.
+The goal is to approximate some function $f*$.
+For instance, a classifier $y = f * (x)$ maps an input $x$ to a category $y$.
+The feedforward defines a mapping $y = f(x;\theta)$ and learns the value of the parameters $\theta$ that result in the best function approximation~\cite{goodfellow_deep_2016}.
+
+The behaviour of an \ac{ANN} is shaped by its architecture, which describes the number of units it should have and how these units connect to each other and how complex the model is.
+Often adding too much complexity to the network will lead to overfitting the training set, which occurs when the model shapes the training data too precisely and cannot generalise new data fed.
+
+Most \ac{ANN}s are organized into rows of neurons called layers.
+These layers are arranged in a chain-like structure, with each layer being a function of the layer before it.
+These layers' goal is to extract \textit{representations} out of the data fed and generalize what is meaningful towards minimizing the error rate.
+This architecture scheme is represented by the following equation, where $i$ is the layer index:
+
+\begin{gather*}
+    h^{(i)} = g^{(i)} (W^{(i)T}x + b^{(i)})
+\end{gather*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{mlp_architecture}
+    \caption{\ac{ANN} Architecture Sample.}\label{visina8}
+\end{figure}
+
+\subsection{Activation Functions}
+
+Activation functions are a scalar-to-scalar function used to propagate the output of one layer's neurons forward to the next layer.
+There are several types of activation functions for different purposes and network architectures.
+
+The \ac{DCGAN} architecture used in my MNIST experiment is built using \ac{ReLU} activations in the generator network and a \textit{tanh} in the output layer.
+The discriminator network uses LeakyReLU activations for all layers and a \textit{sigmoid} function for the output layer.
+LeakyReLU activation functions~\cite{maas_rectier_nodate, empirical_relu_cnn} have been proven to work well for higher resolution modelling~\cite{radford_unsupervised_2016} in contrast to the usage of maxout activation functions that were first proposed in the original \ac{GAN} paper~\cite{goodfellow_generative_2014}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|c|c|cc|}
+      \toprule
+      Name & Function & Derivative & \\
+      \midrule
+      \hline
+      Sigmoid & $\phi(x) = \dfrac{1}{1+e^{-x}}$ &  $\phi'(x) = \phi(x)(1-\phi(x))$\\[3ex]
+      TanH    & $\phi(x) = \dfrac{2}{1+e^{-2x}} - 1$ & $\phi'(x) = 1-\phi(x)^2$ \\[3ex]
+      ReLU    & $\phi(x) = \begin{cases}
+                           0 & x \leq 0 \\
+                           x & x > 0
+                         \end{cases} $
+                         & $\phi'(x) = \begin{cases}
+                                           0 & x \leq 0 \\
+                                           1 & x > 0
+                                         \end{cases} $ \\[4ex]
+      Leaky ReLU & $\phi(x) = \begin{cases}
+                           \alpha x & x \leq 0 \\
+                           x & x > 0
+                         \end{cases} $
+                         & $\phi'(x) = \begin{cases}
+                                           \alpha & x \leq 0 \\
+                                           1 & x > 0
+                                         \end{cases} $ \\
+      \bottomrule
+    \end{tabular}
+    \caption{Activation functions and respective derivatives.}
+    \label{tab:activation-functions}
+\end{table}
+
+Some of the most used and also required activation functions in the use of \ac{GAN}s and other widely used neural networks are described below.
+
+\subsubsection{\ac{ReLU}}
+
+The \ac{ReLU}~\cite{hahnloser_digital_2000} transform activates a node only if the input is above a certain threshold having a linear relationship with the dependent variable and outputs zero for every input below zero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{relu}
+    \caption{\ac{ReLU} activation function}\label{visina8}
+\end{figure}
+
+\subsubsection{Leaky ReLU}
+
+\ac{ReLU} activation functions have the ``dying ReLU'' problem, where a ReLU neuron is stuck in the negative side and always outputs $0$~\cite{trottier_2017, deep_learning_relu}.
+This happens when the slope of \ac{ReLU} in the negative range is also 0, once a neuron gets negative, it is unlikely for it to recover.
+These ``dead'' neurons are not playing any role in discriminating the input and are essentially useless.
+
+To mitigate this issue within \ac{ReLU}s, LeakyReLUs are a strategy that opposed to having the function being zero when $x < 0$, it has instead a small negative slope (most times with $\alpha = 0.01$).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{leaky_relu}
+    \caption{Leaky \ac{ReLU} activation function}\label{visina8}
+\end{figure}
+
+\subsubsection{Tanh}
+
+Tanh is a hyperbolic trigonometric function that deals more easily with negative numbers~\cite{patterson_deep_2017}. Unlike the Sigmoid function, tanh ranges from -1 to 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{tanh}
+    \caption{\textit{Tanh} activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
+\end{figure}
+
+\subsubsection{Sigmoid}
+
+Sigmoids can reduce extreme values or outliers in data without removing them, framing the input from 0 to 1 and most outputs will be close to either 0 or 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{sigmoid}
+    \caption{Sigmoid activation function. Source:~\cite{patterson_deep_2017}}\label{visina8}
+\end{figure}
+
+\subsection{Loss Functions}
+
+Loss functions are used to determine how a neural network is performing on the given data.
+A metric is calculated based on the error observed in the network's predictions and the model then tries to minimize this error in an optimization problem fashion.
+
+Some of the most commonly used functions are described in the table below.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|lccc}
+      \midrule
+        Mean squared error & MSE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}e_t^2$   \\
+        \hline
+        Root mean squared error & RMSE &= &$\displaystyle\sqrt{\frac{1}{n}\sum_{t=1}^{n}e_t^2}$ \\
+        \hline
+        Mean absolute error & MAE &= &$\displaystyle\frac{1}{n}\sum_{t=1}^{n}|e_t|$ \\
+        \hline
+        Mean absolute percentage error & MAPE &= &$\displaystyle\frac{100\%}{n}\sum_{t=1}^{n}\left |\frac{e_t}{y_t}\right|$\\
+    \end{tabular}
+    \caption{Loss functions and formulas.}
+    \label{tab:loss-functions}
+\end{table}
+
+In the case of generative networks, the original \ac{GAN} paper presents a loss function called \textit{minmax}~\cite{goodfellow_generative_2014}, that is described as.
+
+\begin{equation}
+    min_Gmax_DV(D,G)= E_{x\sim P_{data}(x)}[logD(x)]+E_{z\sim pz(z)}[log(1 - D(G(z)))]
+\end{equation}
+
+Where $x$ is the input data representing an image, $D(x)$ is the discriminator network, $G(x)$ is the generator function and $z$ represents the latent vector that is mapped to data-space by $G$.
+Hence, the scalar probability that the output of the generator $G$ is a real image is given by $D(G(z))$~\cite{goodfellow_generative_2014}.
+
+\subsection{Backpropagation}
+
+Backpropagation is a technique used to implement gradient descent in weight space for an \ac{MLP}~\cite{backpropagation_1986, werbos_1994}.
+In essence, backpropagation computes the error partial derivatives of an approximating function $F(w, x)$ computed by the \ac{ANN} with respect to the weight and input vector for each training example~\cite{haykin_neural_2009}.
+
+The development of the backpropagation algorithm is a milestone in neural networks development and research as it made computationally efficient to train \ac{MLP}s, thus confirming that \ac{ANN}s research field was filled with potential in the mid-1980s.
+
+In order to evaluate the derivatives of the function $F(w,x)$ with respect to all the elements in the weight vector $w$ for an input vector $x = [x_1, x_2, \ldots, x_{m0}]^T$ for an \ac{MLP} with layer $l=2$, we have the following equation where $\varphi$ is the activation function, $w$ is the ordered weight vector and $x$ is the input vector fed into the \ac{MLP}~\cite{haykin_neural_2009}:
+
+\begin{equation}
+    \centering
+    F(\mathbf{w}, \mathbf{x})=\sum_{j=0}^{m_{1}} w_{o j} \varphi\left(\sum_{i=0}^{m_{0}} w_{j i} x_{i}\right)
+\end{equation}
+
+\subsection{Gradient Descent}
+
+Gradient descent is an optimization algorithm frequently used in \ac{ANN}s to find the values of coefficients of a function that minimizes a cost function.
+Gradient descent can be very time consuming on large datasets due to the necessity of having a prediction for each instance in the training set.
+In scenarios where there is a large number of data instances, a variation of gradient descent called \ac{SGD} can be used.
+\ac{SGD} updates the coefficients for each training instance or batch instead of at the end after running through all the training set instances.
+
+Most deep learning models are powered by the \ac{SGD} and it can be visualized as the figure below demonstrates: the function starts in a random point in the loss function and after each iteration, the \ac{SGD} calculates how it should adjust parameters in order to reach the minimal point in the loss function, hence moving towards the valley as illustrated.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{gradient_descent.jpg}
+    \caption{Gradient descent example visualization. Source:~\cite{gradient_descent_2020}}\label{visina8}
+\end{figure}
+
+\section{Generative Adversarial Networks}
+
+\ac{GAN}s are a machine learning strategy proposed in 2014 by Ian Goodfellow~\cite{goodfellow_generative_2014} that consists of two simultaneously trained models: the \textit{Generator} $G(x)$ and the \textit{Discriminator} $D(x)$.
+The generator has the role to generate fake data whilst the discriminator is trained to discern whether the given input is real or fake.
+
+In essence, the generator takes a vector of random numbers $(z)$ as input and outputs a fake example that strives to look as close as possible to the training data pattern.
+The discriminator takes an image $(x)$ as input from two sources: real examples from the training set and fake examples generated by the generator network, then the discriminator outputs a scalar probability that the image is real~\cite{langr_gans_2019}.
+
+\ac{GAN}s play a minimax two-player game in which $D$ tries to maximize the probability to correctly classify real and fake samples ($\log D(x)$), whilst $G$ tries to minimize the chance that $D$ will correctly predict its generated outputs are fake ($\log (1-D(G(x)))$).
+
+Ideally, this minimax game would resolve to a solution with $pg=p_{data}$, where the discriminator is incapable of distinguishing real from fake inputs.
+However, \ac{GAN}s are still new neural network techniques and its convergence theory is still being highly researched and hardly reaching this point in reality~\cite{goodfellow_generative_2014}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{gan_schema}
+    \caption{\ac{GAN} training diagram. Source:~\cite{langr_gans_2019}}\label{visina8}
+\end{figure}
+
+\subsection{Preliminary Tests with Generative Adversarial Networks}
 
 Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an invertedly correlated manner.
 This happens especially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated.
