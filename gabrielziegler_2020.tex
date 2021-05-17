@@ -298,6 +298,9 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 
 \pagenumbering{arabic}
 
+%TODO documentar como serão feitas as analises na metodologia
+% Gerar resultados com phantom dinamico
+
 % |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
@@ -361,6 +364,7 @@ Additionaly, we also present fundamentals and preliminary experiments for a sequ
 In order to achieve the general objective described above, we have set the following specific goals:
 
 \begin{itemize}
+    \item Implement all the \ac{CS} procedures in Python.
     \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm using undersampled \textit{k-space} measurements.
     \item Demonstrate experiments with \ac{CS} using pre-filtering and classical prior-information.
     \item Demonstrate our context-dependent probabilistic prior information algorithm and compare with other prior-information techniques.
@@ -469,7 +473,7 @@ This would not only improve the reconstruction of \ac{MR} images but would also 
 The \ac{MRI} exam is known for requiring the patient to stand still throughout the exam so that there are not grand differences between different frames.
 
 A dynamic cardiac \ac{MRI} for instance is naturally a situation that will be impossible for the subject to be still throughout the exam, as the heart will keep beating constantly; hence increasing the level of difficulty for the reconstruction.
-Although a dynamic cardiac exam has this innate motion characteristic, it also contains crucial portions of \textit{support regions} shared between most of the frames that can be exploited to improve the reconstrution.
+Although a dynamic cardiac exam has this innate motion characteristic, it also contains crucial portions of \textit{support regions} shared between most of the frames that can be exploited to improve the reconstruction.
 These support regions are essentially structures that will hold -- practically -- the same position therefore, these are elements in the image that share the same information and prior information application exploits this nature by slightly reducing the number of variables in our underdetermined system in the \ac{CS} algorithm.
 
 \subsection{Prior Information Retrieval}
@@ -526,6 +530,20 @@ This is useful because it allows for noise/error smoothing between frames and sl
 The following experiments have the purpose to elucidate how the application of pre-filtering and different prior information strategies impact \ac{MRI} reconstruction in different scenarios.
 Later, we present a signal generation experiment with \ac{GAN}s aiming to utilize this technology in further research continuation. 
 The generation test is a step before implemeting these neural networks for prior-information leverage on \ac{MRI} scans.
+
+\section{Metrics and Evaluation Criteria}
+
+All the documented experiments below were evaluated using a set of metrics widely used in the \ac{MRI} context to analyse image reconstruction quality.
+The metrics and their respective meanings are:
+
+\begin{itemize}
+    \item \ac{PSNR}: the ratio between the power of the maximum magnitude value in the image and the power of corrupting noise that impacts the fidelity of the reconstruction. \ac{PSNR} is represented in dB and the greater it is, the greater image quality perceived.
+    \item \ac{SSIM}: ranges from 0 to 1 and measures the similarity between two images, the closer to 1, the more the two signals are similar.
+    \item \ac{SNR}: similar to the \ac{PSNR}, the \ac{SNR} measures the level of a desired signal to the level of noise in the reconstructed signal. It is also represented in dB and the greater, the better.
+    \item \ac{MSE}: measures the mean of the squares of the errors -- that is, the difference between the reconstructed signal and the ground truth. The lower the error, the better the reconstruction.
+    \item \ac{NMSE}: computes the \ac{MSE} normalized by signal power. \ac{NMSE} is widely used in research papers and is the primary measure of choice in fastMRI dataset, but it contains certain bias towards smoothness instead of sharpness~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}. 
+\end{itemize}
+
 
 \section{1-D Direct vs Indirect L1-Minimization}
 
@@ -615,12 +633,12 @@ In our experiments, we use the first frame's reconstruction to generate our $\Ph
 
 \subsection{Radial Undersampling}
 
-For this experiment, we decided to use a radial undersampling mask with 60 lines, concentrating most of the measurements in the low frequency regions.
+For this experiment, we decided to use a radial undersampling mask with 60 lines -- which corresponds to 19\% of all the data points, concentrating most of the measurements in the low frequency regions.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{radial_undersampling}
-    \caption{Sample of digits from MNIST}
+    \caption{Radial undersampling trajectory with 19\% of data points.}
 \end{figure}
 
 Following the same procedure as the other experiments, we also perform a zero-filled reconstruction with our undersampled k-space measurements vector $b$ in order to generate a baseline to compare with our latter results.
@@ -629,6 +647,8 @@ Following the same procedure as the other experiments, we also perform a zero-fi
 
 The prior information step consists of creating $f$ 1-D arrays with the $\Phi$ positions of non-zero elements from the filtered images generated with the previous frames' reconstructions.
 These $\Phi$ positions are then multiplied by a $\tau$ factor of 10 at each iteration in our $l1$-minimization.
+
+For both deterministic and context-dependent probabilistic prior information we have used the largest proportion of prior information available: 49.92\%, which provided the best results in both prior information strategies for this specific scenario.
 
 \subsection{CoDePPI: Context-Dependent Probabilitistic Prior Information}
 
@@ -823,15 +843,15 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \centering
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_zero_fill.png}
-    \caption{zero-filled reconstruction}
+    \caption{Zero-filled}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_l1.png}
-    \caption{L1-minimization reconstruction}
+    \caption{L1-minimization}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_prefilter.png}
-    \caption{L1-minimization with pre-filtering reconstruction}
+    \caption{L1-minimization with pre-filtering}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{phantom_shepplogan.png}
@@ -871,15 +891,15 @@ That said, it is clear that the undersampling pattern and amount of data points 
   \centering
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_zero_fill}
-    \caption{Zero-filled reconstruction}
+    \caption{Zero-filled}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_l1}
-    \caption{L1-minimization reconstruction}
+    \caption{L1-minimization}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_prefilter}
-    \caption{L1-minimization with pre-filtering reconstruction}
+    \caption{L1-minimization with pre-filtering}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{head}
@@ -1014,7 +1034,7 @@ All experiments conducted for the dynamic sagittal cardiac were done in order to
 \end{figure}
 
 The images presented above are displayed from left to right in terms of best \ac{SNR}.
-These images represent the different strategies we took for \ac{MRI} reconstruting and are hard to distinguish and perceive actual gain in terms of image quality, thus we should also analyse the metrics from our dynamic \ac{MR} reconstrution.
+These images represent the different strategies we took for \ac{MRI} reconstruting and are hard to distinguish and perceive actual gain in terms of image quality, thus we should also analyse the metrics from our dynamic \ac{MR} reconstruction.
 
 \begin{table}[H]
   \begin{center}
