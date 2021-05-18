@@ -537,9 +537,9 @@ All the documented experiments below were evaluated using a set of metrics widel
 The metrics and their respective meanings are:
 
 \begin{itemize}
-    \item \ac{PSNR}: the ratio between the power of the maximum magnitude value in the image and the power of corrupting noise that impacts the fidelity of the reconstruction. \ac{PSNR} is represented in dB and the greater it is, the greater image quality perceived.
-    \item \ac{SSIM}: ranges from 0 to 1 and measures the similarity between two images, the closer to 1, the more the two signals are similar.
-    \item \ac{SNR}: similar to the \ac{PSNR}, the \ac{SNR} measures the level of a desired signal to the level of noise in the reconstructed signal. It is also represented in dB and the greater, the better.
+    \item \ac{PSNR}: represents the ratio between the power of the maximum magnitude value in the image and the power of corrupting noise that impacts the fidelity of the reconstruction. \ac{PSNR} is represented in dB and the greater it is, the greater image quality perceived.
+    \item \ac{SSIM}: ranges fromThe lower, the better. 0 to 1 and measures the similarity between two images, the closer to 1, the more the two signals are similar.
+    \item \ac{SNR}: similarly to the \ac{PSNR}, the \ac{SNR} measures the level of a desired signal to the level of noise in the reconstructed signal. It is also represented in dB and the greater, the better.
     \item \ac{MSE}: measures the mean of the squares of the errors -- that is, the difference between the reconstructed signal and the ground truth. The lower the error, the better the reconstruction.
     \item \ac{NMSE}: computes the \ac{MSE} normalized by signal power. \ac{NMSE} is widely used in research papers and is the primary measure of choice in fastMRI dataset, but it contains certain bias towards smoothness instead of sharpness~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}. 
 \end{itemize}
@@ -570,19 +570,14 @@ Within these images, $SNR$ improvement gained by applying sparsifying pre-filter
 
 \subsection{Spiral Undersampling}
 
-We then created a phantom image with dimension of $256\times256$, hence 65536 data points, using the phantominator python module.
+We then created a phantom image with dimension of $256\times256$, hence having 65536 data points, using the phantominator python module.
 Then, we simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
+The same procedure was applied to the sagittal head image.
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[t]{0.475\textwidth}
-    \includegraphics[width=\textwidth]{phantom_shepplogan.png}
-    \caption{Shepp-Logan phantom reference image.}
-  \end{minipage}
-  \begin{minipage}[t]{0.475\textwidth}
-    \includegraphics[width=\textwidth]{spiral_undersampling.png}
+    \includegraphics[width=0.4\textwidth]{spiral_undersampling.png}
     \caption{Spiral undersampling method with 30.95\% data points.}
-  \end{minipage}
 \end{figure}
 
 \subsection{Pre Filtering Sparsifying Transform}
@@ -590,7 +585,7 @@ Then, we simulated an undersampled phantom image by applying the spiral undersam
 For the pre-filtering step, $f=3$ is used where $f$ is the number of filters applied to increase sparsity in the signal to be reconstructed.
 The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
 The $3$ filtered images are then composed into one single image containing the highest gain each filter could provide given a single pixel in the image~\cite{miosso_prefiltering_2009}.
-The different filters used can be better seeing in the figure below.
+The different filters used can be better visualized from the figure below.
 
 \begin{figure}[H]
   \centering
@@ -660,7 +655,15 @@ By taking this motion information into account, we segmented the image into four
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a highly likely support position prior information.
 Similarly, the \textit{medium} labeled positions are assigned an intermediate variance for an intermediate confidence.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{3d_variances}
+    \caption{Example of gaussian distributions with four different levels of variances.}
+\end{figure}
+
 In this section, we focus on the dynamic sagittal cardiac \ac{MR} and produce a manual segmentation for this case study specifically, but this could be generalized to other types of dynamic scans.
+The segmentation step focuses on the different motion contexts related to the exam and subject.
+In this case, we have a sagittal cardiac \ac{MR} exam in which the subject's regions with most motion visually detected were the heart region and digestive system, hence these portions of the image are marked as high and medium in terms of motion respectively.
 
 \begin{figure}[H]
   \centering
