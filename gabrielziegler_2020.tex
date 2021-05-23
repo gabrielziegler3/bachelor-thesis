@@ -1,18 +1,18 @@
 \documentclass[a4paper, 12pt]{fga}
 
 % |--- Títulos, autor, banca ---|----------------------{{{
-\title{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction} % título na forma principal
-\tituloficha{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction,\\\,[Federal District], 2021.} % título na forma a constar da ficha
+\title{Context-Dependent Probabilistic Prior Information Strategy for MRI Reconstruction} % título na forma principal
+\tituloficha{Context-Dependent Probabilistic Prior Information Strategy for MRI Reconstruction,\\\,[Federal District], 2021.} % título na forma a constar da ficha
                                                   % catalográfica (incluir mudanças de
                                                   % linha usando \\ quando necessário)
-% \titulocapaA{Compressed Sensing with Gaussian Probabilitistic}
+% \titulocapaA{Compressed Sensing with Gaussian Probabilistic}
 % \titulocapaB{Prior Information For}
 % \titulocapaC{Magnetic Resonance Image Reconstruction}
-\titulocapaA{Context-Dependent Probabilitistic}
+\titulocapaA{Context-Dependent Probabilistic}
 \titulocapaB{Prior Information Strategy for MRI Reconstruction}
 \titulocapaC{}
 
-\titulofichadois{Context-Dependent Probabilitistic Prior Information Strategy for MRI Reconstruction}
+\titulofichadois{Context-Dependent Probabilistic Prior Information Strategy for MRI Reconstruction}
 \author{~Gabriel Gomes Ziegler}
 \nomeinvertido{Ziegler, Gabriel}
 \orientador{~Cristiano Jacques Miosso, PhD}
@@ -210,20 +210,30 @@
 
 \noindent{\bfseries{\maiusc{\large Resumo}} }
 
-A obtenção de imagens de ressonância magnética de alta qualidade é uma tarefa árdua pelo funcionamento das máquinas e pela complexidade dos tecidos analisados, tornando praticamente impossível a obtenção de todas as medidas do objeto de estudo em um exame de breve execução.
+A obtenção de imagens de ressonância magnética de alta qualidade é uma tarefa árdua devido a maneira de obtenção do sinal pelas máquinas de ressonância magnética e pela complexidade dos tecidos analisados, tornando praticamente impossível a obtenção de todas as medidas do objeto de estudo em um exame de breve execução.
 Para lidar com este problema, diversas técnicas foram aplicadas para gerar imagens de alta qualidade com quantidades menores de medidas, entre elas, \ac{CS} tem sido a técnica com melhores resultados e mais aprofundada no contexto de reconstrução de imagens de ressonância magnética nas últimas duas décadas.
-\ac{CS} é capaz de produzir imagens de altíssima qualidade com proporções muito menores de amostragens, como 10\%,15\% do total de medidas disponíveis utilizando técnicas de \textit{undersampling} por sua boa capacidade de lidar com sinais esparsos.
+\ac{CS} é capaz de reconstruir imagens com altíssima qualidade com proporções de medidas muito menores de amostragens, como 15\%,20\% do total de medidas contidas na imagem utilizando técnicas de subamostragem por sua alta capacidade de lidar com sinais com representações esparsas.
 
-O desempenho do \ac{CS} evoluiu com as contribuições de uso de filtros esparsificantes e com o uso de informação a priori.
-Recentemente, o estado-da-arte veio sendo composto pelo uso de redes neurais profundas, muitas vezes em conjunto com o uso de \ac{CS} e outras de maneira singular.
-Desta maneira, esta monografia tem como intuito trazer o uso de \ac{CS} com pré-filtragem e aplicar o uso de redes adversárias generativas para a extração de informação a priori.
+O desempenho do \ac{CS} evoluiu com as contribuições de uso de filtros esparsificantes e com o uso de informação à priori~\cite{miosso_phd, miosso_compressive_2009, miosso_prefiltering_2009} entre outras aplicações que foram desenvolvidas seguindo a mesma linha de aplicação como por exemplo o uso de informação à priori de forma não determinística~\cite{daniel_msc}.
+A extensa aplicação do \ac{CS} dentro do contexto de exames de ressonância magnética foi uma das grandes motivações de apresentarmos nesse trabalho uma técnica inédita e que gera resultados promissores com reconstruções melhores nas métricas avaliadas e com tempo de execução inferior ao de algoritmos que utilizam informação à priori determinística.
+Nossa técnica é nomeada CoDePPI, do inglês \textit{Informação à Priori Probabilística Dependente do Contexto}, e traz uma característica nova em termos de informação à priori que é o entendimento que regiões diferentes de um objeto variam em termos de movimento de maneiras diferentes em um exame de ressonância dinâmico. 
+Isto é, em um exame dinâmico de ressonância cardíaco a região do coração obviamente vai estar se movendo entre frames em uma certa velocidade, mas outras regiões do corpo do objeto de estudo também se movimentam e com velocidades diferentes.
+Levando essa informação de contexto de movimento em regiões diferentes da imagem, propomos neste trabalho utilizar uma técnica não determinística de informação à priori com diferentes variâncias para cada região.
+Dessa forma, cada região é representada por diferentes níveis de confiança de que aqueles pontos fazem parte de uma posição suporte (posições de pixeis que se manteriam estáticos entre frames).
 
-A metodologia é composta pela utilização de formas variadas de \ac{CS} para a reconstrução de imagens comparando métodos, pré-processamentos e parâmetros, a fim de explicitar os diferentes resultados atingíveis com \ac{CS}.
-Experimentos com redes adversárias generativas também foram conduzidos com o intuito de demonstrar a capacidade das mesmas para geração de sinais com alta fidelidade.
+Assim, desenvolvemos uma série de experimentos a fim de levantar conhecimento sobre as técnicas utilizadas em \ac{CS} para reconstrução de imagens utilizando técnicas de pré-filtragem e de informação à priori e posteriormente avaliamos os resultados de cada técnica entre elas para diferentes modalidades de imagens de \ac{MRI} e também utilizando diferentes maneiras de subamostragem para explorar como os resultados variam em cada situação.
+Nos experimentos são levadas em consideração imagens simples como fantomas Shepp-Logan, cortes sagitais da cabeça e um estudo de caso de ressonância dinâmica de corte sagital do tórax.
 
-Os resultados obtidos demonstram que o uso de pré-filtragem é preferível para a reconstrução de imagens, melhorando as métricas de relação sinal-ruído (SNR), relação sinal-ruído de pico (PSNR) e similaridade estrutural (SSIM).
-Os resultados das GANs mostram que estas são capazes de gerar sinais com alto teor de realismo quando comparadas as imagens criadas com as imagens de treino.
-Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de forma manual e posteriormente usando GANs, comparando todas as técnicas e transformações aplicadas.
+Os resultados dos nossos experimentos mostram que o uso de pré-filtragem e de informação à priori são muito vantajosos para reconstrução de imagens com a teoria de \ac{CS} e são preferíveis à não utilização dos mesmos.
+Além disso, nossos testes com o método proposto CoDePPI revela que o uso da nossa metodologia de extração de informação à priori é mais robusta e gera melhores resultados quando comparada com as outras técnicas para exames de ressonância magnética dinâmica.
+Não foram feitos experimentos com outras modalidades, mas os resultados nos levam a crer que essa técnica também geraria os melhores resultados em outras situações como extração de informação à priori entre frames de uma ressonância axial do crânio que compartilha várias posições suportes entre frames.
+
+Durante a execução desta pesquisa, nós também desenvolvemos outras hipóteses de melhorias para o processo de extração de informação a priori análogas à técnica do CoDePPI, porém com uso de técnicas mais recentes de aprendizado de máquina.
+Dentro dessas hipóteses, duas se destacam: a possibilidade da utilização de algoritmos generativos como as \ac{GAN}s para geração de pontos de posição suporte de forma automática e a utilização de técnicas de visão computacional para segmentação automática das regiões com movimentos diferentes que é utilizada na aplicação do CoDePPI.
+Assim, sendo duas possibilidades de melhoria no contexto do nosso algoritmo apresentado, trouxemos nesta pesquisa os fundamentos teóricos para a continuação dessa pesquisa e validação dessas hipóteses em uma tese de mestrado.
+Além da revisão bibliográfica levantada sobre o tema, elaboramos também um experimento focado especificamente em geração de sinais de imagem a partir da arquitetura \ac{GAN}, onde mostramos a viabilidade de gerar números manuscritos do conjunto de dados MNIST.
+Dessa forma, essa continuação da pesquisa é também resultado da nossa metodologia e experimentação no período de implementação do algoritmo estado da arte em extração de informação a priori CoDePPI.
+Dentro da etapa de de desenvolvimento do algoritmo, alguns pontos de melhoria e de contribuição apareceram 
 %\vspace{12pt}
 %A versão final do documento incluirá um resumo de todo o trabalho, incluindo metodologia, resultados e conclusão.
 \acresetall % Manter essa linha!
@@ -236,6 +246,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 %The final version of this document will include an abstract. This will summarize the introduction (contextualization, objectives, justification), the methodology, the results, and the conclusion.
 \acresetall % Manter essa linha!
 \indice
+\acresetall % Manter essa linha!
 %---}}}
 
 % |--- Lista de Símbolos, Nomenclaturas e Abreviações ---|----------------------{{{
@@ -267,6 +278,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 \acrodef{SGD}[SGD]{Stochastic Gradient Descent}
 \acrodef{IRLS}[IRLS]{Iteratively Reweighted Least Squares}
 \acrodef{DCT}[DCT]{Discrete Cosine Transform}
+\acrodef{CoDePPI}[CoDePPI]{Context-Dependent Probabilistic Prior Information}
 
 \begin{acronym}
 	\acro{MRI}{Magnetic Resonance Imaging}
@@ -291,6 +303,7 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
     \acro{SGD}{Stochastic Gradient Descent}
     \acro{IRLS}{iteratively reweighted least squares}
     \acro{DCT}{Discrete Cosine Transform}
+    \acro{CoDePPI}{Context-Dependent Probabilistic Prior Information}
 \end{acronym}
 
 \clearpage
@@ -304,9 +317,12 @@ Os próximos passos da pesquisa envolvem aplicar o uso de informação a priori de 
 % |--- Introduction ---|----------------------{{{
 \chapter{Introduction}
 
-In this thesis, we propose a novel context-dependent probabilistic prior information extraction algorithm that takes advantage of motion information across frames in a dynamic \ac{MRI} to weight the confidence that those extracted positions are effectively part of a support structure.
-In our experiments, our approach provides better reconstruction in terms of the evaluated metrics (\ac{SNR}, \ac{PSNR}, \ac{SSIM}, \ac{NMSE}, \ac{MSE}) and also in computation time when contrasting with classic prior information and with \ac{CS} reconstructions that use no prior information.
-Achieving higher quality with a reduced number of samples allows faster exam procedures, making \ac{MRI} cheaper, faster and more convenient for both patients and clinics, which is our ultimate goal.
+In this thesis, we introduce \ac{CoDePPI}, the best prior information extraction algorithm for \ac{MRI} reconstructions with the use of the \ac{CS} theory.
+Our method \ac{CoDePPI} takes advantage of motion information across frames in a dynamic \ac{MRI} to weigh the confidence that the extracted positions are effectively part of a support structure, that is, reducing the noise introduced by applying prior information.
+Our method achieves the highest reconstruction quality when compared to other prior information strategies and also is faster to compute than classical prior information due to its implementation that lacks the need to perform array elements positions lookup.
+In our experiments, our approach provides better reconstruction in terms of the evaluated metrics: \ac{SNR}, \ac{PSNR}, \ac{SSIM}, \ac{NMSE}, \ac{MSE}.
+
+Achieving higher quality with a reduced number of samples allows faster exam procedures, making \ac{MRI} cheaper, faster, and more convenient for both patients and clinics, which is our ultimate goal.
 
 \section{Context}
 
@@ -316,38 +332,38 @@ However, like everything in life, there is a trade-off to consider when using \a
 Typically, reconstructing an \ac{MRI} is an ill-posed linear inverse task (a problem that has either none or infinite solutions in the desired class).
 Problems of this nature impose a trade-off between \textit{accuracy} and \textit{speed}~\cite{kabanikhin_definitions_2008}.
 The information obtained from \ac{MR} is commonly represented by individual samples in the k-space, which translates to the Fourier transform of the image to be reconstructed~\cite{miosso_phd}.
-This \ac{MR} sampling sparse nature makes \ac{CS} a liable technique to use when reconstructing \ac{MRI}, hence we here propose a novel \ac{CS} prior information approach for better results.
+The sparse nature in \ac{MR} undersampling makes \ac{CS} theory a liable technique to use when reconstructing \ac{MRI}, hence we here elaborate a novel \ac{CS} prior information approach for better results.
 
 \ac{CS} has been for years the state-of-art technique in \ac{MRI} reconstruction and has been improved later by the use of sparsifying pre-filtering techniques and prior information~\cite{miosso_prefiltering_2009, miosso_compressive_2009}.
 \ac{CS} uses the premise that given a signal with a sparse representation in some known domain, it is possible to reconstruct the signal using limited linear measurements taken from a non-sparse representation.
 
-There is still room for improvement in signal processing approaches for \ac{MRI} reconstruction like the one novel implementation of the prior information algorithm that we present in this thesis, but ultimately, the task of reconstructing a signal from very few extracted measurements can be mostly improved with \ac{ML} techniques.
+There is still room for improvement in signal processing approaches for \ac{MRI} reconstruction like the one novel implementation of the prior information algorithm that we present in this thesis, but ultimately, the task of reconstructing a signal from very few extracted measurements can be most improved with \ac{ML} techniques.
 Many times, classical approaches serve as the starting point where \ac{ML} models should start tackling the problem.
-In this case, we propose a novel prior information implementation and also investigate possibilities to improve the quality of this prior information even more by utilizing the so-called \ac{GAN}s.
+In this case, we propose a novel prior information implementation and also present the fundamentals for the \ac{DL} continuation along with investigation regarding the possibilities to improve the quality of this prior information even more by utilizing the so-called \ac{GAN}s.
 
 \ac{ML} methods have been utterly developed and improved recently with the use of higher computing power derived from the invention of \ac{GPU} and other hardware improvements, allowing \ac{ANN} to come to practicality.
-These \ac{ANN} models, often referenced as \ac{DL}, have become the state-of-art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields~\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
+These \ac{ANN} models, often referenced as \ac{DL}, have become the state of art in various areas, such as \ac{CV}, \ac{NLP}, Recommendation Systems, amongst other fields~\cite{wan_regularization_nodate, devlin_bert_2019, kim_enhancing_2019}.
 These fast-paced developments led to improvements in medical data processing using \ac{DL} as well.
 \ac{ML} techniques can be used in several different manners to improve medical analysis, here we focus on applying \ac{GAN} in the process of attaining improved prior information to feed the \ac{CS} algorithm obtaining higher signal-to-noise ratios and faster computation procedures.
 
 \section{Scientific Problem Definition and Proposal}
 
 \ac{MRI} is great for high-quality tissue images and definitely one of the highest image-quality medical imaging modalities, but there are some drawbacks: \ac{MRI} exams are often very long and require the patient to be in a static position throughout the whole process, this makes the exam challenging for patients that have difficulties in keeping a still position for several minutes.
-Another intrinsic complication in \ac{MRI} procedures is that it is extremely complicated to extract images from moving tissues like a beating heart or flowing blood veins as that would require an enormous amount of samples, which with current technologies used in clinics is not viable.
+Another intrinsic complication in \ac{MRI} procedures is that it is extremely complicated to extract images from moving tissue like a beating heart or flowing blood veins as that would require an enormous amount of samples, which with current technologies used in clinics is not viable.
 Algorithms that reconstruct \ac{MRI} try to tackle this sampling issue by producing the best possible quality images from the least amount of samples collected, making the exams faster and less sample-dependent.
 
-\ac{CS} algorithms have been the state-of-art in \ac{MRI} reconstruction for the past few years, and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN}s are powerful in imaging processing, especially \ac{CNN}s and, more recently, \ac{GAN}s are becoming the new state-of-art techniques in several computer vision areas.
+\ac{CS} algorithms have been the state of art in \ac{MRI} reconstruction for the past few years and now with the advances of \ac{DL}, new techniques are being produced taking advantages of how \ac{ANN}s are powerful in imaging processing, especially \ac{CNN}s and more recently, \ac{GAN}s are becoming the new state of art techniques in several computer vision areas.
 Most \ac{CS} contributions without the use of machine learning cite the usage of sparsifying pre-filtering techniques and prior information that have been proven to improve efficiency and achieve better reconstructions~\cite{miosso_compressive_2009, miosso_prefiltering_2009}.
-More recently, the contributions in \ac{MRI} reconstruction has been more focused in deep learning approaches, with some architectures using \ac{CS} along \ac{ANN}s~\cite{yang_deep_2016, yang_dagan_2018, mardani_deep_2019, liang_deep_2019, cole_unsupervised_2020, deep_magnetic_2020}.
+More recently, the contributions in \ac{MRI} reconstruction have been more focused on deep learning approaches, with some architectures using \ac{CS} along \ac{ANN}s~\cite{yang_deep_2016, yang_dagan_2018, mardani_deep_2019, liang_deep_2019, cole_unsupervised_2020, deep_magnetic_2020}.
 
-\ac{CS} reconstructions often use a preprocessing step called prior information which focuses on the extraction of support positions -- regions that normally would not move from a frame to another -- and when these positions are fed to the $l_p$-minimization algorithm (one of the possible ways to solve), the reconstructed image quality is improved significantly~\cite{miosso_compressive_2009, miosso_phd}.
-Prior information is normally generated by mathematical approaches like filtering and thresholding on the images and can be leveraged from previous and next frames in the same \ac{MRI} exam to to even medical records from previous scans.
+\ac{CS} reconstructions often use a preprocessing step called prior information which focuses on the extraction of support positions -- regions that normally would not move from a frame to another -- and when these positions are fed to the $\ell_p$-minimization algorithm (one of the possible ways to solve), the reconstructed image quality is improved significantly~\cite{miosso_compressive_2009, miosso_phd}.
+Prior information is normally generated by mathematical approaches like filtering and thresholding on the images and can be leveraged from previous and next frames in the same \ac{MRI} exam to even medical records from previous scans.
 These information extraction procedures oftentimes are restricted to few frames and do not take into account the nature of organs and tissues structures.
 Another observation from this classical prior information extraction is that these support positions are binary, they either are part of a support position or they are not.
-Onee could think that using a non-deterministic approach to this technique would likely correct some errors introduced in-between frames and that is exactly what happens when the extracted prior information is treated as a probabilistic support position~\cite{daniel_msc}.
+One could think that using a non-deterministic approach to this technique would likely correct some errors introduced in-between frames and that is exactly what happens when the extracted prior information is treated as a probabilistic support position~\cite{daniel_msc}.
 Although non-deterministic do perform better than deterministic ones, they still do not consider the different level of confidence in each region of the subject -- that is, some regions are different in terms of motion, hence they should be treated as different levels of confidence, which is right what we investigate within this work.
 
-Additionaly, \ac{DL} models are constantly improving image reconstruction quality like the ones mentioned in~\cite{zbontar_fastmri_2019, knoll_fastmri_2020} and this implies that there is a lot of room for improvement towards \ac{MRI} and following the same logic, we believe that prior information can be even more improved by the usage of \ac{GAN}s for prior information extraction and so we also documented our research in such contexts aiming towards a more detailed research project in a master's degree, where more experimentation can be done to validate our hypothesis.
+Additionally, \ac{DL} models are constantly improving image reconstruction quality like the ones mentioned in~\cite{zbontar_fastmri_2019, knoll_fastmri_2020} and this implies that there is a lot of room for improvement towards \ac{MRI} reconstruction and analogously, we believe that prior information can be even more improved by the usage of \ac{GAN}s for prior information extraction and therefore, we also documented our research in such contexts aiming towards a more detailed continuation of this research project in a master's degree, where more experimentation can be done to validate our hypothesis.
 
 \section{Objectives}
 
@@ -355,9 +371,9 @@ Additionaly, \ac{DL} models are constantly improving image reconstruction qualit
 
 Ultimately, the main goal behind this research can be roughly summarized in two intended contributions: faster \ac{MRI} exams and better \ac{MR} image quality.
 To achieve this goal, we have set minor goals that are described more deeply further.
-In terms of research, our goal is to introduce a novel context-dependent probabilistic prior information algorithm utilizing the different motion across the frames in a dynamic \ac{MRI} for higher confidence support position extraction.
+In terms of research, our goal is to introduce a novel context-dependent probabilistic prior information algorithm utilizing the different motions across the frames in a dynamic \ac{MRI} for higher confidence support position extraction.
 The expected outcome of this algorithm is to improve reconstruction in quality and in runtime directly impacting both our main goals.
-Additionaly, we also present fundamentals and preliminary experiments for a sequel to this study using \ac{DL} techniques like \ac{GAN}s.
+Additionally, we also present fundamentals and preliminary experiments for a sequel to this study using \ac{DL} techniques like \ac{GAN}s.
 
 \subsection{Specific Objectives}
 
@@ -366,29 +382,30 @@ In order to achieve the general objective described above, we have set the follo
 \begin{itemize}
     \item Implement all the \ac{CS} procedures in Python.
     \item Implement direct and indirect \ac{CS} \ac{MRI} reconstruction algorithm using undersampled \textit{k-space} measurements.
-    \item Demonstrate experiments with \ac{CS} using pre-filtering and classical prior-information.
-    \item Demonstrate our context-dependent probabilistic prior information algorithm and compare with other prior-information techniques.
-    \item Test our algorithm with fastMRI samples provided by the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
-    \item Present a case study with a dynamic \ac{MRI} using the context-dependent probabilistic prior information algorithm to show how our technique could eventually impact in real exams.
+    \item Implement and validate the efficiency of the prior information technique.
+    \item Demonstrate experiments with \ac{CS} using pre-filtering and classical prior information.
+    \item Demonstrate our \ac{CoDePPI} algorithm and evaluate against other prior information techniques.
+    % \item Test our algorithm with fastMRI samples provided by the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
+    \item Present a case study with a dynamic \ac{MRI} using the CoDePPI algorithm to show how our technique impacts real-life exams.
 \end{itemize}
 
 %---}}}
 
 % |--- Theory Foundation and State-of-Art ---|----------------------{{{
-\chapter{MRI Concepts and Compressed Sensing State-of-Art}\label{chap:FT}
+\chapter{MRI Concepts and Compressed Sensing State of Art}\label{chap:FT}
 
 \section{Magnetic Resonance Imagery}
 
-\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields and hydrogen atoms of the subject's anatomy~\cite{lauterbur_image_1973}.
+\ac{MRI} is an indirect process that produces cross-sectional images with high spatial resolution from nuclear magnetic resonances, gradient fields, and hydrogen atoms of the subject's anatomy~\cite{lauterbur_image_1973}.
 The acquisition of these measurements is performed by a measuring instrument called \textit{receiver coil} and it can be done by using one receiver coil or in some cases with multiple coils~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 These receiver coils are placed in proximity to a specific region in the subject to be imaged.
-During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally-varying magnetic fields which induce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
+During the imaging process, the \ac{MRI} machine generates a sequence of spatially and temporally varying magnetic fields which induce the body to emit resonant electromagnetic response fields which are then measured by the receiver coil~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}.
 
 \subsection{K-space}
 
 The k-space is the output generated by the \ac{MRI} machine scan after extracting measurements from a given subject tissue.
 The k-space is represented in the spatial frequency in two or three dimensions of a subject and may also be referred to as the Fourier space.
-Its representation contains an implicit sparsity that is exploited when performing undersampling~\cite{lustig_sparse_2007} and reinforce the usage of algorithms like \ac{CS} for \ac{MRI} reconstruction as \ac{CS} depends on signals that have a sparse representation in an orthonormal basis~\cite{donoho_compressed_2006}.
+Its representation contains an implicit sparsity that is exploited when performing undersampling~\cite{lustig_sparse_2007} and reinforces the usage of algorithms like \ac{CS} for \ac{MRI} reconstruction as \ac{CS} depends on signals that have a sparse representation in an orthonormal basis~\cite{donoho_compressed_2006}.
 In essence, the k-space is the signal representation in spatial frequency domain.
 
 \begin{figure}[H]
@@ -405,13 +422,13 @@ In essence, the k-space is the signal representation in spatial frequency domain
 
 \subsection{Undersampling}
 
-The time required to acquire all the measurements responses from every single atom in a subject would be extremely high and problematic to everyone involved (patients, doctors and clinics).
-The way machines can do faster \ac{MRI} is by performing \textit{undersampling}, also referred as subsampling and sampling, when scanning the subject.
+The time required to acquire all the measurements responses from every single atom in a subject would be extremely high, and problematic to everyone involved (patients, physicians and clinics).
+The way machines can do faster \ac{MRI} is by performing \textit{undersampling}, also referred to as subsampling and sampling, when scanning the subject.
 
 Undersampling is performed by giving the machine a known prescribed path in which it will extract measurements from the multidimensional k-space representation.
 This allows machines to collect only a fraction of data measurements needed for image reconstruction hence speeding up the data acquisition process without critical quality loss.
 
-There are some undersampling patterns to use and each has its benefits depending on several parameters, such as: the subject's region extraction, the algorithm used for reconstruction, acquisition time.
+There are some undersampling patterns to use and each has its benefits depending on several parameters, such as the subject's region extraction, the algorithm used for reconstruction, acquisition time.
 
 In the figure below we can see some of the most used patterns.
 In this research, we will focus mostly on the radial, spiral and cartesian undersampling method which we later use in our experiments.
@@ -419,18 +436,18 @@ In this research, we will focus mostly on the radial, spiral and cartesian under
 \begin{figure}[H]
     \centering
     \includegraphics[width=150mm,scale=0.7]{sampling_trajectories}
-    \caption{Under-sampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}~\cite{ye_compressed_2019}.}
+    \caption{Undersampling patterns. \textbf{(a) Cartesian undersampling}, \textbf{(b) radial undersampling}, \textbf{(c) spiral undersampling}, \textbf{(d) isolated samples in the k-space, according to the realisation of a random process}~\cite{ye_compressed_2019}.}
 \end{figure}
 
-In \ac{MRI}, the undersampling techniques are used to acquire $eta$ elements where $\eta < 2\eta< N$, violating the Nyquist criterion.
+In \ac{MRI}, the undersampling techniques are often used to acquire $\eta$ elements where $\eta < 2\eta< N$, violating the Nyquist criterion.
 
 \section{Compressed Sensing}
 
 \subsection{Introduction}
 
-Compressed sensing, often referred to as Compressive Sensing, represented a major breakthrough in signal processing when it was introduced by Donoho, Candès, Romberg, and Tao in 2004 ~\cite{donoho_compressed_2006, candes_robust_2006, candes_near-optimal_2006} since it allows a sampling at a rate much lower then the Nyquist-Shannon's theorem: the sampling signal rate must be at least twice the maximum frequency present in the signal (Nyquist rate).
+Compressed sensing, often referred to as Compressive Sensing, represented a major breakthrough in signal processing when it was introduced by Donoho, Candès, Romberg, and Tao in 2004 ~\cite{donoho_compressed_2006, candes_robust_2006, candes_near-optimal_2006} since it allows sampling at a rate much lower than the Nyquist-Shannon's theorem: the sampling signal rate must be at least twice the maximum frequency present in the signal (Nyquist rate).
 
-The idea behind the \ac{CS} theory was inspired from questioning the necessity of extracting large portions of samples when much of these very samples are discarded, exposing the inefficiency of trying to gather all signal.
+The idea behind the \ac{CS} theory was inspired by questioning the necessity of extracting large portions of samples when many of these very samples are discarded, exposing the inefficiency of trying to gather all the samples from the signal.
 
 \begin{changemargin}{2cm}{2cm}
 ``\emph{Why go to so much effort to acquire all the data when most of what we get will be thrown away?
@@ -441,30 +458,19 @@ end up being thrown away?''~\cite{donoho_compressed_2006}}
 \ac{CS} is a powerful algorithm that implements a novel technique for the acquisition of signals of sparse or compressible nature.
 \ac{CS} theory aims to provide accurate reconstruction of unknown sparse signals from underdetermined linear measurements $l$.
 % For \ac{CS} to work, the given signal must have a sparse representation in some known domain e.g. Fourier transform, cosine transform, wavelet transform, etc.
-\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g. wavelet, Fourier, \ac{DCT}, etc), then the $N$ most important coefficients in that expasion allow reconstruction with $l_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
+\ac{CS} parts from the principle that if given $x$, a digital image or signal has a sparse representation in an orthonormal basis (e.g. wavelet, Fourier, \ac{DCT}, etc), then the $N$ most important coefficients in that expansion allow reconstruction with $ell_2$ error $O(N^{1/2-1/p})$~\cite{donoho_compressed_2006}.
 
-A signal $x$ is known to have a sparse representation if there is a deterministic and invertible matrix $T_{N \times N}$ so that the transformed vector $\hat{x}$ is composed of most of its $N$ components equal to zero~\cite{miosso_phd}.
-
-\begin{equation}
-    \label{eqn:sparsity}
-    %\overset{\sim}x = Tx
-    \hat{x} = Tx
-\end{equation}
+A signal $x$ is known to have a sparse representation if there is a deterministic and invertible matrix $T_{N \times N}$ so that the transformed vector $\hat{x}$ is composed of most of its $N$ components equal to zero $\hat{x} = Tx$~\cite{miosso_phd}.
 
 \ac{MRI} $l$ extracted measurements from the \ac{MR} scanner correspond to some of the coefficients in $\hat{x} = Tx$.
 In MRI context, the so-called \textit{k-space} is a sparse representation of the image to be reconstructed in the frequency domain and when it is undersampled, the Nyquist criterion is violated~\cite{lustig_sparse_2007}.
 This occurs due to the fact that it is extremely expensive to acquire at $l = 2\eta$, as suggested by the Nyquist criterion~\cite{miosso_compressive_2009}.
-These are favorable conditions for the \ac{CS} theory, hence all thousands of papers citing the usage of \ac{CS} for \ac{MRI} reconstruction and state-of-the-art results involving any application of \ac{CS} for \ac{MRI} reconstruction.
+These are favourable conditions for the \ac{CS} theory, hence all thousands of papers citing the usage of \ac{CS} for \ac{MRI} reconstruction and state-of-the-art results involving any application of \ac{CS} for \ac{MRI} reconstruction.
 
 % TODO
 \subsection{Reconstructing using the LP Regularization}
 
-Given an $N$-dimensional complex discrete-time signal $x$, that is compressible by a linear transformation with a sparse representation tested with~\ref{eqn:sparsity}, it is said that this signal is $x$ can be fully reconstructed from an $l$-dimensional vector of measurements defined as
-
-\begin{equation}
-    \label{eqn:measurements}
-    b = Mx
-\end{equation}
+Given an $N$-dimensional complex discrete-time signal $x$, that is compressible by a linear transformation with a sparse representation, it is said that this signal $x$ can be fully reconstructed from an $l$-dimensional vector of measurements defined as $b = Mx$.
 
 \section{Prior Information}
 
@@ -479,7 +485,7 @@ These support regions are essentially structures that will hold -- practically -
 \subsection{Prior Information Retrieval}
 
 To leverage prior information for a frame -- as it was first introduced --, one could apply edge detection filters to first generate support position candidates and then extract the position of these edges and apply a $\tau$ factor to increase the value in these specific positions when running the \ac{CS} algorithm, based on an \ac{IRLS} method~\cite{miosso_compressive_2009}.
-In practice, this operation tells the $l_p$-minimization that these values with a higher magnitude are likely a values in a support position $\Phi$.
+In practice, this operation tells the $\ell_p$-minimization that these values with a higher magnitude are likely a values in a support position $\Phi$.
 These procedures are extensively explored in the experiments documented in the experiments chapter.
 
 Prior information was then introduced as a deterministic approach -- whether the pixel was a support position or it was not.
@@ -510,7 +516,7 @@ The images below are an example to represent a 15\% deterministic prior informat
 \end{figure}
 
 
-Additionaly, these very same $\Phi$ positions have already been represented in terms of probabilities~\cite{daniel_msc} and they look slightly different, where the central positions of the detected edges are greater in magnitude and the edges are smaller, representing different levels of confidence.
+Additionally, these very same $\Phi$ positions have already been represented in terms of probabilities~\cite{daniel_msc} and they look slightly different, where the central positions of the detected edges are greater in magnitude and the edges are smaller, representing different levels of confidence.
 Below we display what our horizontal low-pass filtered sagittal head image would look like in the non-deterministic approach.
 
 \begin{figure}[H]
@@ -525,11 +531,11 @@ This is useful because it allows for noise/error smoothing between frames and sl
 %---}}}
 
 % |--- Methodology ---|----------------------{{{
-\chapter{Reconstructing Experiments and Future Steps}
+\chapter{CS MRI Reconstruction Experiments using Prior Information and Preliminary Generation Experiment}
 
 The following experiments have the purpose to elucidate how the application of pre-filtering and different prior information strategies impact \ac{MRI} reconstruction in different scenarios.
-Later, we present a signal generation experiment with \ac{GAN}s aiming to utilize this technology in further research continuation. 
-The generation test is a step before implemeting these neural networks for prior-information leverage on \ac{MRI} scans.
+Later, we present a signal generation experiment with \ac{GAN}s mitigating the usage of this technology in further research continuation. 
+The generation test is a step before implementing these neural networks for prior information leverage on \ac{MRI} scans.
 
 \section{Metrics and Evaluation Criteria}
 
@@ -538,17 +544,17 @@ The metrics and their respective meanings are:
 
 \begin{itemize}
     \item \ac{PSNR}: represents the ratio between the power of the maximum magnitude value in the image and the power of corrupting noise that impacts the fidelity of the reconstruction. \ac{PSNR} is represented in dB and the greater it is, the greater image quality perceived.
-    \item \ac{SSIM}: ranges fromThe lower, the better. 0 to 1 and measures the similarity between two images, the closer to 1, the more the two signals are similar.
-    \item \ac{SNR}: similarly to the \ac{PSNR}, the \ac{SNR} measures the level of a desired signal to the level of noise in the reconstructed signal. It is also represented in dB and the greater, the better.
+    \item \ac{SSIM}: ranges from to 1 and measures the similarity between two images. The closer to 1, the more the two signals are similar.
+    \item \ac{SNR}: similarly to the \ac{PSNR}, the \ac{SNR} measures the level of the desired signal to the level of noise in the reconstructed signal. It is also represented in dB and the greater, the better.
     \item \ac{MSE}: measures the mean of the squares of the errors -- that is, the difference between the reconstructed signal and the ground truth. The lower the error, the better the reconstruction.
-    \item \ac{NMSE}: computes the \ac{MSE} normalized by signal power. \ac{NMSE} is widely used in research papers and is the primary measure of choice in fastMRI dataset, but it contains certain bias towards smoothness instead of sharpness~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}. 
+    \item \ac{NMSE}: computes the \ac{MSE} normalized by signal power. \ac{NMSE} is widely used in research papers and is the primary measure of choice in fastMRI dataset, but it contains a certain bias towards smoothness instead of sharpness~\cite{zbontar_fastmri_2019, knoll_fastmri_2020}. 
 \end{itemize}
 
 
-\section{1-D Direct vs Indirect L1-Minimization}
+\section{1-D Direct vs Indirect $\ell_1$-Minimization}
 
-L1-minimization admits both direct and indirect approaches, in which there is the accuracy x resources trade-off.
-The direct method often produces a higher quality reconstruction but is very memory consuming, whilst the indirect method loses a little bit of quality, but requires much less memory to compute the equations system.
+$\ell_1$-minimization admits both direct and indirect approaches, in which there is the accuracy x resources trade-off.
+The direct method often produces a higher quality reconstruction but is very memory consuming, whilst the indirect method loses a bit of quality but requires much less memory to compute the equations system.
 
 To visualize this trade-off, we have created 200 random 1-D arrays ranging values from the standard normal distribution and have taken 10\% of data points randomly to reconstruct the whole signal using different $L$ sizes.
 
@@ -583,7 +589,7 @@ The same procedure was applied to the sagittal head image.
 \subsection{Pre Filtering Sparsifying Transform}
 
 For the pre-filtering step, $f=3$ is used where $f$ is the number of filters applied to increase sparsity in the signal to be reconstructed.
-The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
+The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters increases the ability to sparsify the signal.
 The $3$ filtered images are then composed into one single image containing the highest gain each filter could provide given a single pixel in the image~\cite{miosso_prefiltering_2009}.
 The different filters used can be better visualized from the figure below.
 
@@ -603,12 +609,15 @@ The different filters used can be better visualized from the figure below.
   \end{minipage}
 \end{figure}
 
-The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and an L1-minimization method without pre-filtering with the very same parameters used in the pre-filtering L1-minimization.
+The pre-filtering method is evaluated against the zero-fill reconstruction method (used as a dummy baseline) and an $\ell_1$-minimization method without pre-filtering with the very same parameters used in the pre-filtering $\ell_1$-minimization.
 
 \section{Dynamic Sagittal Cardiac Case Study}
 
-The subject is composed of a dynamic sagittal cardiac \ac{MRI} where the patient's heart is continuously beating.
-We then extract the first 10 frames from the video.
+In this experiment we take a dynamic sagittal cardiac \ac{MRI} where the patient's heart is continuously beating and some other internal organs are moving throughout the exam, making each frame slightly different from one another, despite the \ac{MR} scan be still.
+This is the real case where our technique can provide improved and faster results.
+
+We start by extracting the first 10 frames from the exam video.
+Then we crop all frames to $192 \times 192$ dimension in order to remove the borders from the video and focus on the important parts of the image.
 Our reference image looks like this:
 
 \begin{figure}[H]
@@ -617,9 +626,10 @@ Our reference image looks like this:
     \caption{First frame from the dynamic cardiac \ac{MRI} exam.}
 \end{figure}
 
-The first is the one that we do not possess any prior information from previous frames, hence we perform an $l1$-minimization with pre-filtering step with the same parameters and conditions stablished in the previous experiments, but without prior information.
+The first frame is the one that we do not possess any prior information from previous frames, hence we perform an $\ell_1$-minimization with pre-filtering step with the same parameters and conditions established in the previous experiments, but without prior information.
 From the second frame onwards, we will always have the previous frames to look into and extract prior information from support positions.
-In our experiments, we use the first frame's reconstruction to generate our $\Phi$ positions for both the deterministic and context-dependent probabilistic prior information strategies.
+In our experiments, we use the first frame's reconstruction to generate our $\Phi$ positions for both the deterministic and context-dependent probabilistic prior information strategies used in the reconstruction of the next frame.
+This allows the second reconstruction to take advantage of the knowledge available from the first reconstruction and creates a better quality reconstruction.
  
 % For the pre-filtering steps, $f=3$ is used where $f$ is the number of filters applied to increase sparsity in the signal to be reconstructed.
 % The filters are all $2\times2$ matrices and increase the sparsity in the signal from different perspectives, using more filters leverages the ability to sparsify the signal.
@@ -628,12 +638,12 @@ In our experiments, we use the first frame's reconstruction to generate our $\Ph
 
 \subsection{Radial Undersampling}
 
-For this experiment, we decided to use a radial undersampling mask with 60 lines -- which corresponds to 19\% of all the data points, concentrating most of the measurements in the low frequency regions.
+For this experiment, we decided to use a radial undersampling mask with 21.20\% of all the data points, concentrating most of the measurements in the low frequency regions aiming to simulate the undersampled k-space provided by the \ac{MR} scan.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{radial_undersampling}
-    \caption{Radial undersampling trajectory with 19\% of data points.}
+    \caption{Radial undersampling trajectory with 21.20\% of data points.}
 \end{figure}
 
 Following the same procedure as the other experiments, we also perform a zero-filled reconstruction with our undersampled k-space measurements vector $b$ in order to generate a baseline to compare with our latter results.
@@ -641,19 +651,19 @@ Following the same procedure as the other experiments, we also perform a zero-fi
 \subsection{Deterministic Prior Information}
 
 The prior information step consists of creating $f$ 1-D arrays with the $\Phi$ positions of non-zero elements from the filtered images generated with the previous frames' reconstructions.
-These $\Phi$ positions are then multiplied by a $\tau$ factor of 10 at each iteration in our $l1$-minimization.
+These $\Phi$ positions are then multiplied by a $\tau$ factor of 10 at each iteration in our $\ell_1$-minimization.
 
-For both deterministic and context-dependent probabilistic prior information we have used the largest proportion of prior information available: 49.92\%, which provided the best results in both prior information strategies for this specific scenario.
+For both deterministic and context-dependent probabilistic prior information we have used the proportion of 6\%, which provided the best results in both prior information strategies for this specific scenario in our parameters fine-tuning experiments.
 
-\subsection{CoDePPI: Context-Dependent Probabilitistic Prior Information}
+\subsection{CoDePPI: Context-Dependent Probabilistic Prior Information}
 
 We propose a novel approach to the non-deterministic prior information extraction by using knowledge about regions in the image that are more dislocated than others to apply different variance in the normal distributions procedure.
 When moving from a frame to another, portions of the image are dislocated in different degrees, that is, some regions will be more likely to contain support positions than others.
-We call this approach CoDePPI: Context-Dependent Probabilitistic Prior Information.
+We call this approach CoDePPI: Context-Dependent Probabilistic Prior Information.
 
 By taking this motion information into account, we segmented the image into four levels of movement -- \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a highly likely support position prior information.
-Similarly, the \textit{medium} labeled positions are assigned an intermediate variance for an intermediate confidence.
+Similarly, the \textit{medium} labelled positions are assigned an intermediate variance for an intermediate confidence.
 
 \begin{figure}[H]
     \centering
@@ -679,7 +689,7 @@ In this case, we have a sagittal cardiac \ac{MR} exam in which the subject's reg
 
 Identifying these different regions gives us the possibility to apply different weights for each region in the image.
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a support position prior information.
-A \textit{weights} matrix is generated by computing an element-wise Gaussian distribution with the according covariance matrix on the segmented mask and then adding these distributions each iteration, forming accumulations onthe centre of several support positions.
+A \textit{weights} matrix is generated by computing an element-wise Gaussian distribution with the according covariance matrix on the segmented mask and then adding these distributions each iteration, forming accumulations on the centre of several support positions.
 The regions labelled \textit{high} are specifically multiplied by $-1$ so that the confidence is represented with negative magnitudes.
 After computing the \textit{weights} matrix, we expect to see distinguishably different magnitude levels, representing different confidences.
 
@@ -697,22 +707,10 @@ After computing the \textit{weights} matrix, we expect to see distinguishably di
 
 Inverting the normal distributions in regions annotated as \textit{high} is key to our implementation due to a \textit{bias} element-wise addition applied after the normal distributions step.
 The latter step is used to normalize the magnitudes in our \textit{weight} matrix between some constraints.
-As observed in the previous figures, the generated \textit{weights} matrix contains elements ranging from values below $0$ to values over \num{1e6}, we then apply a customized normalization function with a $\tau$ factor and a \textit{bias} constant to re-weight the values in this matrix.
-
-\begin{equation}
-    \omega(x) = (x \oslash \max x_i) \circ \tau + \beta
-    \label{eqn:reweighted}
-\end{equation}
-
-Where $\omega$ is our re-weighted \textit{weights} matrix, $x$ is the \textit{weights} matrix, $\tau$ is the factor by which the values are multiplied and $\beta$ is the \textit{bias} term that increments all elements in the re-weighted matrix.
+As observed in the previous figures, the generated \textit{weights} matrix contains elements ranging from values below $0$ to values over \num{1e6}, we then apply a customized normalization function with a $\tau$ factor and a \textit{bias} constant to re-weight the values in this matrix $\omega(x) = (x \oslash \max x_i) \circ \tau + \beta$, where $\omega$ is our re-weighted \textit{weights} matrix, $x$ is the \textit{weights} matrix, $\tau$ is the factor by which the values are multiplied and $\beta$ is the \textit{bias} term that increments all elements in the re-weighted matrix.
 The bias term defines $min x_i$ for every $x_i$ in the regions labelled as \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 
-At this point, the \textit{weights} matrix is computed and re-weighted, so now this matrix is multiplied element-wise with each of the $\Phi$ masks created in the same fashion as the deterministic prior information, generating a \textit{weighted phi} mask $\kappa$.
-
-% TODO checar variaveis q inventei
-\begin{equation}
-    \kappa = \omega \circ \Phi
-\end{equation}
+At this point, the \textit{weights} matrix is computed and re-weighted, so now this matrix is multiplied element-wise with each of the $\Phi$ masks created in the same fashion as the deterministic prior information, generating a \textit{weighted phi} mask $\kappa$ as in $\kappa = \omega \circ \Phi$.
 
 After this operation, our $\Phi$ positions no longer holds deterministic values, but rather dispose of different levels of importance due to the \textit{weights}' values.
 
@@ -728,23 +726,24 @@ After this operation, our $\Phi$ positions no longer holds deterministic values,
   \end{minipage}
 \end{figure}
 
-\subsection{\textit{L1}-minimization Adaptation}
+\subsection{$\ell_1$-minimization Adaptation}
 
 % TODO verificar variaveis
-After calculating $\kappa$, a minor modification is necessary for the \textit{L1}-minimization algorithm.
-In essence, we perform an element-wise multiplication between the input and $\kappa$ every time before an iteration so that the prior information is applied in the computation.
-
-% TODO checar variaveis q inventei
-\begin{equation}
-    x_i = x_i \circ \kappa_k
-\end{equation}
-
-% TODO checar variaveis q inventei
-Where $x$, $i$, $k$...
+After calculating $\kappa$, a minor modification is necessary for the $\ell_1$-minimization algorithm.
+In essence, we perform an element-wise multiplication between the input undersampled signal and $\kappa$ every time before an iteration so that the prior information is applied in the computation. Hence, we have $x_i = x_i \circ \kappa_k$, where $x$ is the undersampled signal, $i$ is the element position and $k$ is our weighted $\Phi$ elements.
 
 \subsection{Parameter Fine-tuning}
 
-After some fine-tuning experiments in the covariance matrices, biases and $\tau$, we have found that these are the optimal configuration for a cardiac \ac{MRI}:
+As to better compare the different reconstruction strategies applied in this case study, we leveraged the optimal parameters for the prior information in both deterministic and CoDePPI by extensively trying different combinations and evaluating each reconstruction.
+After analysing the application of each combination, we decided to proceed using the following values where prior information was applied:
+
+\begin{itemize}
+    \item Prior information proportion: 6\%
+    \item CoDePPI's $\tau = 1500$
+    \item CoDePPI's $\beta= 900$
+\end{itemize}
+
+These values were used to achieve the best reconstructions with our methods, but might vary across different images and \ac{MR} modalities.
 
 \section{Future Contribution Literature Review and Experiment}
 
@@ -819,7 +818,7 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 \chapter{CS Reconstruction and Preliminary Deep Learning Results}
 
 In this section we provide experiments in signal reconstruction using the \ac{CS} theory and contrast reconstruction quality of our proposed method -- context-depended probabilistic prior information --  with other \ac{CS} modalities.
-Additionaly, we also present the deep learning foundation for the future work we intend to proceed along with a preliminary generation experiment using \ac{GAN}s.
+Additionally, we also present the deep learning foundation for the future work we intend to proceed along with a preliminary generation experiment using \ac{GAN}s.
 
 \section{1-D Compressed Sensing Reconstruction}
 
@@ -829,16 +828,16 @@ This demonstrates that there is no big prejudice in using indirect reconstructio
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{1d_snr}
-    \caption{SNR x \textit{L} size for direct and indirect L1-minimization for 200 random 1D signals}
+    \caption{SNR x \textit{L} size for direct and indirect $\ell_1$-minimization for 200 random 1D signals}
 \end{figure}
 
 \section{Compressed Sensing Reconstruction with Pre-Filtered Signal}
 
-The results in the experiment show a huge gain of resolution in the pre-filtering method reconstructed image compared to using plain $l1$-minimization.
+The results in the experiment show a huge gain of resolution in the pre-filtering method reconstructed image compared to using plain $\ell_1$-minimization.
 
 The zero-filled reconstruction (dummy baseline) was unable to reconstruct a high fidelity image and performed very poorly in the PSNR and SNR metrics.
-The L1-minimization compressed sensing approach reconstructed the image with some noticeable noise artefacts, yet much better than the zero-filling approach.
-Finally, the L1-minimization along the usage of sparsifying pre-filtering delivered a great looking image without eye-catching artefacts and also increased the metrics largely.
+The $\ell_1$-minimization compressed sensing approach reconstructed the image with some noticeable noise artefacts, yet much better than the zero-filling approach.
+Finally, the $\ell_1$-minimization along the usage of sparsifying pre-filtering delivered a great looking image without eye-catching artefacts and also increased the metrics largely.
 
 \subsection{Phantom Reconstruction Evaluation}
 
@@ -850,11 +849,11 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_l1.png}
-    \caption{L1-minimization}
+    \caption{$\ell_1$-minimization}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_prefilter.png}
-    \caption{L1-minimization with pre-filtering}
+    \caption{$\ell_1$-minimization with pre-filtering}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{phantom_shepplogan.png}
@@ -862,7 +861,7 @@ Finally, the L1-minimization along the usage of sparsifying pre-filtering delive
   \end{minipage}
 \end{figure}
 
-It is clear that reconstructing the image using the $l1$-minimization certainly improves the \ac{MRI} reconstruction and the metrics reinforce that the pre-filtering step to pre-process the image is crucial to achieve higher image quality.
+It is clear that reconstructing the image using the $\ell_1$-minimization certainly improves the \ac{MRI} reconstruction and the metrics reinforce that the pre-filtering step to pre-process the image is crucial to achieve higher image quality.
 
 \begin{table}[h!]
   \begin{center}
@@ -870,8 +869,8 @@ It is clear that reconstructing the image using the $l1$-minimization certainly 
                                         & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
       \hline
         \textbf{Zero-fill}                             & 16.39 & 0.26 & 4.22  & 3.77e-1 & 2.29e-2   \\
-        \textbf{L1-minimization}                       & 30.46 & 0.82 & 18.28 & 1.38e-3 & 8.99e-4   \\
-        \textbf{Pre-filtering L1-minimization}         & 76.90 & 0.99 & 64.73 & 3.36e-7 & 2.04e-8
+        \textbf{$\ell_1$-minimization}                       & 30.46 & 0.82 & 18.28 & 1.38e-3 & 8.99e-4   \\
+        \textbf{Pre-filtering $\ell_1$-minimization}         & 76.90 & 0.99 & 64.73 & 3.36e-7 & 2.04e-8
     \end{tabular}
   \end{center}
   \caption{Phantom reconstruction metrics.}
@@ -886,7 +885,7 @@ Another experiment done was using a reference sagittal head image of shape $(256
 The same spiral undersampling pattern with 30.95\% data points used in the phantom experiment was used here for artificial undersampling.
 
 This image poses a harder reconstruction challenge as it is filled with more details and more complex structures than the phantom.
-That said, it is clear that the undersampling pattern and amount of data points has not been sufficient to reconstruct a high fidelity image in any scenario, but the L1-minimization with pre-filtering reconstruction looks like the winner again, reinforcing the idea that pre-filtering is a good pre-processing strategy.
+That said, it is clear that the undersampling pattern and amount of data points has not been sufficient to reconstruct a high fidelity image in any scenario, but the $\ell_1$-minimization with pre-filtering reconstruction looks like the winner again, reinforcing the idea that pre-filtering is a good pre-processing strategy.
 
 \subsection{Sagittal Head Reconstruction Evaluation}
 
@@ -898,11 +897,11 @@ That said, it is clear that the undersampling pattern and amount of data points 
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_l1}
-    \caption{L1-minimization}
+    \caption{$\ell_1$-minimization}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{recon_head_prefilter}
-    \caption{L1-minimization with pre-filtering}
+    \caption{$\ell_1$-minimization with pre-filtering}
   \end{minipage}
   \begin{minipage}[t]{0.22\textwidth}
     \includegraphics[width=\textwidth]{head}
@@ -918,8 +917,8 @@ The metrics evaluated were not affected as much as they were for the phantom exp
                                         & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
       \hline
         \textbf{Zero-fill}                             & 14.34 & 0.35 & 5.52 & 0.28 & 2392.57   \\
-        \textbf{L1-minimization}                       & 17.54 & 0.48 & 8.73 & 0.13 & 1144.12   \\
-        \textbf{Pre-filtering L1-minimization}         & 17.79 & 0.49 & 8.97 & 0.12 & 1081.42
+        \textbf{$\ell_1$-minimization}                       & 17.54 & 0.48 & 8.73 & 0.13 & 1144.12   \\
+        \textbf{Pre-filtering $\ell_1$-minimization}         & 17.79 & 0.49 & 8.97 & 0.12 & 1081.42
     \end{tabular}
   \end{center}
   \caption{Sagittal reconstruction metrics.}
@@ -965,12 +964,12 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 \section{Dynamic Sagittal Cardiac Case Study}
 
 In order to test if the extracted prior information from one frame is relevant and how it impacts the reconstruction of the next frame, we have tested reconstructing frames from a dynamic cardiac \ac{MRI} exam.
-The extracted frames are $(n \times n)$ in shape
+The extracted frames are $(192 \times 192)$ in shape and 
 
 \subsection{Deterministic Prior Information}
 
 The three prior information $\Phi$ obtained from the extraction of non-zero elements in the filtered images transformed to 2-D masks for visualization.
-For this dynamic cardiac images, we used the maximum amount of prior information available: 49.92\%.
+For this dynamic cardiac images, we used a proportion of prior information of 6\%, which in our experiments demonstrated to be the sweet spot for this image characteristics.
 
 \begin{figure}[H]
   \centering
@@ -983,14 +982,14 @@ For this dynamic cardiac images, we used the maximum amount of prior information
   \begin{minipage}[t]{0.3\textwidth}
       \includegraphics[width=\textwidth]{cardiac_phi_diag}
   \end{minipage}
-  \caption{Deterministic prior information with 49.92\% data points proportion.}
+  \caption{Deterministic prior information with 6\% data points proportion for horizontal, vertical and diagonal border detection filtering, respectively.}
 \end{figure}
 
-These images look very noisy due to the proportion of prior information extracted and that these values are all represented by the same magnitude.
-It becomes clearer when the masks above are visually observed that by using deterministic prior information, where all positions have the same likelyhood to belong to a support structure, some error will be induced.
-Also, we can note some artifacts generated in the above images that do not necessary are part of support positions.
+As we know the internal organs of the subject are moving throughtout the whole exam, we instinctively know that some of the points represented in this deterministic approach will represent regions of high movement, thus they will likely introduce error to the minimization step.
+This happens because the prior information values are extracted from simple image border detection techniques that are prone to the generation of noise, as they are not fine-tuned to our necessities. 
+After visually analysing the images above, it becomes clearer that some post-processing on this mask can improve the quality of the given prior information positions.
 
-\subsection{Context-Dependent Probabilitistic Prior Information}
+\subsection{Context-Dependent Probabilistic Prior Information}
 
 \begin{figure}[H]
   \centering
@@ -1003,15 +1002,16 @@ Also, we can note some artifacts generated in the above images that do not neces
   \begin{minipage}[t]{0.3\textwidth}
       \includegraphics[width=\textwidth]{weighted_cardiac_phi_diag}
   \end{minipage}
-  \caption{Context-dependent probabilistic prior information with 49.92\% data points proportion.}
+  \caption{CoDePPI with 6\% data points proportion for horizontal, vertical and diagonal border detection filtering, respectively.}
 \end{figure}
 
-Although we are still using a great amount of prior information proportion and with many noisy points, the regions that should have a high confidence of belonging to support structures in our subject are much better defined when the $\Phi$ values are multiplied by our weights matrix $x$~\ref{eqn:reweighted}.
-This definition observed in the visualizations above is also reflected in the $l1$-minimization as it can be noted in the results~\ref{tab:dynamic-cardiac}.
+Now that we have applied the customized CoDePPI weighting by multiplying the $\Phi$ values by our weights matrix $x$, the regions that should have a high confidence of belonging to support structures in our subject are much better defined.
+This definition observed in the visualizations above is also reflected in the $\ell_1$-minimization as it can be noted in the results~\ref{tab:dynamic-cardiac}.
+These principles can be easily extrapolated to other \ac{MRI} modalities and even other reconstructions techniques apart from the medical segments.
 
 \subsection{Dynamic Sagittal Cardiac Reconstruction Evaluation}
 
-All experiments conducted for the dynamic sagittal cardiac were done in order to compare the different applications of prior information, thus all of the reconstructions were done with the usage of pre-filtering within the $l1$-minimization context.
+All experiments conducted for the dynamic sagittal cardiac were done in order to compare the different applications of prior information, thus all of the reconstructions were done with the usage of pre-filtering within the $\ell_1$-minimization context.
 
 \begin{figure}[H]
     \centering
@@ -1041,22 +1041,27 @@ These images represent the different strategies we took for \ac{MRI} reconstruti
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{l|lllll}
-      & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE}   \\
+    \begin{tabular}{l|llllll}
+      & \textbf{PSNR}  & \textbf{SSIM}   & \textbf{SNR}  & \textbf{NMSE} & \textbf{MSE} & \textbf{Runtime(s)}   \\
       \hline
-        \textbf{Zero-fill}                                        & 25.41 & 0.68 & 15.42 & 2.86e-2 & 186.70 \\
-        \textbf{No Prior Information}                             & 27.75 & 0.74 & 17.76 & 1.67e-2 & 109.08 \\
-        \textbf{Deterministic}                                    & 27.75 & 0.74 & 17.76 & 1.67e-2 & 109.04 \\
-        \textbf{CoDePPI (ours)}                                   & \textbf{28.40} & \textbf{0.76} & \textbf{18.41} & \textbf{1.4e-2} & \textbf{93.88}
+        \textbf{Zero-fill}                                        & 24.42 & 0.73 & 14.43 & 3.60e-2 & 234.84 & - \\
+        \textbf{No Prior Information}                             & 29.69 & 0.84 & 19.69 & 1.07e-2 & 69.83 & \textbf{1.95} \\
+        \textbf{Deterministic}                                    & 29.95 & 0.83 & 19.96 & 1.01e-2 & 65.71 & 2.95 \\
+        \textbf{CoDePPI (ours)}                                   & \textbf{30.15} & \textbf{0.84} & \textbf{20.16} & \textbf{9.62e-3} & \textbf{62.69} & 2.14
     \end{tabular}
   \end{center}
-  \caption{Dynamic sagittal cardiac reconstruction metrics in terms of prior information usage.}
+  \caption{Dynamic sagittal cardiac reconstruction metrics in terms of prior information usage. Best results for each evaluation represented in bold.}
   \label{tab:dynamic-cardiac}
 \end{table}
 
-\section{Future Contributions: Deep Learning Applications}
+The given experiments show that the CoDePPI approach to prior information leverage and usage gives a more robust confidence on the support positions from a frame to another in the dynamic \ac{MR} exam studied when we analyse the metrics above.
+The least impacted metric by the usage of prior information was the \ac{SSIM}, but the other image quality metrics were positively altered when we introduced the deterministic prior information and later the CoDePPI strategy.
+Additionally, our method also performs the reconstruction faster than the deterministic approach, this happens because in the deterministic case, the $\ell_1$-minimization algorithm has a step where it needs to multiply all elements in the $\Phi$ positions by a value $\tau$, whilst in CoDePPI, we use numpy's element-wise multiply the whole matrix by this $\tau$ value, discarding the need for array elements look-up that is slower.
 
-Our implementation counts on the usage of signal processing techniques without any machine learning usage, but that is only because this work is intended to be continued in a graduate degree where we would like to investigate more on two aspects: the generation of prior information support positions using \ac{GAN}s and a computer-vision system capable of segmenting the image based on levels of motion throughtout the frames in a dynamic exam.
+\section{Possible \ac{DL} Integration with \ac{CoDePPI}}
+
+Our implementation counts on the usage of signal processing techniques without any machine learning usage, but our application is intended to be evolved to a solution using \ac{DL} for prior information generation using \ac{GAN}s.
+This research is to be continued in a higher degree thesis, where we would like to investigate more on two aspects: the generation of prior information support positions using \ac{GAN}s and a computer-vision system capable of segmenting the image based on levels of motion throughtout the frames in a dynamic exam.
 
 In this work, we have initiated the documentation of the \ac{DL} necessary for our next steps as well as have we also document an experiment for the generation of handwritten MNIST numbers using a \ac{GAN} in order to mitigate viability of our hypothesis to use generative algorithms in the near future.
 
@@ -1283,11 +1288,11 @@ However, \ac{GAN}s are still new neural network techniques and its convergence t
 
 \subsection{Preliminary Tests with Generative Adversarial Networks}
 
-Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an invertedly correlated manner.
+Both discriminator losses (fake and real) start very high and quickly decreases as the generator loss curve goes up in an inverted correlated manner.
 This happens especially because the generator starts by tricking the discriminator network very easily as it is naïve to determine if an image is real or generated.
 Quickly the discriminator starts to detect how the data is disposed and manages to interpret the generated images are different from the training examples it is seeing.
 
-This phenomenom exposes how bad the generator is in the first epochs and how easily the discriminator can distinguish between created and real.
+This phenomenon exposes how bad the generator is in the first epochs and how easily the discriminator can distinguish between created and real.
 Then as the epochs go by and both networks get more sophisticated, the generator starts to get better at creating the desired signal style and makes the discriminator's loss get higher again as it is observed in the loss curves below.
 
 \begin{figure}[H]
@@ -1323,13 +1328,34 @@ The following results were not cherry-picked in any manner.
 % |--- Conclusion ---|----------------------{{{
 \chapter{Conclusion}
 
-We have succesfully proposed an alternate approach for prior information extraction that uses motion context from segmented images and this method proves efficient and produce better quality for the experiments we have conducted.
-Further investigation would be more appropriate with more adequate statistics validations in order to effectively assert that CoDePPI is always a better solution rather than the classical prior information algorithm presente in~\cite{miosso_compressive_2009}.
-Additionaly, many modules for \ac{CS} reconstruction have been developed in Python featuring the usage of undersampling techniques, $lp$-minimization function, pre-filtering pre-processing, classical and CoDePPI implementation of the prior information and modules to convert and utilize fastMRI images.
-All this research and development led to results that led to further hypothesis and investigations that we have initiated in this very document regarding the usage of \ac{DL} models for prior information generation and computer-vision approaches for automatic image segmentation for an automatized context detection for CoDePPI.
-These ideas and hypothesis are to be continued and mitigated in a graduate degree after the completion of this period.
+Our main goals were to implement and validate the efficiency of prior information for \ac{CS} reconstruction of \ac{MR} images along the proposal of a novel method to improve the quality of the prior information leveraged.
+These goals were defined in order to achieve faster \ac{MRI} exams and to enable more feasible dynamic exams, where the motion is an innate part of the images extracted.
+In this research, we have proposed an alternate approach for prior information extraction called CoDePPI -- Context Dependent Probabilistic Prior Information -- that uses motion context from segmented images and this method proves efficient and produce better quality for the experiments we have conducted and is now the best prior information intuition to be used in classical reconstructions.
 
-Furthermore, we believe that the proposal of an alternate prior information algorithm can lead other scientists to new possibilities and contributions to the process of prior information retrieval, after all, our goal was to not only create better results with a novel algorithm, but also contribute to the field of \ac{MRI} that is undoubtly very relevant to medicine and our society.
+Additionally, many modules for \ac{CS} reconstruction have been developed in Python featuring the usage of undersampling techniques, $\ell_p$-minimization function, pre-filtering pre-processing, classical and CoDePPI implementation of the prior information and modules to convert and utilize fastMRI images, but these experiments were later discarded due to non-matching results with our algorithm.
+All this research and development led to results that led to further hypothesis and investigations that we have initiated in this very document regarding the usage of \ac{DL} models for prior information generation and computer-vision approaches for automatic image segmentation for an automatized context detection for CoDePPI.
+
+Several experiments were conducted for the comprehension of the \ac{CS} theory and the usage of pre-filtering and prior information techniques.
+These experiments served for the development of knowledge along the themes of \ac{CS} and \ac{MRI} reconstructions and later were used for comparisons between methods.
+In these experiments, we bring several types of images and \ac{MR} modalities along with different undersampling techniques to test these methods against different situations and fully comprehend how different signals and techniques are impacted.
+The latter experiment conducted were signal generation tests where we experimented the results of a fully generated signal from a popular dataset to clarify that this architecture can serve as signal generation for further prior information research.
+Among the preliminary generative results, we also conducted research on \ac{DL} topics and documented the foundation theory within the same section we document the \ac{GAN}s results.
+
+Our results conclude that the usage of pre-filtering and prior information techniques are preferred to be used within the \ac{CS} theory because they significantly improve the quality of the reconstructed images. 
+Additionally, our results show that our method along with pre-filtering application is the current best approach for classical \ac{CS} reconstructions of \ac{MRI}.
+These results, in practical terms, lead to faster and better \ac{MRI} exams and specially more practical dynamic exams as our approach is specifically tested in a dynamic scenario which were our specific goals as mentioned before.
+Better reconstruction quality not only implies that the exams could be conducted in a faster manner, but also that less energy would be consumed by the \ac{MR} machine in an exam, more people could be examined in a given period of time, the machine would need to be utilized less for a single exam and possibly leading to less maintenance as well.
+Furthermore, we believe that the proposal of an improved prior information algorithm can lead other scientists to new possibilities and contributions to the process of prior information retrieval, after all, our goal was to not only create better results with a novel algorithm, but also contribute to the field of \ac{MRI} that is undoubtedly very relevant to medicine and our society.
+
+After implementing \ac{CoDePPI}, we believe that this work could be continued by applying \ac{DL} concepts in some of the steps that we developed throughout this thesis. 
+One way we believe could generate more improvement is by using \ac{GAN}s to generate the positions of support positions from one frame to another without the usage of classical border detection algorithms and hence, providing a more accurate and context-specific result that likely would improve \ac{CS} reconstructions.
+Another way that \ac{DL} could be used to improve our work is to use an automatic image segmentation system based on motion of regions in the image.
+This way, the motion segmentations used in \ac{CoDePPI} could be generated seamlessly and that would certainly improve the speed for segmentation generation, as it manual segmentations would not be needed.
+We believe that both these hypothesis could be very well elaborated and tested in a graduation degree, but due to the time constraints of a bachelor degree's thesis, couldn't be further experimented in this very work.
+
+% TODO
+% Further investigation with more adequate statistics validations would be more appropriate in order to effectively assert that CoDePPI is a better solution in 100\% of the cases rather than the classical prior information algorithm presented in~\cite{miosso_compressive_2009}.
+
 
 %---}}}
 
