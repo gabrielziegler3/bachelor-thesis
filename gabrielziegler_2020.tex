@@ -26,17 +26,9 @@
 \endereco{gabrielziegler3@gmail.com}
 \cep{CEP 72.444\-240}
 
-\membrobancainterno{Prof. Adson Ferreira da Rocha, PhD \\
-    Department of Electrical Engineering \\
-    University of Brasilia
-}
+\membrobancainterno{~Prof. Adson Ferreira da Rocha, PhD}
 
-
-
-\membrobancaexterno{Felipe Batista da Silva, PhD \\
-    Department of Electrical and Computer Engineering \\
-    University of Texas at El Paso
-}
+\membrobancaexterno{~Felipe Batista da Silva, PhD}
 %---}}}
 
 % |--- Bibliotecas utilizadas ---|----------------------{{{
@@ -207,21 +199,21 @@
 \clearpage
 \noindent{\bfseries{\maiusc{\large Agradecimentos}} }
 
-A execução de toda a pesquisa e desenvolvimento da proposta de um método inovador contido neste trabalho não foi uma tarefa fácil, e na verdade foi um grande desafio acadêmico e pessoal que eu me propus a desenvolver por se tratar de uma área completamente nova para mim.
-Particularmente, foi um desafio que só acredito que foi possível ser feito diante de várias condições que tive durante meu período de pesquisa, condições essas que foram proporcionadas por minha mãe Leninha que sempre me deu as melhores condições na vida e todo o suporte para eu conseguir estar focado e conseguir entregar o que estava propondo.
+A execução de toda a pesquisa e desenvolvimento da proposta de um método inovador contido neste trabalho não foi uma tarefa fácil, e na verdade foi um grande desafio acadêmico e pessoal que eu me propus a desenvolver, uma vez que se tratava de uma área completamente nova para mim.
+Particularmente, entendo que este desafio só foi possível diante de várias condições que tive durante meu período de pesquisa, condições essas que foram proporcionadas por minha mãe Leninha que sempre me deu as melhores condições na vida e todo o suporte necessário para que eu estivesse focado, a fim de entregar o trabalho proposto.
 Muito obrigado por sempre me dar suporte e estar ao meu lado, mãe!
 
 Agradeço também todos os meus amigos e amigas que estiveram perto acompanhando este trabalho e torcendo por mim para que eu conseguisse entregar com êxito essa última atividade na UnB.
 A presença dessas pessoas tornou o processo mais leve e com certeza foram fundamentais para uma execução com satisfação no processo de desenvolvimento e não só na entrega, o que para mim é o mais importante.
 
-Em especial, agradeço o meu amigo Davi Gusmão por estar do meu lado nessa pesquisa como co-orientador e fora dela como amigo que sempre se esteve disponível para me ajudar e para discutirmos ideias sobre trabalhos acadêmicos e profissionais.
+Em especial, agradeço o meu amigo Davi Gusmão por estar do meu lado nessa pesquisa como co-orientador e fora dela como amigo que sempre esteve disponível para me ajudar e para discutir ideias sobre trabalhos acadêmicos e profissionais.
 Gostaria também de agradecer a honra que tive de ter os professores Dr. Adson Rocha e Dr. Felipe Silva que fizeram parte da minha banca e são duas figuras grandiosamente conceituadas e respeitadas na área de processamento de sinais e de MRI.
 A contribuição dos senhores foi de grande importância para o fechamento do meu trabalho. Obrigado!
 
 Por último, gostaria de agradecer de forma especial o meu orientador professor Dr. Cristiano Miosso que durante todo esse período foi um gigante  como professor, pesquisador, orientador e acima de tudo como pessoa. 
 Fiquei extremamente feliz de ter a oportunidade de trabalhar com o Cristiano e sinto que fui agraciado de ter sido orientando dele durante esse ano que tantas coisas aconteceram.
-Professor Cristiano trabalhou comigo durante a pandemia mesmo em momentos que não estavamos oficialmente matriculados na UnB e esteve sempre extremamente atento ao meu aprendizado e em como eu iria aplicar os conceitos que me passava durante a orientação.
-Foi um professor que foi muito além do que eu esperava de um orientador e me mostrou a todo momento ser uma pessoa de caráter muito íntegro durante as discussões e sempre me ensinando não só conteúdos técnicos, mas também sobre situações e observações importantes para ser uma pessoa boa e honesta.
+Professor Cristiano trabalhou comigo durante a pandemia, mesmo em momentos que não estavamos oficialmente matriculados na UnB, ele sempre esteve extremamente atento ao meu aprendizado e em como eu iria aplicar os conceitos que me passava durante a orientação.
+É um professor excepcional que superou e muito minhas expectativas para um orientador, além de me mostrar a todo momento ser uma pessoa de caráter muito íntegro durante as discussões e sempre me ensinando não só conteúdos técnicos, mas também sobre situações e observações importantes para ser uma pessoa boa e honesta.
 Portanto, por contemplar tantos conhecimentos técnicos e ainda se manter um homem de enorme humildade e princípios, sinto que não podia ter sido orientado por alguém melhor.
 Meu mais sincero obrigado, professor Cristiano! Você teve uma contribuição \textbf{gigante} na minha formação.
 
@@ -668,21 +660,21 @@ The figure below displays the first 10 signals created in the standard normal di
 
 \section{2D Compressed Sensing Reconstruction with Pre Filtered Signal}
 
-In order to experiment the sparsifying method of applying pre-filtering processing to the input measurements in the k-space for 2D images, we have conducted experiments some different images.
-A simple 2D image of the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} for baseline is used for the first experiment and two \ac{MR} (sagittal head slice and a singlecoil knee obtained from the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{knoll_fastmri_2020, zbontar_fastmri_2019}) images that are considerably more complex than the phantom for the reconstruction task.
+In order to test the sparsifying method of applying pre-filtering processing to the input measurements in the k-space for 2D images, we have conducted experiments some different images.
+A simple 2D image of the well-known Shepp-Logan phantom~\cite{shepp_fourier_1974} for baseline is used for the first experiment and two \ac{MR} (sagittal head slice and a single-coil knee obtained from the NYU fastMRI Initiative database (fastmri.med.nyu.edu)~\cite{knoll_fastmri_2020, zbontar_fastmri_2019}) images that are considerably more complex than the phantom for the reconstruction task.
 
 Within these images, $SNR$ improvement gained by applying sparsifying pre-filtering~\cite{miosso_phd, miosso_prefiltering_2009} can be best visualized and confirmed for these different scenarios.
 
 \subsection{Spiral Undersampling}
 
-We then created a phantom image with dimension of $256\times256$, hence having 65536 data points, using the phantominator python module.
-Then, we simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the fourier space which resulted in a matrix with 20285 non zero elements.
+We then created a phantom image with a shape of $256\times256$, hence having 65536 data points, using the phantominator python module.
+Then, we simulated an undersampled phantom image by applying the spiral undersampling pattern achieving approximately 30.95\% of data points from the Fourier space which resulted in a matrix with 20285 non zero elements.
 The same procedure was applied to the sagittal head image.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.4\textwidth]{spiral_undersampling.png}
-    \caption{Spiral undersampling method with 30.95\% data points.}
+    \caption{A spiral undersampling trajectory with 30.95\% data points.}
 \end{figure}
 
 \subsection{Pre Filtering Sparsifying Transform}
@@ -712,11 +704,11 @@ The pre-filtering method is evaluated against the zero-fill reconstruction metho
 
 \section{Dynamic Sagittal Cardiac Case Study}
 
-In this experiment we take a dynamic sagittal cardiac \ac{MRI} where the patient's heart is continuously beating and some other internal organs are moving throughout the exam, making each frame slightly different from one another, despite the \ac{MR} scan be still.
+In this experiment, we take a dynamic sagittal cardiac \ac{MRI} where the patient's heart is continuously beating and some other internal organs are moving throughout the exam, making each frame slightly different from one another, despite the \ac{MR} scan be still.
 This is the real case where our technique can provide improved and faster results.
 
 We start by extracting the first 10 frames from the exam video.
-Then we crop all frames to $192 \times 192$ dimension in order to remove the borders from the video and focus on the important parts of the image.
+Then we crop all frames to $192 \times 192$ of shape in order to remove the borders from the video and focus on the important parts of the image.
 Our reference image looks like this:
 
 \begin{figure}[H]
@@ -725,7 +717,7 @@ Our reference image looks like this:
     \caption{First frame from the dynamic cardiac \ac{MRI} exam.}
 \end{figure}
 
-The first frame is the one that we do not possess any prior information from previous frames, hence we perform an $\ell_1$-minimization with pre-filtering step with the same parameters and conditions established in the previous experiments, but without prior information.
+The first frame is the one that we do not possess any prior information from previous frames, hence we perform an $\ell_1$-minimization with the pre-filtering step with the same parameters and conditions established in the previous experiments, but without prior information.
 From the second frame onwards, we will always have the previous frames to look into and extract prior information from support positions.
 In our experiments, we use the first frame's reconstruction to generate our $\Phi$ positions for both the deterministic and context-dependent probabilistic prior information strategies used in the reconstruction of the next frame.
 This allows the second reconstruction to take advantage of the knowledge available from the first reconstruction and creates a better quality reconstruction.
@@ -737,7 +729,7 @@ This allows the second reconstruction to take advantage of the knowledge availab
 
 \subsection{Radial Undersampling}
 
-For this experiment, we decided to use a radial undersampling mask with 21.20\% of all the data points, concentrating most of the measurements in the low frequency regions aiming to simulate the undersampled k-space provided by the \ac{MR} scan.
+For this experiment, we decided to use a radial undersampling mask with 21.20\% of all the data points, concentrating most of the measurements in the low-frequency regions aiming to simulate the undersampled k-space provided by the \ac{MR} scan.
 
 \begin{figure}[H]
     \centering
@@ -762,12 +754,12 @@ We call this approach CoDePPI: Context-Dependent Probabilistic Prior Information
 
 By taking this motion information into account, we segmented the image into four levels of movement -- \textit{high}, \textit{medium}, \textit{low} and \textit{close-to-zero} movement.
 The regions labelled as \textit{high} movement receive a covariance matrix with a higher variance; thus assigning this region as a low-confidence support position, whilst the regions labelled as \textit{low} or \textit{close-to-zero} receive a Gaussian distribution with low variance, representing it as a highly likely support position prior information.
-Similarly, the \textit{medium} labelled positions are assigned an intermediate variance for an intermediate confidence.
+Similarly, the \textit{medium} labelled positions are assigned an intermediate variance for intermediate confidence.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{3d_variances}
-    \caption{Example of gaussian distributions with four different levels of variances.}
+    \caption{Example of Gaussian distributions with four different levels of variances.}
 \end{figure}
 
 In this section, we focus on the dynamic sagittal cardiac \ac{MR} and produce a manual segmentation for this case study specifically, but this could be generalized to other types of dynamic scans.
@@ -852,7 +844,7 @@ These values were used to achieve the best reconstructions with our methods, but
 In order to test the usage of \ac{GAN}s for data generation and in the future use it along with \textit{prior information} for \ac{CS} systems, we have developed a \ac{GAN} capable of generating handwritten digits from 0 to 9 using the notable MNIST dataset.
 The MNIST dataset contains 60,000 examples for training and 10,000 examples for testing.
 The digits have been size-normalized and centred in a fixed-size image ($28\times28$ pixels) with values from 0 to 9.
-For simplicity, each image has been flattened and converted into a 1-dimensional numpy array of 784 features ($28\times28$).
+For simplicity, each image has been flattened and converted into a 1-dimensional NumPy array of 784 features ($28\times28$).
 
 The idea is to test if the neural network can output liable digits that look both readable (to the extent in which the MNIST dataset is) and also like it has been made by a human, just like the dataset itself.
 
@@ -917,13 +909,13 @@ Here, the discriminator takes a $1\times28\times28$ input image, processes it th
 % |--- Results ---|----------------------{{{
 \chapter{CS Reconstruction and Preliminary Deep Learning Results}
 
-In this section we provide experiments in signal reconstruction using the \ac{CS} theory and contrast reconstruction quality of our proposed method -- context-depended probabilistic prior information --  with other \ac{CS} modalities.
+In this section, we provide experiments in signal reconstruction using the \ac{CS} theory and contrast reconstruction quality of our proposed method -- context-depended probabilistic prior information --  with other \ac{CS} modalities.
 Additionally, we also present the deep learning foundation for the future work we intend to proceed along with a preliminary generation experiment using \ac{GAN}s.
 
 \section{1-D Compressed Sensing Reconstruction}
 
 The reconstruction quality over computational resources demanded trade-off starts making a difference with $L$ size around 140, which is over 50\% of the fully sampled signal, a proportion much higher than the ones normally used in \ac{MRI} reconstruction.
-This demonstrates that there is no big prejudice in using indirect reconstruction method for very undersampled signals (close to 10\% of the data) such as the ones used in \ac{MRI}.
+This demonstrates that there is no big prejudice in using the indirect reconstruction method for very undersampled signals (close to 10\% of the data) such as the ones used in \ac{MRI}.
 
 \begin{figure}[H]
     \centering
@@ -961,7 +953,7 @@ Finally, the $\ell_1$-minimization along the usage of sparsifying pre-filtering 
   \end{minipage}
 \end{figure}
 
-It is clear that reconstructing the image using the $\ell_1$-minimization certainly improves the \ac{MRI} reconstruction and the metrics reinforce that the pre-filtering step to pre-process the image is crucial to achieve higher image quality.
+It is clear that reconstructing the image using the $\ell_1$-minimization certainly improves the \ac{MRI} reconstruction and the metrics reinforce that the pre-filtering step to pre-process the image is crucial to achieving higher image quality.
 
 \begin{table}[h!]
   \begin{center}
@@ -1063,7 +1055,7 @@ The metrics evaluated were not affected as much as they were for the phantom exp
 
 \section{Dynamic Sagittal Cardiac Case Study}
 
-Our method shows signficant robustness in the sagittal cardiac case study experiment, reconstructing better images with faster algorithm runtime when compared to other techniques, such as deterministic prior information and no prior information at all.
+Our method shows significant robustness in the sagittal cardiac case study experiment, reconstructing better images with faster algorithm runtime when compared to other techniques, such as deterministic prior information and no prior information at all.
 
 \subsection{Deterministic Prior Information}
 
@@ -1084,7 +1076,7 @@ For this dynamic cardiac images, we used a proportion of prior information of 6\
   \caption{Deterministic prior information with 6\% data points proportion for horizontal, vertical and diagonal border detection filtering, respectively.}
 \end{figure}
 
-As we know the internal organs of the subject are moving throughtout the whole exam, we instinctively know that some of the points represented in this deterministic approach will represent regions of high movement, thus they will likely introduce error to the minimization step.
+As we know the internal organs of the subject are moving throughout the whole exam, we instinctively know that some of the points represented in this deterministic approach will represent regions of high movement, thus they will likely introduce error to the minimization step.
 This happens because the prior information values are extracted from simple image border detection techniques that are prone to the generation of noise, as they are not fine-tuned to our necessities.
 After visually analysing the images above, it becomes clearer that some post-processing on this mask can improve the quality of the given prior information positions.
 
@@ -1104,13 +1096,13 @@ After visually analysing the images above, it becomes clearer that some post-pro
   \caption{CoDePPI with 6\% data points proportion for horizontal, vertical and diagonal border detection filtering, respectively.}
 \end{figure}
 
-Now that we have applied the customized CoDePPI weighting by multiplying the $\Phi$ values by our weights matrix $x$, the regions that should have a high confidence of belonging to support structures in our subject are much better defined.
+Now that we have applied the customized CoDePPI weighting by multiplying the $\Phi$ values by our weights matrix $x$, the regions that should have high confidence of belonging to support structures in our subject are much better defined.
 This definition observed in the visualizations above is also reflected in the $\ell_1$-minimization as it can be noted in the results~\ref{tab:dynamic-cardiac}.
 These principles can be easily extrapolated to other \ac{MRI} modalities and even other reconstructions techniques apart from the medical segments.
 
 \subsection{Dynamic Sagittal Cardiac Reconstruction Evaluation}
 
-All experiments conducted for the dynamic sagittal cardiac were done in order to compare the different applications of prior information, thus all of the reconstructions were done with the usage of pre-filtering within the $\ell_1$-minimization context.
+All experiments conducted for the dynamic sagittal cardiac were done to compare the different applications of prior information, thus all of the reconstructions were done with the usage of pre-filtering within the $\ell_1$-minimization context.
 
 \begin{figure}[H]
     \centering
@@ -1136,7 +1128,7 @@ All experiments conducted for the dynamic sagittal cardiac were done in order to
 \end{figure}
 
 The images presented above are displayed from left to right in terms of best \ac{SNR}.
-These images represent the different strategies we took for \ac{MRI} reconstruting and are hard to distinguish and perceive actual gain in terms of image quality, thus we should also analyse the metrics from our dynamic \ac{MR} reconstruction.
+These images represent the different strategies we took for \ac{MRI} reconstructions and are hard to distinguish and perceive actual gain in terms of image quality, thus we should also analyse the metrics from our dynamic \ac{MR} reconstruction.
 
 \begin{table}[H]
   \begin{center}
@@ -1153,16 +1145,16 @@ These images represent the different strategies we took for \ac{MRI} reconstruti
   \label{tab:dynamic-cardiac}
 \end{table}
 
-The given experiments show that the CoDePPI approach to prior information leverage and usage gives a more robust confidence on the support positions from a frame to another in the dynamic \ac{MR} exam studied when we analyse the metrics above.
+The given experiments show that the CoDePPI approach to prior information leverage and usage gives more robust confidence in the support positions from a frame to another in the dynamic \ac{MR} exam studied when we analyse the metrics above.
 The least impacted metric by the usage of prior information was the \ac{SSIM}, but the other image quality metrics were positively altered when we introduced the deterministic prior information and later the CoDePPI strategy.
-Additionally, our method also performs the reconstruction faster than the deterministic approach, this happens because in the deterministic case, the $\ell_1$-minimization algorithm has a step where it needs to multiply all elements in the $\Phi$ positions by a value $\tau$, whilst in CoDePPI, we use numpy's element-wise multiply the whole matrix by this $\tau$ value, discarding the need for array elements look-up that is slower.
+Additionally, our method also performs the reconstruction faster than the deterministic approach, this happens because in the deterministic case, the $\ell_1$-minimization algorithm has a step where it needs to multiply all elements in the $\Phi$ positions by a value $\tau$, whilst in CoDePPI, we use NumPy's element-wise multiply the whole matrix by this $\tau$ value, discarding the need for array elements look-up that is slower.
 
 \section{Possible \ac{DL} Integration with \ac{CoDePPI}}
 
 Our implementation counts on the usage of signal processing techniques without any machine learning usage, but our application is intended to be evolved to a solution using \ac{DL} for prior information generation using \ac{GAN}s.
-This research is to be continued in a higher degree thesis, where we would like to investigate more on two aspects: the generation of prior information support positions using \ac{GAN}s and a computer-vision system capable of segmenting the image based on levels of motion throughtout the frames in a dynamic exam.
+This research is to be continued in a higher degree thesis, where we would like to investigate more on two aspects: the generation of prior information support positions using \ac{GAN}s and a computer-vision system capable of segmenting the image based on levels of motion throughout the frames in a dynamic exam.
 
-In this work, we have initiated the documentation of the \ac{DL} necessary for our next steps as well as have we also document an experiment for the generation of handwritten MNIST numbers using a \ac{GAN} in order to mitigate viability of our hypothesis to use generative algorithms in the near future.
+In this work, we have initiated the documentation of the \ac{DL} necessary for our next steps as well as have we also document an experiment for the generation of handwritten MNIST numbers using a \ac{GAN} to mitigate viability of our hypothesis to use generative algorithms in the near future.
 
 \section{Artificial Neural Networks}
 
@@ -1427,34 +1419,33 @@ The following results were not cherry-picked in any manner.
 % |--- Conclusion ---|----------------------{{{
 \chapter{Conclusion}
 
-Our main goals were to implement and validate the efficiency of prior information for \ac{CS} reconstruction of \ac{MR} images along the proposal of a novel method to improve the quality of the prior information leveraged.
-These goals were defined in order to achieve faster \ac{MRI} exams and to enable more feasible dynamic exams, where the motion is an innate part of the images extracted.
-In this research, we have proposed an alternate approach for prior information extraction called CoDePPI -- Context Dependent Probabilistic Prior Information -- that uses motion context from segmented images and this method proves efficient and produce better quality for the experiments we have conducted and is now the best prior information intuition to be used in classical reconstructions.
+Our main goals were to implement and validate the efficiency of prior information for \ac{CS} reconstruction of \ac{MR} images along with the proposal of a novel method to improve the quality of the prior information leveraged.
+These goals were defined in order to achieve faster \ac{MRI} exams and enable more feasible dynamic exams, where the motion is an innate part of the images extracted.
+In this research, we have proposed an alternate approach for prior information extraction called CoDePPI -- Context-Dependent Probabilistic Prior Information -- that uses motion context from segmented images and this method proves efficient and produce better quality for the experiments we have conducted and is now the best prior information intuition to be used in classical reconstructions.
 
 Additionally, many modules for \ac{CS} reconstruction have been developed in Python featuring the usage of undersampling techniques, $\ell_p$-minimization function, pre-filtering pre-processing, classical and CoDePPI implementation of the prior information and modules to convert and utilize fastMRI images, but these experiments were later discarded due to non-matching results with our algorithm.
 All this research and development led to results that led to further hypothesis and investigations that we have initiated in this very document regarding the usage of \ac{DL} models for prior information generation and computer-vision approaches for automatic image segmentation for an automatized context detection for CoDePPI.
 
 Several experiments were conducted for the comprehension of the \ac{CS} theory and the usage of pre-filtering and prior information techniques.
-These experiments served for the development of knowledge along the themes of \ac{CS} and \ac{MRI} reconstructions and later were used for comparisons between methods.
+These experiments served for the development of knowledge along with the themes of \ac{CS} and \ac{MRI} reconstructions and later were used for comparisons between methods.
 In these experiments, we bring several types of images and \ac{MR} modalities along with different undersampling techniques to test these methods against different situations and fully comprehend how different signals and techniques are impacted.
-The latter experiment conducted were signal generation tests where we experimented the results of a fully generated signal from a popular dataset to clarify that this architecture can serve as signal generation for further prior information research.
+The latter experiments conducted were signal generation tests where we tested the results of a fully generated signal from a popular dataset to clarify that this architecture can serve as a signal generator for further prior information research.
 Among the preliminary generative results, we also conducted research on \ac{DL} topics and documented the foundation theory within the same section we document the \ac{GAN}s results.
 
 Our results conclude that the usage of pre-filtering and prior information techniques are preferred to be used within the \ac{CS} theory because they significantly improve the quality of the reconstructed images.
 Additionally, our results show that our method along with pre-filtering application is the current best approach for classical \ac{CS} reconstructions of \ac{MRI}.
 These results, in practical terms, lead to faster and better \ac{MRI} exams and especially more practical dynamic exams as our approach is specifically tested in a dynamic scenario which were our specific goals as mentioned before.
 Better reconstruction quality not only implies that the exams could be conducted in a faster manner, but also that less energy would be consumed by the \ac{MR} machine in an exam, more people could be examined in a given period of time, the machine would need to be utilized less for a single exam and possibly leading to less maintenance as well.
-Furthermore, we believe that the proposal of an improved prior information algorithm can lead other scientists to new possibilities and contributions to the process of prior information retrieval, after all, our goal was to not only create better results with a novel algorithm, but also contribute to the field of \ac{MRI} that is undoubtedly very relevant to medicine and our society.
+Furthermore, we believe that the proposal of an improved prior information algorithm can lead other scientists to new possibilities and contributions to the process of prior information retrieval, after all, our goal was to not only create better results with a novel algorithm but also contribute to the field of \ac{MRI} that is undoubtedly very relevant to medicine and our society.
 
 After implementing \ac{CoDePPI}, we believe that this work could be continued by applying \ac{DL} concepts in some of the steps that we developed throughout this thesis.
 One way we believe could generate more improvement is by using \ac{GAN}s to generate the positions of support positions from one frame to another without the usage of classical border detection algorithms and hence, providing a more accurate and context-specific result that likely would improve \ac{CS} reconstructions.
-Another way that \ac{DL} could be used to improve our work is to use an automatic image segmentation system based on motion of regions in the image.
-This way, the motion segmentations used in \ac{CoDePPI} could be generated seamlessly and that would certainly improve the speed for segmentation generation, as it manual segmentations would not be needed.
+Another way that \ac{DL} could be used to improve our work is to use an automatic image segmentation system based on the motion of regions in the image.
+This way, the motion segmentations used in \ac{CoDePPI} could be generated seamlessly and that would certainly improve the speed for segmentation generation, as manual segmentations would not be needed.
 We believe that both these hypothesis could be very well elaborated and tested in a graduation degree, but due to the time constraints of a bachelor degree's thesis, couldn't be further experimented in this very work.
 
 % TODO
 % Further investigation with more adequate statistics validations would be more appropriate in order to effectively assert that CoDePPI is a better solution in 100\% of the cases rather than the classical prior information algorithm presented in~\cite{miosso_compressive_2009}.
-
 
 %---}}}
 

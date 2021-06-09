@@ -333,39 +333,46 @@
       \end{tabular}\par}%
   \end{center}\par
 \vspace{06pt}
-         \noindent{\bf\maiusc{Submitted in partial fulfillment for the Bachelor Degree in Software Engineering (Honor's Degree) to the department of Engineering of University of Brasilia} \par}
+         \noindent{\bf\maiusc{Submitted in partial fulfillment for the Bachelor Degree in Software Engineering (Honour's Degree) to the department of Engineering of University of Brasilia} \par}
          \vspace{24pt}
          \noindent{\bf\large \maiusc{Approved by:\\\vfill}}
 
          {
           \noindent{\bf\underline{\hspace{100mm}} }
 
-          \noindent{\bf\@orientador{}}
+          \noindent{\bf\@orientador{} (Advisor)}
 
-          \noindent{\bf(Advisor)}
+          \noindent{\bf\hspace*{1.5mm}Electronics Engineering\\\hspace*{1.5mm}Biomedical Engineering Graduate Program\\\hspace*{1.5mm}University of Brasilia at Gama}
 
           \vfill
-                                                }
-         % \ifthenelse{\equal{\@coorientador}{}}{}{
-          % \noindent\underline{\hspace{100mm}}
+        }
 
-          % \noindent{\bf\@coorientador{}}
+        \ifthenelse{\equal{\@coorientador}{}}{}{
+          \noindent\underline{\hspace{100mm}}
 
-          % \noindent{\bf(Co-advisor)}
+          \noindent{\bf\@coorientador{} (Co-advisor)}
+
+          \noindent{\bf\hspace*{1.5mm}Biomedical Engineering Graduate Program\\\hspace*{1.5mm}University of Brasilia at Gama}
 
          \vfill
-                                               % }
+      }
 
-         \ifthenelse{\equal{\@membrobancainterno}{}}{}{
-
+        \ifthenelse{\equal{\@membrobancainterno}{}}{}{
           \noindent\underline{\hspace{100mm}}
 
           \noindent{\bf\@membrobancainterno{}}
 
-          %\noindent{\bf(Examinador interno)}
+          \noindent{\bf\hspace*{1.5mm}Department of Electrical Engineering\\\hspace*{1.5mm}University of Brasilia}
 
           \vfill
-                                                }
+      }
+          %\noindent{\bf(Examinador interno)}
+
+% 
+% \membrobancaexterno{Felipe Batista da Silva, PhD \\
+%     
+%     
+% }
 
          \ifthenelse{\equal{\@membrobancaexterno}{}}{}{
 
@@ -373,10 +380,11 @@
 
           \noindent{\bf\@membrobancaexterno{}}
 
+          \noindent{\bf\hspace*{1.5mm}Department of Electrical and Computer Engineering \\\hspace*{1.5mm}University of Texas at El Paso}
           %PhD\noindent{\bf(Examinador externo)}
 
           \vfill
-                                                }
+         }
 
 
   % Ficha catalográfica
@@ -399,7 +407,7 @@
 
 \noindent\@tituloficha{}\\
 
-{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, BEng in Software Engineering, 2020).
+{\pageref{LastPage}p.}, 210 ${\times}$ 297 mm (FGA/UnB Gama, BEng in Software Engineering, 2021).
 
 \\Bachelor Thesis, UnB Gama Faculty,\, Software Engineering\\
 
@@ -439,7 +447,7 @@ I. FGA UnB/UnB. & &
 \vfill
 
 \noindent\underline{\hspace{100mm}}\phantom{a}\\[03pt]
-%\noindent\@ano\\[03pt]
+\noindent\@ano\\[03pt]
 \noindent\@endereco\\[03pt]
 %\noindent\@cep\\[03pt]
 \noindent Brasília, DF -- Brasil
