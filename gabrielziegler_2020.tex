@@ -260,10 +260,27 @@ Dessa forma, essa continuação da pesquisa é também resultado da nossa metodologi
 \acresetall % Manter essa linha!
 \clearpage
 \restoregeometry
-%\chapter{Abstract}
-%\noindent{\bfseries{\maiusc{\large Abstract}} }
-%
-%\vspace{24pt}
+\chapter{Abstract}
+
+Obtaining images from a \ac{MRI} scan is a challenging task due to the arduous process of obtaining the measurements from the machine and it is practically impossible to collect all the signal of a subject for a given scan.
+% To try to mitigate this issue, several techniques are used for the generation of high quality images with reduced amount of measurements.
+To mitigate this issue, \ac{CS} based algorithms have been widely used in academia to achieve high-quality images with much fewer measurements needed.
+\ac{CS} is capable of reconstructing \ac{MRI} images at a sampling rate much lower than the Nyquist rate whilst maintaining sufficient quality.
+
+Since its introduction, \ac{CS} has been significantly improved by the usage of preprocessing techniques like sparsifying filters and prior information, that are focused on improving the quality of the input data used in the \ac{CS} algorithm.
+With that in mind, we have improved the prior information theory by utilizing non-deterministic support positions as well as multiple variances for the regions in the image that contain different levels of motion.
+This is the intuition behind our proposed method \ac{CoDePPI} which parts from an image segmentation based on the motion of an image to address the different levels of confidence that a particular region in the image is part of a support position in other frames of a dynamic \ac{MRI}.
+This makes our method more robust by minimizing the introduced error and by maximizing the probability to accurately use values from support regions.
+
+Our proposed method has shown better results in \ac{MRI} reconstruction when compared to the classical prior information algorithm and non-prior information usage.
+Our method was evaluated in a dynamic cardiac \ac{MRI} where we had four different motion levels regarding the movement in internal organs throughout the frames in the exam.
+
+Additionally, this research also produced \ac{DL} content intended to be used in the improvement of \ac{CoDePPI} by either utilizing \ac{GAN}s for support positions generation from an image or by automatizing the segmentation step with a motion-detection model.
+A generation experiment was done to validate the usage of \ac{GAN}s for signal generation for future experimentation with \ac{MRI} signal. 
+
+% \noindent{\bfseries{\maiusc{\large Abstract}} }
+
+\vspace{24pt}
 %The final version of this document will include an abstract. This will summarize the introduction (contextualization, objectives, justification), the methodology, the results, and the conclusion.
 \acresetall % Manter essa linha!
 \indice
