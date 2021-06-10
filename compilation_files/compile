@@ -5,7 +5,7 @@ import sys
 
 
 def TransferFilesFromCompilationFolder(filename):
-    extensions = ('aux', 'bbl', 'blg', 'lof', 'log', 'lot')
+    extensions = ('aux', 'bbl', 'blg', 'lof', 'log', 'lot', 'toc')
     for k in range(0, len(extensions)):
         f = filename + '.' + extensions[k]
         if os.path.exists('compilation_files/' + f):
