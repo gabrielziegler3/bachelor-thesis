@@ -337,10 +337,16 @@
          \vspace{24pt}
          \noindent{\bf\large \maiusc{Approved by:\\\vfill}}
 
+         \vspace*{-3.0mm}
+
          {
           \noindent{\bf\underline{\hspace{100mm}} }
 
+         \vspace*{-3.0mm}
+
           \noindent{\bf\@orientador{} (Advisor)}
+
+          \vspace*{-4.2mm}
 
           \noindent{\bf\hspace*{1.5mm}Electronics Engineering\\\hspace*{1.5mm}Biomedical Engineering Graduate Program\\\hspace*{1.5mm}University of Brasilia at Gama}
 
@@ -350,7 +356,11 @@
         \ifthenelse{\equal{\@coorientador}{}}{}{
           \noindent\underline{\hspace{100mm}}
 
+          \vspace*{-3.0mm}
+
           \noindent{\bf\@coorientador{} (Co-advisor)}
+
+          \vspace*{-4.2mm}
 
           \noindent{\bf\hspace*{1.5mm}Biomedical Engineering Graduate Program\\\hspace*{1.5mm}University of Brasilia at Gama}
 
@@ -360,7 +370,11 @@
         \ifthenelse{\equal{\@membrobancainterno}{}}{}{
           \noindent\underline{\hspace{100mm}}
 
+          \vspace*{-3.0mm}
+
           \noindent{\bf\@membrobancainterno{}}
+
+          \vspace*{-4.2mm}
 
           \noindent{\bf\hspace*{1.5mm}Department of Electrical Engineering\\\hspace*{1.5mm}University of Brasilia}
 
@@ -378,7 +392,11 @@
 
           \noindent\underline{\hspace{100mm}}
 
+          \vspace*{-3.0mm}
+
           \noindent{\bf\@membrobancaexterno{}}
+
+          \vspace*{-4.2mm}
 
           \noindent{\bf\hspace*{1.5mm}Department of Electrical and Computer Engineering \\\hspace*{1.5mm}University of Texas at El Paso}
           %PhD\noindent{\bf(Examinador externo)}
@@ -447,7 +465,8 @@ I. FGA UnB/UnB. & &
 \vfill
 
 \noindent\underline{\hspace{100mm}}\phantom{a}\\[03pt]
-\noindent\@ano\\[03pt]
+\noindent Gabriel Gomes Ziegler\\[03pt]
+%\noindent\@ano\\[03pt]
 \noindent\@endereco\\[03pt]
 %\noindent\@cep\\[03pt]
 \noindent Brasília, DF -- Brasil
